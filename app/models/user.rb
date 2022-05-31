@@ -7,5 +7,5 @@ class User < ApplicationRecord
   has_many :leagues, through: :teams
   has_many :messages
 
-  validates :nickname, presence: true, uniqueness: true
+  #validates :nickname, presence: true, uniqueness: true
 end
