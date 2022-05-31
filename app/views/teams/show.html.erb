@@ -1,6 +1,13 @@
-<ul><% @team.players.each do |player| %></ul>
-   <li><%= "#{player.first_name} #{player.last_name}" %></li>
+<ul id="players" data-controller="sortable"><% @team.players.each do |player| %>
+  <li><div class="card-product">
+  <div class="card-product-infos">
+    <h2><%= "#{player.first_name} #{player.last_name}" %></h2>
+    <p>This your player</p>
+  </div>
+</div>
+</li>
 <% end %>
+</ul>
 
 <%= link_to "Your league", league_path(params[:league_id]) %>
 <%= link_to "homepage", user_path(current_user) %>
