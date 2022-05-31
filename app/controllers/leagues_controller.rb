@@ -16,7 +16,7 @@ class LeaguesController < ApplicationController
   def show
     @league = League.find(params[:id])
     @teams = @league.teams.sort_by { |element| -element[:points] }
-    @team = @league.teams.where(["user_id = ?", "current_user.id"])
+    @team = Team.where(["league_id = ? and user_id = ?", params[:id], current_user.id]).first
   end
 
   private
