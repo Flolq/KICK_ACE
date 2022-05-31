@@ -1,0 +1,16 @@
+<h1><%= @player["competitor"]["name"] %></h1>
+
+<p>Country: <%= @player["competitor"]["country"] %></p>
+<p>Date of birth: <%= @player["info"]["date_of_birth"] %></p>
+<p>Rank: <%= @player["competitor_rankings"][0]["rank"] %></p>
+<p>Statistics this year:</p>
+<ul>
+  <li>Competitions played: <%= @player["periods"][0]["statistics"]["competitions_played"] %></li>
+  <li>Competitions won: <%= @player["periods"][0]["statistics"]["competitions_won"] %></li>
+  <li>Matches played: <%= @player["periods"][0]["statistics"]["matches_played"] %></li>
+  <li>Matches won: <%= @player["periods"][0]["statistics"]["matches_won"] %></li>
+</ul>
+
+<% next_match_event = @match["summaries"].last["sport_event"] %>
+<p>Next match: <%= next_match_event["competitors"][0]["name"] %> against <%= next_match_event["competitors"][1]["name"] %></p>
+<p><%= link_to "match detail", player_match_path(@player["competitor"]["id"], next_match_event["id"]) %></p>
