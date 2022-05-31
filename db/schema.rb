@@ -56,8 +56,8 @@ ActiveRecord::Schema.define(version: 2022_05_31_091305) do
   end
 
   create_table "selections", force: :cascade do |t|
-    t.string "progress"
-    t.integer "price"
+    t.string "progress", :default => "bid_to_be_submitted"
+    t.integer "price",
     t.bigint "team_id", null: false
     t.bigint "player_id", null: false
     t.datetime "created_at", precision: 6, null: false

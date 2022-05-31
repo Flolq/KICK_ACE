@@ -6,7 +6,7 @@ Rails.application.routes.draw do
 
   resources :users, only: [:show]
   resources :leagues, only: [:new, :create, :show] do
-    resources :teams, only: [:create, :edit, :update, :show]
+    resources :teams, only: [:new, :create, :edit, :update, :show]
     resources :chatrooms, only: [:show] do
       resources :messages, only: [:create]
     end
