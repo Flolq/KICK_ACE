@@ -1,1 +1,11 @@
 <h1><%= @league.name %></h1>
+
+<h2>Ranking</h2>
+<ul><% @teams.each do |team| %></ul>
+    <li><%= link_to "#{team.name} - #{team.user.nickname} - #{team.points}" , [@league, team] %></li>
+<% end %>
+
+<h2>Your Team</h2>
+
+
+<%= link_to "homepage", user_path(current_user) %>
