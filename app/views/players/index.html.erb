@@ -2,6 +2,9 @@
 
 <ul>
   <% @players.first(100).each do |player| %>
-    <li><%= player["rank"] %>ème - <%= player["competitor"]["name"] %> - <%= link_to "more info", player_path(player["competitor"]["id"]) %></li>
+    <li>
+      <%= player["rank"] %>ème - <%= player["competitor"]["name"] %>
+       -
+       <%= link_to "more info", player_path(player["competitor"]["id"].split(":").last) %></li>
   <% end %>
 </ul>

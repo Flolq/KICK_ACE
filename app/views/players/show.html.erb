@@ -1,16 +1,25 @@
-<h1><%= @player["competitor"]["name"] %></h1>
+<h1><%= "#{@player["competitor"]["name"].split(", ").last} #{@player["competitor"]["name"].split(", ").first}" %></h1>
 
 <p>Country: <%= @player["competitor"]["country"] %></p>
 <p>Date of birth: <%= @player["info"]["date_of_birth"] %></p>
 <p>Rank: <%= @player["competitor_rankings"][0]["rank"] %></p>
 <p>Statistics this year:</p>
 <ul>
-  <li>Competitions played: <%= @player["periods"][0]["statistics"]["competitions_played"] %></li>
-  <li>Competitions won: <%= @player["periods"][0]["statistics"]["competitions_won"] %></li>
-  <li>Matches played: <%= @player["periods"][0]["statistics"]["matches_played"] %></li>
-  <li>Matches won: <%= @player["periods"][0]["statistics"]["matches_won"] %></li>
+  <% statistic = @player["periods"][0]["statistics"] %>
+  <li>Competitions played: <%= statistic["competitions_played"] %></li>
+  <li>Competitions won: <%= statistic["competitions_won"] %></li>
+  <li>Matches played: <%= statistic["matches_played"] %></li>
+  <li>Matches won: <%= statistic["matches_won"] %></li>
 </ul>
 
-<% next_match_event = @match["summaries"].last["sport_event"] %>
-<p>Next match: <%= next_match_event["competitors"][0]["name"] %> against <%= next_match_event["competitors"][1]["name"] %></p>
-<p><%= link_to "match detail", player_match_path(@player["competitor"]["id"], next_match_event["id"]) %></p>
+<% match_players = @match["summaries"].last["sport_event"]["competitors"] %>
+<p>Next Match: <%= "#{match_players[0]["name"].split(", ").last} #{match_players[0]["name"].split(", ").first}" %>
+ vs. <%= "#{match_players[1]["name"].split(", ").last} #{match_players[1]["name"].split(", ").first}" %>
+</p>
+<%= link_to "See details", player_match_path(@player["competitor"]["id"].split(":").last, @match["summaries"].last["sport_event"]["id"].split(":").last) %>
+
+<!-- <div data-controller="display-match"
+     data-display-match-key-value="<%= ENV['SPORTS_RADAR_API_KEY'] %>"
+     data-display-match-player-id-value="<%= @player["competitor"]["id"] %>">
+
+</div> -->
