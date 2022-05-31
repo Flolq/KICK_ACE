@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   root to: 'pages#home'
 
   resources :leagues, only: [:new, :create, :show] do
-    resources :teams, only: [:create, :edit, :upadte, :show]
+    resources :teams, only: [:create, :edit, :update, :show]
     resources :chatrooms, only: [:show] do
       resources :messages, only: [:create]
     end
