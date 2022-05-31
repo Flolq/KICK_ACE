@@ -1,0 +1,9 @@
+<h1>Welcome <%= current_user.nickname %></h1>
+
+<h2>Here are your leagues</h2>
+
+<div class="row">
+    <% @leagues.each do |league| %>
+      <p><strong><%= league.name %></strong></p>
+    <% end %>
+</div>

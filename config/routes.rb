@@ -1,7 +1,8 @@
 Rails.application.routes.draw do
   devise_for :users
-  root to: 'pages#home'
+  root to: 'users#show'
 
+  resources :users, only: [:show]
   resources :leagues, only: [:new, :create, :show] do
     resources :teams, only: [:create, :edit, :upadte, :show]
     resources :chatrooms, only: [:show] do
