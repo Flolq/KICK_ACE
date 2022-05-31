@@ -1,0 +1,6 @@
+<ul><% @team.players.each do |player| %></ul>
+   <li><%= "#{player.first_name} #{player.last_name}" %></li>
+<% end %>
+
+<%= link_to "Your league", league_path(params[:league_id]) %>
+<%= link_to "homepage", user_path(current_user) %>

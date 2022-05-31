@@ -1,4 +1,4 @@
-class TeamController < ApplicationController
+class TeamsController < ApplicationController
   # def new
   #   @team = Team.new
   # end
@@ -26,7 +26,7 @@ class TeamController < ApplicationController
   # end
 
   def show
-    @team = team.find(params[:team_id])
+    @team = Team.find(params[:id])
   end
 
   private
