@@ -1,14 +1,14 @@
 
-<ul id="players" data-controller="sortable"><% @team.players.each do |player| %>
-  <li><div class="card-product">
-  <div class="card-product-infos">
-    <h2><%= "#{player.first_name} #{player.last_name}" %></h2>
-    <p>This your player</p>
-  </div>
+<h1>Manage my team</h1>
+<div id="players" data-controller="sortable" data-sortable-animation-value="150" data-sortable-resource-name-value="selection">
+  <% @selections.each do |selection| %>
+      <div class="card-product mb-4" data-sortable-update-url="<%= selection_path(selection) %>">
+        <div class="card-product-infos">
+          <h3><%= selection.player.first_name %></h3>
+        </div>
+      </div>
+  <% end %>
 </div>
-</li>
-<% end %>
-</ul>
 
 <div class="container text-center">
 <br>
