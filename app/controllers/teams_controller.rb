@@ -40,6 +40,7 @@ class TeamsController < ApplicationController
 
   def show
     @team = Team.find(params[:id])
+    @selections = @team.selections.sort_by { |player| player[:position] }
   end
 
   private
@@ -48,7 +49,6 @@ class TeamsController < ApplicationController
     params
       .require(:team)
       .permit(:name, selections_attributes: [:player_id, :price])
-
   end
 
   def progress_team
@@ -56,4 +56,5 @@ class TeamsController < ApplicationController
       @team.progress = "bids_submitted"
     end
   end
+
 end

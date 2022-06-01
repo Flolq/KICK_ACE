@@ -12,6 +12,8 @@
     "sortable": "^2.0.0",
     "sortablejs": "^1.15.0",
     "stimulus": "^3.0.1",
+    "stimulus-sortable": "^3.2.0",
+    "stimulus-dropdown": "^2.0.0",
     "turbolinks": "^5.2.0",
     "webpack": "^4.46.0",
     "webpack-cli": "^3.3.12"

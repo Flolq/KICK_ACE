@@ -19,4 +19,9 @@ Rails.application.routes.draw do
   resources :players, only: [:index, :show] do
     resources :matches, only: :show
   end
+  resources :selections do
+    member do
+      patch :move
+    end
+  end
 end
