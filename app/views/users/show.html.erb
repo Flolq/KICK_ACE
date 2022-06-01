@@ -2,10 +2,18 @@
 
 <h2>Here are your leagues</h2>
 
-<div class="row">
-    <% @leagues.each do |league| %>
-    <%= link_to league.name, league_path(league) %>
-    <% end %>
+<%# <div class="row"> %>
+    <%# <% @leagues.each do |league| %>
+    <%# <%= link_to league.name, league_path(league) %>
+    <%# <% end %>
+<%# </div> %>
+
+<div data-controller="carousel-league" class="swiper-container">
+  <div class="swiper-wrapper">
+    <div class="swiper-slide">Slide 1</div>
+    <div class="swiper-slide">Slide 2</div>
+    <div class="swiper-slide">Slide 3</div>
+  </div>
 </div>
 
 

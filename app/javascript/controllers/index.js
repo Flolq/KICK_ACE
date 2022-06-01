@@ -4,8 +4,7 @@
 import { Application } from "stimulus"
 import { definitionsFromContext } from "stimulus/webpack-helpers"
 import Sortable from 'stimulus-sortable'
-
-
+import Swiper from 'swiper';
 
 const application = Application.start()
 const context = require.context("controllers", true, /_controller\.js$/)
