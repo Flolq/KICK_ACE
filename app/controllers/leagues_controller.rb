@@ -7,7 +7,7 @@ class LeaguesController < ApplicationController
     @league = League.new(league_params)
     @league.owner = current_user
     if @league.save
-      redirect_to league_path(@league)
+      redirect_to new_league_team_path(@league)
     else
       render :new
     end
