@@ -1,6 +1,6 @@
-class SelectionController < ApplicationController
+class SelectionsController < ApplicationController
   def update
-    @selection = Selection.find("player_id = ? and team_id = ?", params[:player_id], params[:team_id])
+    @selection = Selection.find(params[:id])
 
     if @selection.update(selection_params)
       redirect_to team_path(@selection.team)
