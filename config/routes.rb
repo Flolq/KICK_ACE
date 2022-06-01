@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  get 'matches/show'
+  get 'players/index'
+  get 'players/show'
   get 'messages/create'
   get 'chatrooms/show'
   devise_for :users
@@ -6,11 +9,14 @@ Rails.application.routes.draw do
 
   resources :users, only: [:show]
   resources :leagues, only: [:new, :create, :show] do
-    resources :teams, only: [:create, :edit, :update, :show]
+    resources :teams, only: [:new, :create, :edit, :update, :show]
     resources :chatrooms, only: [:show] do
       resources :messages, only: [:create]
     end
     resources :rounds, only: [:show]
   end
   resources :news, only: [:index]
+  resources :players, only: [:index, :show] do
+    resources :matches, only: :show
+  end
 end
