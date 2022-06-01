@@ -1,27 +1,45 @@
 <div class="container">
-<h1><%= @league.name %></h1>
+  <h1><%= @league.name %></h1>
 
-<div class="ranking-card-container">
-  <div class="ranking-laurier"></div>
-  <div class="ranking-card">
-    <div class="ranking-card-title">Ranking</div>
-    <ul>
-      <% @teams.each do |team| %>
-        <li><%= link_to "#{team.name} - #{team.user.nickname} - #{team.points}" , [@league, team] %></li>
-      <% end %>
-    </ul>
+  <div class="ranking-card-container">
+    <div class="ranking-laurier"><%= image_tag 'laurier.png', width: '50px' %></div>
+    <div class="ranking-card center mx-5">
+      <div class="card-title">Ranking</div>
+      <div>
+        <% i = 1 %>
+        <% @teams.each do |team| %>
+          <div class="ranking-card-team"><%= i %> - <%= team.name %> - <%= team.points %>pts</div>
+          <% i += 1 %>
+        <% end %>
+      </div>
+    </div>
   </div>
-</div>
 
-<%= link_to @team.name, [@league, @team] %>
 
-<h2>Your Team</h2>
-<%= @team.name %>
-<% i = 1 %>
-<ul><% @team.selections.each do |selection| %></ul>
-    <li><%= i %>. <%= selection.player.first_name %> - Price : <%= selection.price %>M€</li>
-    <% i +=1 %>
-<% end %>
-
-<%= link_to "homepage", user_path(current_user) %>
+  <div class="ranking-card">
+    <div class="card-title"><%= @team.name %></div>
+    <div class="row">
+      <% @selections.each_with_index do |selection, index| %>
+        <% if index <= 1 %>
+          <div class="col-6 center card-player-league-view">
+            <div class="position-top-players circle"><%= selection.position %></div>
+            <div><%= image_tag 'gasquet.png', width: '60px' %></div>
+            <div><%= selection.player.first_name %></div>
+          </div>
+        <% end %>
+      <% end %>
+    </div>
+        <div class="row">
+      <% @selections.each_with_index do |selection, index| %>
+        <% if index > 1 && index < 6 %>
+          <div class="col-3 center card-player-league-view">
+            <div class="position-bottom-players circle"><%= selection.position %></div>
+            <div><%= image_tag 'gasquet.png', width: '60px' %></div>
+            <p><%= selection.player.first_name %></p>
+          </div>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+  <%= link_to "Manage my team", class: "btn btn-primary" %>
 </div>
