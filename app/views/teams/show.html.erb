@@ -1,9 +1,22 @@
+
+<ul id="players" data-controller="sortable"><% @team.players.each do |player| %>
+  <li><div class="card-product">
+  <div class="card-product-infos">
+    <h2><%= "#{player.first_name} #{player.last_name}" %></h2>
+    <p>This your player</p>
+  </div>
+</div>
+</li>
+<% end %>
+</ul>
+
 <div class="container text-center">
 <br>
  <h3>The bids you have placed</h3>
   <ul><% @team.selections.each do |selection| %></ul>
     <li><%= "#{selection.player.first_name}" %> || Your bid: <%= selection.price %> € || <%= selection.progress %></li>
   <% end %>
+
 
 <br>
   <h3>Waiting for the other players...</h3>
