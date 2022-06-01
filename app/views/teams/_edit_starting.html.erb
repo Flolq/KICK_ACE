@@ -1,0 +1,34 @@
+
+<div class="container" data-controller = "budget-update enable-button search">
+  <h1>Congrats! Your team has just been created</h1>
+  <p>Now is the time to place your bids & get the best tennis champions</p>
+  <h3>Please choose min. 8 players & remain within budget!</h3>
+  <div class="d-flex" data-budget-update-target= "recap">
+    <h4>Remaining budget: </h4> <h4 data-budget-update-target = "budget" data-enable-button-target = "budget">500 </h4>  <h4>m€ </h4>
+
+  </div>
+    <%= link_to "Submit my bids", user_path(current_user), class: "btn btn-dark disabled", data: { enable_button_target: "button"}  %>
+
+  <input type="text"
+        class="form-control mt-3"
+        placeholder="Find player"
+        data-search-target="input" data-action = "keyup->search#search">
+
+<div class="container d-flex" data-controller="players-selection">
+
+  <div class="players_index m-5 w-50">
+    <ul class="list-group" data-search-target = "players">
+      <li class="list-group-item"> <strong>AVAILABLE PLAYERS</strong> </li>
+      <% @players.each do |player| %>
+        <li class="list-group-item" data-action="click->players-selection#add click->enable-button#enable"  > <%= player.first_name %>  <%= player.last_name %> - Min. price: <%= player.min_price %> </li>
+      <% end %>
+    </ul>
+  </div>
+  <div class="my_team m-5 w-75">
+    <ul class="list-group" data-players-selection-target="team">
+      <li class="list-group-item"> <strong>MY TEAM</strong> </li>
+    </ul>
+  </div>
+</div>
+
+</div>

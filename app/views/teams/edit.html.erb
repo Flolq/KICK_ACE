@@ -1,0 +1,7 @@
+<p>Status of the team: <%= @team.progress %></p>
+
+<% if @team.progress == "starting" %>
+  <%= render 'edit_starting' %>
+<% elsif @team.progress == "bids_submitted" %>
+  <%= render 'edit_submitted' %>
+<% end %>

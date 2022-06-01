@@ -9,21 +9,3 @@
 </li>
 <% end %>
 </ul>
-
-<div class="container text-center">
-<br>
- <h3>The bids you have placed</h3>
-  <ul><% @team.selections.each do |selection| %></ul>
-    <li><%= "#{selection.player.first_name}" %> || Your bid: <%= selection.price %> € || <%= selection.progress %></li>
-  <% end %>
-
-
-<br>
-  <h3>Waiting for the other players...</h3>
-
-
-
-  <%= link_to "Your league", league_path(params[:league_id]) %>
-  <%= link_to "homepage", user_path(current_user) %>
-
-</div>
