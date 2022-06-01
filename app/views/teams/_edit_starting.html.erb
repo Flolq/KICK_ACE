@@ -9,21 +9,23 @@
   </div>
     <%= link_to "Submit my bids", user_path(current_user), class: "btn btn-dark disabled", data: { enable_button_target: "button"}  %>
 
-  <input type="text"
+  <%# <input type="text"
         class="form-control mt-3"
         placeholder="Find player"
-        data-search-target="input" data-action = "keyup->search#search">
+        data-search-target="input" data-action = "keyup->search#search"> %>
+
+  <%= form_with url: edit_league_team_path(@league,@team), method: :get, html: { class:
+    'mb-4', data: { search_target: 'form' } } do |f| %>
+    <%= f.text_field :query,
+                     class: "form-control",
+                     placeholder: 'Search players',
+                     value: params[:query],
+                     data: { search_target: 'input', action: 'keyup->search#update' } %>
+                     <% end %>
 
 <div class="container d-flex" data-controller="players-selection">
+  <%= render 'list', players: @players %>
 
-  <div class="players_index m-5 w-50">
-    <ul class="list-group" data-search-target = "players">
-      <li class="list-group-item"> <strong>AVAILABLE PLAYERS</strong> </li>
-      <% @players.each do |player| %>
-        <li class="list-group-item" data-action="click->players-selection#add click->enable-button#enable"  > <%= player.first_name %>  <%= player.last_name %> - Min. price: <%= player.min_price %> </li>
-      <% end %>
-    </ul>
-  </div>
   <div class="my_team m-5 w-75">
     <ul class="list-group" data-players-selection-target="team">
       <li class="list-group-item"> <strong>MY TEAM</strong> </li>

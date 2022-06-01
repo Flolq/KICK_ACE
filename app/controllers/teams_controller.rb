@@ -23,7 +23,19 @@ class TeamsController < ApplicationController
     @league = League.find(params[:league_id])
     @teams_non_submitted = @league.teams.where("progress = 'starting'")
     @teams_submitted = @league.teams.where("progress = 'bids_submitted'")
-    @players = Player.all
+    if params[:query].present?
+      sql_query = " \
+      players.first_name @@ :query \
+      OR players.last_name @@ :query \
+    "
+      @players = Player.where(sql_query, query: "%#{params[:query]}%")
+    else
+      @players = Player.all
+    end
+    respond_to do |format|
+      format.html # Follow regular flow of Rails
+      format.text { render partial: 'teams/list', locals: { players: @players }, formats: [:html] }
+    end
   end
 
   def update

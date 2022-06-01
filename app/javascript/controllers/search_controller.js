@@ -1,18 +1,23 @@
 import { Controller } from "stimulus"
 
 export default class extends Controller {
-  static targets = ["input","players"]
+  static targets = ["input","players","form"]
 
   connect() {
     console.log("hello from the search controller")
+    console.log(this.inputTarget)
+    console.log(this.formTarget)
+    console.log(this.playersTarget)
   }
 
-  search() {
-    console.log(this.inputTarget.value)
-    const results = Player.where("first_name LIKE ? OR last_name LIKE ?", `%${this.inputTarget.value}%`, `%${this.inputTarget.value}%`)
-//     players.each do |player| %>
-//     <li class="list-group-item" data-action="click->players-selection#add click->enable-button#enable"  > <%= player.first_name %>  <%= player.last_name %> - Min. price: <%= player.min_price %> </li>
-//  end
+  update() {
+    const url = `${this.formTarget.action}?query=${this.inputTarget.value}&commit=Search`
+    fetch(url, { headers: { "Accept": "text/plain" } })
+      .then(response => response.text())
+      .then((data) => {
+        this.playersTarget.innerHTML = data
+      })
+
 
   }
 
