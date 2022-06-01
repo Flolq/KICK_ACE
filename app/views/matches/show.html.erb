@@ -1,0 +1,16 @@
+<h1>Matches#show</h1>
+<p>Find me in app/views/matches/show.html.erb</p>
+
+<h2><%= @match["sport_event"]["competitors"][0]["name"] %> vs. <%= @match["sport_event"]["competitors"][1]["name"] %></h2>
+
+<p>Previous winners:</p>
+<ul>
+  <% @versus["last_meetings"].each do |meeting| %>
+    <% winner_id = meeting["sport_event_status"]["winner_id"] %>
+    <li>
+      <% meeting["sport_event"]["competitors"].each do |player| %>
+        <%= player["name"] if player["id"] == winner_id %>
+      <% end %>
+    </li>
+  <% end %>
+</ul>
