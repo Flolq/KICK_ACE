@@ -1,10 +1,11 @@
 <h1>Players In TOP 100 ATP</h1>
 
 <ul>
-  <% @players.first(100).each do |player| %>
+  <% @players.each do |player| %>
     <li>
-      <%= player["rank"] %>ème - <%= player["competitor"]["name"] %>
+      <%= player.ranking %>ème - <%= player.first_name %> <%= player.last_name %>
        -
-       <%= link_to "more info", player_path(player["competitor"]["id"].split(":").last) %></li>
+       <%= link_to "more info", player_path(player.id) %>
+    </li>
   <% end %>
 </ul>

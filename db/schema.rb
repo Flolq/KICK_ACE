@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_05_31_091305) do
+ActiveRecord::Schema.define(version: 2022_06_01_135052) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -33,6 +33,20 @@ ActiveRecord::Schema.define(version: 2022_05_31_091305) do
     t.index ["user_id"], name: "index_leagues_on_user_id"
   end
 
+  create_table "matches", force: :cascade do |t|
+    t.date "date"
+    t.string "round"
+    t.bigint "player1_id", null: false
+    t.bigint "player2_id", null: false
+    t.bigint "tournament_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.boolean "done"
+    t.index ["player1_id"], name: "index_matches_on_player1_id"
+    t.index ["player2_id"], name: "index_matches_on_player2_id"
+    t.index ["tournament_id"], name: "index_matches_on_tournament_id"
+  end
+
   create_table "messages", force: :cascade do |t|
     t.string "content"
     t.bigint "league_id", null: false
@@ -53,11 +67,13 @@ ActiveRecord::Schema.define(version: 2022_05_31_091305) do
     t.string "nationality"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "atp_points"
+    t.string "atpid"
   end
 
   create_table "selections", force: :cascade do |t|
-    t.string "progress", :default => "bid_to_be_submitted"
-    t.integer "price",
+    t.string "progress"
+    t.integer "price"
     t.bigint "team_id", null: false
     t.bigint "player_id", null: false
     t.datetime "created_at", precision: 6, null: false
@@ -79,6 +95,13 @@ ActiveRecord::Schema.define(version: 2022_05_31_091305) do
     t.index ["user_id"], name: "index_teams_on_user_id"
   end
 
+  create_table "tournaments", force: :cascade do |t|
+    t.string "name"
+    t.string "level"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -88,12 +111,16 @@ ActiveRecord::Schema.define(version: 2022_05_31_091305) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "nickname"
+    t.boolean "admin", default: false, null: false
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
   add_foreign_key "chatrooms", "leagues"
   add_foreign_key "leagues", "users"
+  add_foreign_key "matches", "players", column: "player1_id"
+  add_foreign_key "matches", "players", column: "player2_id"
+  add_foreign_key "matches", "tournaments"
   add_foreign_key "messages", "chatrooms"
   add_foreign_key "messages", "leagues"
   add_foreign_key "messages", "users"
