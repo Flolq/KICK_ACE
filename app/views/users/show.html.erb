@@ -4,6 +4,9 @@
 
 <div class="row">
     <% @leagues.each do |league| %>
-      <p><strong><%= league.name %></strong></p>
+    <%= link_to league.name, league_path(league) %>
     <% end %>
 </div>
+
+
+    <%= link_to "Create a new league", new_league_path %>

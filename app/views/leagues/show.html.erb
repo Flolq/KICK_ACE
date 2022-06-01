@@ -1,1 +1,16 @@
 <h1><%= @league.name %></h1>
+
+<h2>Ranking</h2>
+<ul><% @teams.each do |team| %></ul>
+    <li><%= link_to "#{team.name} - #{team.user.nickname} - #{team.points}" , [@league, team] %></li>
+<% end %>
+
+<h2>Your Team</h2>
+<%= @team.name %>
+<% i = 1 %>
+<ul><% @team.selections.each do |selection| %></ul>
+    <li><%= i %>. <%= selection.player.first_name %> - Price : <%= selection.price %>M€</li>
+    <% i +=1 %>
+<% end %>
+
+<%= link_to "homepage", user_path(current_user) %>

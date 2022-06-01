@@ -1,0 +1,15 @@
+<div class="container">
+  <%= simple_form_for [@league, @team] do |f| %>
+    <%= f.input :name, label: "Name of your team" %>
+
+    <h2>Place your bids!</h2>
+
+      <%= f.fields_for :selections do |subform|  %>
+      <p>Player <%= subform.options[:child_index] +1 %> </p>
+        <%= subform.association :player, label_method: :first_name %>
+        <%= subform.input :price, placeholder:"32", input_html: {min: "32"} %>
+      <% end %>
+
+    <%= f.submit %>
+  <% end%>
+</div>
