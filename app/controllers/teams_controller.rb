@@ -61,8 +61,6 @@ class TeamsController < ApplicationController
     params
       .require(:team)
       .permit(:name, selections_attributes: [:player_id, :price])
-
-
   end
 
   def progress_team
@@ -70,7 +68,4 @@ class TeamsController < ApplicationController
       @team.progress = "bids_submitted"
     end
   end
-
-  end
-
 end
