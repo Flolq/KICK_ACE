@@ -49,6 +49,16 @@ def create_players(players)
       atpid: player["competitor"]["id"]
     )
   end
+
+  Player.create!(
+    first_name: "Ranked",
+    last_name: "Non",
+    ranking: 501,
+    atp_points: 0,
+    min_price: 0,
+    nationality: "Unknown",
+    atpid: "unknown"
+  )
 end
 
 player_rankings_url = "#{URL}/rankings#{ENDPOINT}"
@@ -85,22 +95,35 @@ if Match.count.zero?
   def create_matches(matches)
     matches.each do |match|
       level = match["sport_event"]["sport_event_context"]["competition"]["level"]
-      if level == "grand_slam" || level == "atp_1000"
+      name = match["sport_event"]["sport_event_context"]["competition"]["name"]
+      if name == "French Open Men Singles" || level == "atp_1000"
         Match.create!(
           date: match["sport_event"]["start_time"],
           round: match["sport_event"]["sport_event_context"]["round"],
-          player1: Player.find_by(atpid: match["sport_event"]["competitors"].first["id"]),
-          player2: Player.find_by(atpid: match["sport_event"]["competitors"].last["id"]),
+          player1: Player.find_by(atpid: match["sport_event"]["competitors"].first["id"]) || Player.find_by(atpid: "unknown"),
+          player2: Player.find_by(atpid: match["sport_event"]["competitors"].last["id"]) || Player.find_by(atpid: "unknown"),
           tournament: Tournament.find_by(name: match["sport_event"]["sport_event_context"]["competition"]["name"])
         )
       end
     end
   end
 
-  today = Time.now.strftime("%Y-%m-%d")
-  today_matches_url = "#{URL}/schedules/#{today}/summaries#{ENDPOINT}&start=400"
-  data = search_for_data(today_matches_url)
-  create_matches(data["summaries"])
+
+  dates = []
+  (4..5).to_a.each do |month|
+    (1..30).to_a.each do |day|
+      dates << "2022-#{'0' + month.to_s}-#{day.to_s.chars.size == 1 ? '0' + day.to_s : day}"
+    end
+  end
+  dates << "2022-05-31"
+  dates << "2022-06-01"
+
+  dates.each do |date|
+    matches_url = "#{URL}/schedules/#{date}/summaries#{ENDPOINT}"
+    data = search_for_data(matches_url)
+    create_matches(data["summaries"])
+    sleep 1
+  end
 
   puts "Aaaaaand it's done"
 end
