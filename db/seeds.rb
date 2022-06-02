@@ -102,7 +102,9 @@ if Match.count.zero?
           round: match["sport_event"]["sport_event_context"]["round"],
           player1: Player.find_by(atpid: match["sport_event"]["competitors"].first["id"]) || Player.find_by(atpid: "unknown"),
           player2: Player.find_by(atpid: match["sport_event"]["competitors"].last["id"]) || Player.find_by(atpid: "unknown"),
-          tournament: Tournament.find_by(name: match["sport_event"]["sport_event_context"]["competition"]["name"])
+          tournament: Tournament.find_by(name: match["sport_event"]["sport_event_context"]["competition"]["name"]),
+          winner: Player.find_by(atpid: match["sport_event_status"]["winner_id"]) || Player.find_by(atpid: "unknown"),
+          done: true
         )
       end
     end

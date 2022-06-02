@@ -1,3 +1,7 @@
+<% content_for :head do %>
+  <meta name="turbolinks-cache-control" content="no-cache">
+<% end %>
+
 <div class="container">
   <h1 class="center">Hi <%= current_user.nickname %> !</h1>
 
@@ -30,56 +34,52 @@
 
   <%= link_to "Create a new league", new_league_path %>
 
-  <div class="card-carousel">
-    <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
-      <div class="carousel-inner">
-        <div class="carousel-item active">
-          <div class="carousel-news">
-            <p>Nadal and Djokovic have both won 41 per cent of first-serve return points, but the World No. 1 holds the edge on second-serve return, where he has claimed 63 per cent of the points on offer, compared to Nadal</p>
-            <div class="stream-logo">
-              <%= image_tag 'stream-black.png', width: '20px' %>
-            </div>
-          </div>
-        </div>
-        <div class="carousel-item">
-          <div class="carousel-news">
-            <p>blablabla</p>
-            <div class="stream-logo">
-              <%= image_tag 'stream-black.png', width: '20px' %>
-            </div>
-          </div>
-        </div>
-        <div class="carousel-item">
-          <div class="carousel-news">
-            <p>Bliblibli</p>
-            <div class="stream-logo">
-              <%= image_tag 'stream-black.png', width: '20px' %>
-            </div>
-          </div>
-        </div>
-        <div class="button-carousel">
-        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
-          <span class="fa-solid fa-circle-chevron-left" aria-hidden="true"></span>
-          <span class="visually-hidden">Previous</span>
-        </button>
-          <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
-          <span class="fa-solid fa-circle-chevron-right" aria-hidden="true"></span>
-          <span class="visually-hidden">Next</span>
-        </button>
-      </div>
-      </div>
-    </div>
+  <div class="scroller">
+    <div>your content</div>
+    <div>your content</div>
+    <div>your content</div>
   </div>
+
+  <div class="card-carousel" data-controller="carousel-news">
+
+      <button type="button" class="carousel-btn" id="precedent" data-action="click->carousel-news#slideLeft" data-carousel-news-target="precedent">
+        <i class="fa-solid fa-chevron-left"></i>
+      </button>
+      <div>
+        <div class="carousel-news" data-carousel-news-target="news">
+          <p>Nadal and Djokovic have both won 41 per cent of first-serve return points, but the World No. 1 holds the edge on second-serve return, where he has claimed 63 per cent of the points on offer, compared to Nadal</p>
+          <div class="stream-logo">
+            <%= image_tag 'stream-black.png', width: '20px' %>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="carousel-news d-none" data-carousel-news-target="news">
+          <p>blablabla</p>
+          <div class="stream-logo">
+            <%= image_tag 'stream-black.png', width: '20px' %>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="carousel-news d-none" data-carousel-news-target="news">
+          <p>Bliblibli</p>
+          <div class="stream-logo">
+            <%= image_tag 'stream-black.png', width: '20px' %>
+          </div>
+        </div>
+      </div>
+      <button type="button" class="carousel-btn" id="next" data-action="click->carousel-news#slideRight" data-carousel-news-target="next">
+        <i class="fa-solid fa-chevron-right"></i>
+      </button>
+
 </div>
 
-<<<<<<< HEAD
 <%= @html_doc.each do |element| %>
   <p><%= element.text.strip %></p>
   <p><%= element.attribute("href").value %></p>
 <% end %>
-=======
 
 <%= link_to "Create a new league", new_league_path %>
 
 <%= link_to "See all leagues", leagues_path %>
->>>>>>> master

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_06_01_135052) do
+ActiveRecord::Schema.define(version: 2022_06_02_142017) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -42,9 +42,11 @@ ActiveRecord::Schema.define(version: 2022_06_01_135052) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.boolean "done"
+    t.bigint "winner_id"
     t.index ["player1_id"], name: "index_matches_on_player1_id"
     t.index ["player2_id"], name: "index_matches_on_player2_id"
     t.index ["tournament_id"], name: "index_matches_on_tournament_id"
+    t.index ["winner_id"], name: "index_matches_on_winner_id"
   end
 
   create_table "messages", force: :cascade do |t|
@@ -120,6 +122,7 @@ ActiveRecord::Schema.define(version: 2022_06_01_135052) do
   add_foreign_key "leagues", "users"
   add_foreign_key "matches", "players", column: "player1_id"
   add_foreign_key "matches", "players", column: "player2_id"
+  add_foreign_key "matches", "players", column: "winner_id"
   add_foreign_key "matches", "tournaments"
   add_foreign_key "messages", "chatrooms"
   add_foreign_key "messages", "leagues"
