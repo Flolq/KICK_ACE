@@ -1,0 +1,14 @@
+<h1><%= @league.name %></h1><p>(created by <%= @league.owner.nickname %>)</p>
+
+<h2>Here are the teams that have joined the league</h2>
+<ul>
+  <% @teams.each do |team| %>
+      <li><%= team.name %> (<%= team.user.nickname %>)  </li>
+  <% end %>
+</ul>
+
+
+<%= link_to "Create a team to join the league!", new_league_team_path(@league) %>
+<br>
+<br>
+<%= link_to "homepage", user_path(current_user) %>
