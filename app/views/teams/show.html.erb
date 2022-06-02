@@ -1,11 +1,32 @@
-
-<h1>Manage my team</h1>
-<div id="players" data-controller="sortable" data-sortable-animation-value="150" data-sortable-resource-name-value="selection">
-  <% @selections.each do |selection| %>
-      <div class="card-product mb-4" data-sortable-update-url="<%= selection_path(selection) %>">
-        <div class="card-product-infos">
-          <h3><%= selection.player.first_name %></h3>
+<div class="container">
+  <h1>Manage my team</h1>
+  <div class="player-ranking-container center">
+    <div class="row mt-2">
+        <div class="col-4">
+          <% (1..8).to_a.each do |i| %>
+            <div class="player-ranking">
+                <% if i < 7 %>
+                  Player <%= i %> :
+                <% else %>
+                  Subsitute:
+                <% end %>
+            </div>
+          <% end %>
         </div>
-      </div>
-  <% end %>
+        <div class="col-8">
+          <div id="players" data-controller="sortable" data-sortable-animation-value="150" data-sortable-resource-name-value="selection">
+            <% @selections.each_with_index do |selection,index| %>
+              <div class="card-product" data-sortable-update-url="<%= selection_path(selection) %>">
+                <%= image_tag 'gasquet.png'%>
+                <div class="card-product-infos">
+                  <h2><%= selection.player.first_name %></h2>
+                </div>
+              </div>
+            <% end %>
+          </div>
+        </div>
+    </div>
+  </div>
+  <h1>Players stats</h1>
+  <div class="mt-2 center"><%= link_to "Back to my league", league_path(params[:league_id]), class: "bouton-transp center" %></div>
 </div>
