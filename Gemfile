@@ -9,6 +9,8 @@ gem 'rails', '~> 6.1.6'
 gem 'pg', '~> 1.1'
 gem 'pg_search', '~> 2.3.0'
 
+gem 'jquery-rails'
+gem "jquery-slick-rails"
 # Use Puma as the app server
 gem 'puma', '~> 5.0'
 # Use SCSS for stylesheets

@@ -39,92 +39,93 @@
   justify-content: center;
   align-items: center;
 
-  .card-carousel {
-    margin-top: 15px;
-    margin-bottom: 15px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
+.card-carousel {
+  margin-top: 15px;
+  margin-bottom: 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative
+}
 
 
-  .racket {
-    position: absolute;
-    left: 5%;
-    bottom: 10%;
-    transform: rotate(-140deg);
-  }
+.racket {
+  position: absolute;
+  left: 5%;
+  bottom: 10%;
+  transform: rotate(-140deg);
+}
 
-  .carousel-league {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: $light-orange;
-    width: 223px;
-    height: 200px;
-    border-radius: 10px;
-    padding-left: 30px;
-    padding-right: 30px;
-    a {
-      color: $orange;
-    }
-  }
-
-  .carousel-news {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: $light-orange;
-    width: 223px;
-    height: 130px;
-    border-radius: 10px;
-    padding-left: 30px;
-    padding-right: 30px;
-    a {
-      color: $orange;
-    }
-  }
-
-  .stream-logo {
-    position: absolute;
-    left: 5%;
-    top: 5%;
-  }
-
-  .fa-circle-chevron-left {
-    position: absolute;
-    margin-left: 5%;
+.carousel-league {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: $light-orange;
+  width: 223px;
+  height: 200px;
+  border-radius: 10px;
+  padding-left: 30px;
+  padding-right: 30px;
+  a {
     color: $orange;
   }
+}
 
-  .fa-circle-chevron-right {
-    position: absolute;
-    margin-right: 5%;
+.carousel-news {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: $light-orange;
+  width: 223px;
+  height: 130px;
+  border-radius: 10px;
+  padding-left: 30px;
+  padding-right: 30px;
+  a {
     color: $orange;
   }
+}
 
-  .card-news-unique {
-    background-color: $light-orange;
-    width: 223px;
-    height: 150px;
-    border-radius: 10px;
-    padding-left: 30px;
-    padding-right: 30px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    position: relative;
-    a {
-      color: $orange;
-    }
-  }
+.stream-logo {
+  position: absolute;
+  left: 5%;
+  top: 5%;
+}
 
-  .photo-news {
-    position: absolute;
-    left: -8%;
-    bottom: -12%;
+.fa-circle-chevron-left {
+  position: absolute;
+  margin-left: 5%;
+  color: $orange;
+}
+
+.fa-circle-chevron-right {
+  position: absolute;
+  margin-right: 5%;
+  color: $orange;
+}
+
+.card-news-unique {
+  background-color: $light-orange;
+  width: 223px;
+  height: 150px;
+  border-radius: 10px;
+  padding-left: 30px;
+  padding-right: 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  a {
+    color: $orange;
   }
+}
+
+.photo-news {
+  position: absolute;
+  left: -8%;
+  bottom: -12%;
+}
 
 .ranking-card-team {
   font-family: $headers-font;
