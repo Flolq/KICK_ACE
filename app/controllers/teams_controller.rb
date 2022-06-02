@@ -23,6 +23,7 @@ class TeamsController < ApplicationController
     @league = League.find(params[:league_id])
     @teams_non_submitted = @league.teams.where("progress = 'starting'")
     @teams_submitted = @league.teams.where("progress = 'bids_submitted'")
+
     if params[:query].present?
       sql_query = " \
       players.first_name @@ :query \
@@ -36,17 +37,17 @@ class TeamsController < ApplicationController
       format.html # Follow regular flow of Rails
       format.text { render partial: 'teams/list', locals: { players: @players }, formats: [:html] }
     end
+
+    if @teams_non_submitted.empty?
+
+    end
   end
 
   def update
     @team = Team.find(params[:id])
-    @league = League.find(params[:league_id])
-
     progress_team
-
-    @team.update(team_params)
-    raise
-
+    @team.save
+    @league = League.find(params[:league_id])
     redirect_to edit_league_team_path(@league, @team)
   end
 

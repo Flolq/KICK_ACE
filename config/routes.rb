@@ -15,6 +15,9 @@ Rails.application.routes.draw do
     end
     resources :rounds, only: [:show]
   end
+
+  resources :selections, only: [:new, :create,:edit, :update]
+
   resources :news, only: [:index]
   resources :players, only: [:index, :show] do
     resources :matches, only: :show
