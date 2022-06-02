@@ -2,7 +2,6 @@ class TeamsController < ApplicationController
   def new
     @league = League.find(params[:league_id])
     @team = Team.new
-    3.times { @team.selections.build }
   end
 
   def create
@@ -10,28 +9,46 @@ class TeamsController < ApplicationController
     @team = Team.new(team_params)
     @team.league = @league
     @team.user = current_user
-
-    @team.selections.each do |selection|
-      selection.progress = "bid_submitted"
-    end
+    @team.progress = "starting"
 
     if @team.save
-      redirect_to [@league, @team]
+      redirect_to edit_league_team_path(@league, @team)
     else
       render :new
     end
   end
 
-  # def edit
-  #   @team = Team.find(params[:id])
-  # end
+  def edit
+    @team = Team.find(params[:id])
+    @league = League.find(params[:league_id])
+    @teams_non_submitted = @league.teams.where("progress = 'starting'")
+    @teams_submitted = @league.teams.where("progress = 'bids_submitted'")
+    if params[:query].present?
+      sql_query = " \
+      players.first_name @@ :query \
+      OR players.last_name @@ :query \
+    "
+      @players = Player.where(sql_query, query: "%#{params[:query]}%")
+    else
+      @players = Player.all
+    end
+    respond_to do |format|
+      format.html # Follow regular flow of Rails
+      format.text { render partial: 'teams/list', locals: { players: @players }, formats: [:html] }
+    end
+  end
 
-  # def update
-  #   @team = Team.find(params[:id])
-  #   @team.update(team_params)
+  def update
+    @team = Team.find(params[:id])
+    @league = League.find(params[:league_id])
 
-  #   redirect_to team_path(@team)
-  # end
+    progress_team
+
+    @team.update(team_params)
+    raise
+
+    redirect_to edit_league_team_path(@league, @team)
+  end
 
   def show
     @team = Team.find(params[:id])
@@ -44,5 +61,16 @@ class TeamsController < ApplicationController
     params
       .require(:team)
       .permit(:name, selections_attributes: [:player_id, :price])
+
+
   end
+
+  def progress_team
+    if @team.progress == "starting"
+      @team.progress = "bids_submitted"
+    end
+  end
+
+  end
+
 end

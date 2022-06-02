@@ -1,0 +1,8 @@
+  <div class="players_index m-5">
+    <ul class="list-group" data-search-target = "players">
+      <li class="list-group-item"> <strong>AVAILABLE PLAYERS</strong> </li>
+      <% @players.each do |player| %>
+        <li class="list-group-item" data-action="click->players-selection#add click->enable-button#enable"  > <%= player.first_name %>  <%= player.last_name %> - Min. price: <%= player.min_price %> </li>
+      <% end %>
+    </ul>
+  </div>
