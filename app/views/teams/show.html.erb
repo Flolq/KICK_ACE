@@ -1,19 +1,23 @@
 <div class="container">
   <h1>Manage my team</h1>
-  <div class="player-ranking-container center">
     <div class="row mt-2">
-        <div class="col-4">
-          <% (1..8).to_a.each do |i| %>
-            <div class="player-ranking">
-                <% if i < 7 %>
-                  Player <%= i %> :
-                <% else %>
-                  Subsitute:
-                <% end %>
-            </div>
+        <div class="col-3">
+          <div class="titulaires center">
+            <% (1..6).to_a.each do |i| %>
+              <div class="player-ranking center">
+                Player <%= i %> :
+              </div>
+            <% end %>
+          </div>
+          <div>
+            <% (7..8).to_a.each do |i| %>
+              <div class="player-ranking center">
+                Subsitute:
+              </div>
           <% end %>
+          </div>
         </div>
-        <div class="col-8">
+        <div class="col-6 center">
           <div id="players" data-controller="sortable" data-sortable-animation-value="150" data-sortable-resource-name-value="selection">
             <% @selections.each_with_index do |selection,index| %>
               <div class="card-product" data-sortable-update-url="<%= selection_path(selection) %>">
@@ -25,8 +29,23 @@
             <% end %>
           </div>
         </div>
+        <div class="col-3">
+          <div class="titulaires center">
+            <% (1..6).to_a.each do |i| %>
+              <div class="player-ranking center">
+                pts : x <%= 11 - i %>
+              </div>
+            <% end %>
+          </div>
+          <div>
+            <% (7..8).to_a.each do |i| %>
+              <div class="player-ranking center">
+                pts : x 0
+              </div>
+          <% end %>
+          </div>
+        </div>
     </div>
-  </div>
   <h1>Players stats</h1>
   <div class="mt-2 center"><%= link_to "Back to my league", league_path(params[:league_id]), class: "bouton-transp center" %></div>
 </div>
