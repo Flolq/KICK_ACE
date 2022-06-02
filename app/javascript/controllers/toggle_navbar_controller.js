@@ -4,7 +4,7 @@ export default class extends Controller {
   static targets = [ "link" ]
 
   connect() {
-    console.log("Hello")
+    // console.log("Hello")
   }
 
   toggle() {

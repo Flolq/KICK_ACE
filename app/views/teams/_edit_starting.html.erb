@@ -7,12 +7,8 @@
     <h4>Remaining budget: </h4> <h4 data-budget-update-target = "budget" data-enable-button-target = "budget">500 </h4>  <h4>m€ </h4>
 
   </div>
-    <%= link_to "Submit my bids", user_path(current_user), class: "btn btn-dark disabled", data: { enable_button_target: "button"}  %>
 
-  <%# <input type="text"
-        class="form-control mt-3"
-        placeholder="Find player"
-        data-search-target="input" data-action = "keyup->search#search"> %>
+<%= link_to "SUBMIT YOUR BIDS", league_team_path(@league, @team), method: "PATCH", class:"btn btn-dark disabled", data: {enable_button_target: "button" } %>
 
   <%= form_with url: edit_league_team_path(@league,@team), method: :get, html: { class:
     'mb-4', data: { search_target: 'form' } } do |f| %>
@@ -26,8 +22,8 @@
 <div class="container d-flex" data-controller="players-selection">
   <%= render 'list', players: @players %>
 
-  <div class="my_team m-5 w-75">
-    <ul class="list-group" data-players-selection-target="team">
+  <div class="my_team m-5 w-75" data-controller = "create-selection">
+    <ul class="list-group" id="team" data-players-selection-target="team">
       <li class="list-group-item"> <strong>MY TEAM</strong> </li>
     </ul>
   </div>

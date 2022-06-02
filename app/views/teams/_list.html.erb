@@ -1,8 +1,10 @@
-  <div class="players_index m-5">
+<div class="players_index m-5">
     <ul class="list-group" data-search-target = "players">
       <li class="list-group-item"> <strong>AVAILABLE PLAYERS</strong> </li>
       <% @players.each do |player| %>
-        <li class="list-group-item" data-action="click->players-selection#add click->enable-button#enable"  > <%= player.first_name %>  <%= player.last_name %> - Min. price: <%= player.min_price %> </li>
+      <%= link_to new_selection_path(player_id: player.id, team_id: @team.id), data: {action: "click->enable-button#enable ajax:success->players-selection#update click->players-selection#remove", players_selection_target: "players"}, remote: true do %>
+         <li class="list-group-item"> <%=player.first_name%> <%=player.last_name%> - Min. price: <%= player.min_price%></li>
       <% end %>
-    </ul>
-  </div>
+    <% end %>
+  </ul>
+</div>
