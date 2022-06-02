@@ -8,23 +8,27 @@
 
 .ranking-laurier {
   position: absolute;
-  left: 41.26%;
-  right: 40.81%;
-  top: 0%;
-  bottom: 75.04%;
+  left: 50%;
+  bottom: 140px;
 }
 
-.ranking-card {
+.center {
   display : flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+}
+
+.ranking-card {
+  padding: 20px 0px;
   background: rgba(211, 82, 41, 0.05);
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   border-radius: 10px;
+  margin-bottom: 20px;
+  margin-top: 20px;
 }
 
-.ranking-card-title {
+.card-title {
   font-family: $headers-font;
   font-style: normal;
   font-weight: 600;
@@ -120,3 +124,53 @@
     left: -8%;
     bottom: -12%;
   }
+
+.ranking-card-team {
+  font-family: $headers-font;
+  font-style: normal;
+  font-weight: 800;
+  font-size: 12px;
+  line-height: 15px;
+  text-align: center;
+  color: $orange;
+}
+
+.card-player-league-view {
+  position: relative;
+}
+
+.circle {
+  height: 30px;
+  width: 30px;
+  border-radius: 50%;
+  border-collapse: separate;
+  background-color: rgba(55, 211, 41, 0.1);
+  text-align: center;
+  vertical-align: middle;
+}
+
+.position-top-players {
+position: absolute;
+bottom : 100px;
+left: 50px;
+}
+
+.position-bottom-players {
+  position: absolute;
+  bottom : 100px;
+  left: 50px;
+  }
+
+a {
+  text-decoration: none;
+  color: $orange;
+}
+
+p {
+  font-family: $headers-font;
+  font-style: normal;
+  font-weight: 300;
+  font-size: 8px;
+  line-height: 10px;
+  color: $orange;
+}

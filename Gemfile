@@ -7,6 +7,8 @@ ruby '3.0.3'
 gem 'rails', '~> 6.1.6'
 # Use postgresql as the database for Active Record
 gem 'pg', '~> 1.1'
+gem 'pg_search', '~> 2.3.0'
+
 # Use Puma as the app server
 gem 'puma', '~> 5.0'
 # Use SCSS for stylesheets
@@ -22,6 +24,10 @@ gem 'redis', '~> 4.0'
 # Use Active Model has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 gem 'acts_as_list'
+
+# SideKiq for background jobs
+gem 'sidekiq'
+gem 'sidekiq-failures', '~> 1.0'
 
 # Use Active Storage variant
 # gem 'image_processing', '~> 1.2'

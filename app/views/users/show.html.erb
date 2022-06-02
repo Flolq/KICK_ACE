@@ -72,7 +72,14 @@
   </div>
 </div>
 
+<<<<<<< HEAD
 <%= @html_doc.each do |element| %>
   <p><%= element.text.strip %></p>
   <p><%= element.attribute("href").value %></p>
 <% end %>
+=======
+
+<%= link_to "Create a new league", new_league_path %>
+
+<%= link_to "See all leagues", leagues_path %>
+>>>>>>> master
