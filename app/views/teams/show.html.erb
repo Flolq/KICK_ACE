@@ -47,5 +47,41 @@
         </div>
     </div>
   <h1>Players stats</h1>
-  <div class="mt-2 center"><%= link_to "Back to my league", league_path(params[:league_id]), class: "bouton-transp center" %></div>
+
+  <div class="carousel-player-card">
+    <ul class="carousel">
+      <li class="carousel__item">
+        <div class="carousel__item-wrapper" style="background: url(<%= image_path "players/alcaraz.png" %>);"><p>Player Name</p></div>
+      </li>
+      <li class="carousel__item">
+        <div class="carousel__item-wrapper" style="background: url(<%= image_path "players/nadal.png" %>);"><p>Player Name</p></div>
+      </li>
+      <li class="carousel__item">
+        <div class="carousel__item-wrapper" style="background: url(<%= image_path "players/djokovic.png" %>);"><p>Player Name</p></div>
+      </li>
+      <li class="carousel__item">
+        <div class="carousel__item-wrapper" style="background: url(<%= image_path "players/rublev.png" %>);"><p>Player Name</p></div>
+      </li>
+      <li class="carousel__item">
+        <div class="carousel__item-wrapper" style="background: url(<%= image_path "players/ruud.png" %>);"><p>Player Name</p></div>
+      </li>
+      <li class="carousel__item">
+        <div class="carousel__item-wrapper" style="background: url(<%= image_path "players/berrettini.png" %>);"><p>Player Name</p></div>
+      </li>
+      <li class="carousel__item">
+        <div class="carousel__item-wrapper" style="background: url(<%= image_path "players/auger-aliassime.png" %>);"><p>Player Name</p></div>
+      </li>
+
+      <li class="carousel__item">
+        <div class="carousel__item-wrapper" style="background: url(<%= image_path "players/zverev.png" %>);"><p>Player Name</p></div>
+      </li>
+    </ul>
+  </div>
+    <div class="carousel__controls">
+      <button class="carousel__controls--left"><i class="fa-solid fa-circle-chevron-left"></i></button>
+      <button class="carousel__controls--right"><i class="fa-solid fa-circle-chevron-right"></i></button>
+    </div>
+
+   <div class="mt-2 center"><%= link_to "Back to my league", league_path(params[:league_id]), class: "bouton-transp center" %></div>
 </div>
+  
