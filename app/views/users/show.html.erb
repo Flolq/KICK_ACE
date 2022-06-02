@@ -1,12 +1,78 @@
-<h1>Welcome <%= current_user.nickname %></h1>
+<div class="container">
+  <h1 class="center">Hi <%= current_user.nickname %> !</h1>
 
-<h2>Here are your leagues</h2>
+  <div class="card-carousel">
+    <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+      <div class="carousel-inner">
+        <% @leagues.each do |league| %>
+          <div class="carousel-item active">
+            <div class="carousel-league">
+              <div class="center"><h3><%= link_to league.name, league_path(league) %></h3></div>
+              <div class="racket">
+                <%= image_tag 'racket.png', width: '90px' %>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      </div>
+      <div class="button-carousel">
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+          <span class="fa-solid fa-circle-chevron-left" aria-hidden="true"></span>
+          <span class="visually-hidden">Previous</span>
+        </button>
+          <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+          <span class="fa-solid fa-circle-chevron-right" aria-hidden="true"></span>
+          <span class="visually-hidden">Next</span>
+        </button>
+      </div>
+    </div>
+  </div>
 
-<div class="row">
-    <% @leagues.each do |league| %>
-    <%= link_to league.name, league_path(league) %>
-    <% end %>
+  <%= link_to "Create a new league", new_league_path %>
+
+  <div class="card-carousel">
+    <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+      <div class="carousel-inner">
+        <div class="carousel-item active">
+          <div class="carousel-news">
+            <p>Nadal and Djokovic have both won 41 per cent of first-serve return points, but the World No. 1 holds the edge on second-serve return, where he has claimed 63 per cent of the points on offer, compared to Nadal</p>
+            <div class="stream-logo">
+              <%= image_tag 'stream-black.png', width: '20px' %>
+            </div>
+          </div>
+        </div>
+        <div class="carousel-item">
+          <div class="carousel-news">
+            <p>blablabla</p>
+            <div class="stream-logo">
+              <%= image_tag 'stream-black.png', width: '20px' %>
+            </div>
+          </div>
+        </div>
+        <div class="carousel-item">
+          <div class="carousel-news">
+            <p>Bliblibli</p>
+            <div class="stream-logo">
+              <%= image_tag 'stream-black.png', width: '20px' %>
+            </div>
+          </div>
+        </div>
+        <div class="button-carousel">
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+          <span class="fa-solid fa-circle-chevron-left" aria-hidden="true"></span>
+          <span class="visually-hidden">Previous</span>
+        </button>
+          <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+          <span class="fa-solid fa-circle-chevron-right" aria-hidden="true"></span>
+          <span class="visually-hidden">Next</span>
+        </button>
+      </div>
+      </div>
+    </div>
+  </div>
 </div>
 
-
-    <%= link_to "Create a new league", new_league_path %>
+<%= @html_doc.each do |element| %>
+  <p><%= element.text.strip %></p>
+  <p><%= element.attribute("href").value %></p>
+<% end %>
