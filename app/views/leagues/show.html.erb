@@ -1,9 +1,19 @@
+<div class="container">
 <h1><%= @league.name %></h1>
 
-<h2>Ranking</h2>
-<ul><% @teams.each do |team| %></ul>
-    <li><%= link_to "#{team.name} - #{team.user.nickname} - #{team.points}" , [@league, team] %></li>
-<% end %>
+<div class="ranking-card-container">
+  <div class="ranking-laurier"></div>
+  <div class="ranking-card">
+    <div class="ranking-card-title">Ranking</div>
+    <ul>
+      <% @teams.each do |team| %>
+        <li><%= link_to "#{team.name} - #{team.user.nickname} - #{team.points}" , [@league, team] %></li>
+      <% end %>
+    </ul>
+  </div>
+</div>
+
+<%= link_to @team.name, [@league, @team] %>
 
 <h2>Your Team</h2>
 <%= @team.name %>
@@ -14,3 +24,4 @@
 <% end %>
 
 <%= link_to "homepage", user_path(current_user) %>
+</div>

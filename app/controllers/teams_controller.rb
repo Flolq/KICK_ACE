@@ -35,16 +35,14 @@ class TeamsController < ApplicationController
 
   def show
     @team = Team.find(params[:id])
+    @selections = @team.selections.sort_by { |player| player[:position] }
   end
 
   private
 
   def team_params
     params
-    .require(:team)
-    .permit(:name,
-      selections_attributes: [:player_id, :price])
-
+      .require(:team)
+      .permit(:name, selections_attributes: [:player_id, :price])
   end
-
 end
