@@ -1,11 +1,50 @@
 
-<h1>Manage my team</h1>
-<div id="players" data-controller="sortable" data-sortable-animation-value="150" data-sortable-resource-name-value="selection">
-  <% @selections.each do |selection| %>
-      <div class="card-product mb-4" data-sortable-update-url="<%= selection_path(selection) %>">
-        <div class="card-product-infos">
-          <h3><%= selection.player.first_name %></h3>
+<%# <h1>Manage my team</h1> %>
+<%# <div id="players" data-controller="sortable" data-sortable-animation-value="150" data-sortable-resource-name-value="selection"> %>
+  <%# <% @selections.each do |selection| %>
+      <%# <div class="card-product mb-4" data-sortable-update-url="<%= selection_path(selection) %>
+        <%# <div class="card-product-infos"> %>
+          <%# <h3><%= selection.player.first_name</h3> %>
+        <%# </div> %>
+      <%# </div> %>
+  <%# <% end %>
+<%# </div> %>
+
+<div class="carousel-player-card">
+  <ul class="carousel">
+    <li class="carousel__item">
+      <div class="carousel__item-wrapper" style="background: url(<%= image_path "players/alcaraz.png" %>);"><p>Player Name</p></div>
+      <div class="box-stats-card">
+        <div class="stats-card">
+          Bonjour
         </div>
       </div>
-  <% end %>
+    </li>
+    <li class="carousel__item">
+      <div class="carousel__item-wrapper" style="background: url(<%= image_path "players/nadal.png" %>);"><p>Player Name</p></div>
+    </li>
+    <li class="carousel__item">
+      <div class="carousel__item-wrapper" style="background: url(<%= image_path "players/djokovic.png" %>);"><p>Player Name</p></div>
+    </li>
+    <li class="carousel__item">
+      <div class="carousel__item-wrapper" style="background: url(<%= image_path "players/rublev.png" %>);"><p>Player Name</p></div>
+    </li>
+    <li class="carousel__item">
+      <div class="carousel__item-wrapper" style="background: url(<%= image_path "players/ruud.png" %>);"><p>Player Name</p></div>
+    </li>
+    <li class="carousel__item">
+      <div class="carousel__item-wrapper" style="background: url(<%= image_path "players/berrettini.png" %>);"><p>Player Name</p></div>
+    </li>
+    <li class="carousel__item">
+      <div class="carousel__item-wrapper" style="background: url(<%= image_path "players/auger-aliassime.png" %>);"><p>Player Name</p></div>
+    </li>
+
+    <li class="carousel__item">
+      <div class="carousel__item-wrapper" style="background: url(<%= image_path "players/zverev.png" %>);"><p>Player Name</p></div>
+    </li>
+  </ul>
 </div>
+  <div class="carousel__controls">
+    <button class="carousel__controls--left"><i class="fa-solid fa-circle-chevron-left"></i></button>
+    <button class="carousel__controls--right"><i class="fa-solid fa-circle-chevron-right"></i></button>
+  </div>
