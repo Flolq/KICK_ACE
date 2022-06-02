@@ -1,0 +1,29 @@
+
+<div class="container text-center w-75">
+  <br>
+  <h1>League: <%= @team.league.name %></h1>
+  <h2>Thanks for submitting your bids!</h2>
+  <br>
+  <h3>The bids you have placed</h3>
+    <ul class="list-group"><% @team.selections.each do |selection| %></ul>
+
+      <li class="list-group-item"><%= "#{selection.player.first_name}" %> || Your bid: <%= selection.price %> € </li>
+    <% end %>
+
+  <br>
+
+    <h3>Teams that have placed their bids</h3>
+    <ul class="list-group"><% @teams_submitted.each do |team| %></ul>
+      <li class="list-group-item"><%= team.name %> || Player: <%= team.user.nickname %> </li>
+    <% end %>
+
+    <h3>Waiting for the other players to bid...</h3>
+    <ul class="list-group"><% @teams_non_submitted.each do |team| %></ul>
+      <li class="list-group-item"><%= team.name %> || Player: <%= team.user.nickname %> </li>
+    <% end %>
+
+
+    <%= link_to "Your league", league_path(params[:league_id]) %>
+    <%= link_to "homepage", user_path(current_user) %>
+
+</div>

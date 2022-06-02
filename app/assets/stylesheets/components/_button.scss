@@ -16,4 +16,20 @@
   color: rgb(168, 168, 168);
   font-size: 10px;
   padding: 4px 8px;
+
+.bouton-transp {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: transparent;
+  font-size: 10px;
+  padding: 6px 18px;
+  border-radius: 10px;
+  font-weight: lighter;
+  border: 1px solid $orange;
+  width: 140px;
+  &:hover {
+    background-color: $light-orange;
+    color: $orange;
+  }
 }
