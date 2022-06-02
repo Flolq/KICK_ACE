@@ -1,31 +1,109 @@
 require 'faker'
+require "json"
+require 'uri'
+require 'net/http'
+require 'openssl'
 
 puts "To start, let's destroy the db"
 
-
+Tournament.destroy_all
 Selection.destroy_all
 Player.destroy_all
 Team.destroy_all
 League.destroy_all
 User.destroy_all
-ranking = 1
+# ranking = 1
 i = 0
 player = 0
 
 puts 'We want the players'
 
-50.times do
-  Player.create!(
-    first_name: Faker::Sports::Football.player,
-    last_name: '!',
-    ranking: ranking,
-    min_price: rand(1..30),
-    nationality: Faker::Nation.nationality,
-  )
-  ranking += 1
+API_KEY = ENV['SPORTS_RADAR_API_KEY']
+URL = "https://api.sportradar.com/tennis/trial/v3/en"
+ENDPOINT = ".json?api_key=#{API_KEY}"
+
+def search_for_data(url)
+  url = URI(url)
+  http = Net::HTTP.new(url.host, url.port)
+  http.use_ssl = true
+  http.verify_mode = OpenSSL::SSL::VERIFY_NONE
+
+  request = Net::HTTP::Get.new(url)
+
+  response = http.request(request)
+  return JSON.parse(response.read_body)
 end
 
+def create_players(players)
+  players.each do |player|
+    points = player["points"]
+    name = player["competitor"]["name"].split(", ")
+
+    Player.create!(
+      first_name: name.last,
+      last_name: name.first,
+      ranking: player["rank"],
+      atp_points: points,
+      min_price: points * 5000,
+      nationality: player["competitor"]["country"],
+      atpid: player["competitor"]["id"]
+    )
+  end
+end
+
+player_rankings_url = "#{URL}/rankings#{ENDPOINT}"
+data = search_for_data(player_rankings_url)
+sleep 1
+players = data["rankings"][0]["competitor_rankings"]
+create_players(players)
+
 puts 'We have our players !!!!'
+
+puts 'Has someone said tournaments? Ok ok, do not move ...'
+
+def create_tournaments(tournaments)
+  tournaments.each do |tournament|
+    if tournament["level"]
+      Tournament.create(
+        name: tournament["name"],
+        level: tournament["level"]
+      )
+    end
+  end
+end
+
+tournaments_url = "#{URL}/competitions#{ENDPOINT}"
+data = search_for_data(tournaments_url)
+sleep 1
+create_tournaments(data["competitions"])
+
+puts 'Done ;)'
+
+if Match.count.zero?
+  puts "The first round of matches ..."
+
+  def create_matches(matches)
+    matches.each do |match|
+      level = match["sport_event"]["sport_event_context"]["competition"]["level"]
+      if level == "grand_slam" || level == "atp_1000"
+        Match.create!(
+          date: match["sport_event"]["start_time"],
+          round: match["sport_event"]["sport_event_context"]["round"],
+          player1: Player.find_by(atpid: match["sport_event"]["competitors"].first["id"]),
+          player2: Player.find_by(atpid: match["sport_event"]["competitors"].last["id"]),
+          tournament: Tournament.find_by(name: match["sport_event"]["sport_event_context"]["competition"]["name"])
+        )
+      end
+    end
+  end
+
+  today = Time.now.strftime("%Y-%m-%d")
+  today_matches_url = "#{URL}/schedules/#{today}/summaries#{ENDPOINT}&start=400"
+  data = search_for_data(today_matches_url)
+  create_matches(data["summaries"])
+
+  puts "Aaaaaand it's done"
+end
 
 puts 'We want the users ...'
 

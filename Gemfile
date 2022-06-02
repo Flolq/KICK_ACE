@@ -25,6 +25,10 @@ gem 'redis', '~> 4.0'
 # gem 'bcrypt', '~> 3.1.7'
 gem 'acts_as_list'
 
+# SideKiq for background jobs
+gem 'sidekiq'
+gem 'sidekiq-failures', '~> 1.0'
+
 # Use Active Storage variant
 # gem 'image_processing', '~> 1.2'
 gem 'faker', :git => 'https://github.com/faker-ruby/faker.git', :branch => 'master'

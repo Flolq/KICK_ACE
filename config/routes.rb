@@ -1,9 +1,9 @@
 Rails.application.routes.draw do
-  get 'matches/show'
-  get 'players/index'
-  get 'players/show'
-  get 'messages/create'
-  get 'chatrooms/show'
+  require "sidekiq/web"
+  authenticate :user, ->(user) { user.admin? } do
+    mount Sidekiq::Web => '/sidekiq'
+  end
+
   devise_for :users
   root to: 'users#show'
 
@@ -19,9 +19,5 @@ Rails.application.routes.draw do
   resources :players, only: [:index, :show] do
     resources :matches, only: :show
   end
-  resources :selections do
-    member do
-      patch :move
-    end
-  end
+
 end
