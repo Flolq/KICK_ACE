@@ -8,13 +8,12 @@ class MatchesController < ApplicationController
   URL = "https://api.sportradar.com/tennis/trial/v3/en"
   ENDPOINT = ".json?api_key=#{API_KEY}"
 
+  def index
+    @matches = Match.all
+  end
+
   def show
-    player_id = "sr:sport_event:#{params[:id]}"
-    match_detail_url = "#{URL}/sport_events/#{player_id}/summary#{ENDPOINT}"
-    @match = search_for_data(match_detail_url)
-    sleep 1
-    players = @match["sport_event"]["competitors"]
-    @versus = define_versus(players[0]["id"], players[1]["id"])
+
   end
 
   private

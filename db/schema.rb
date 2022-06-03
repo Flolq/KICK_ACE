@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_06_02_154048) do
+ActiveRecord::Schema.define(version: 2022_06_03_093530) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -41,7 +41,7 @@ ActiveRecord::Schema.define(version: 2022_06_02_154048) do
     t.bigint "tournament_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.boolean "done", default: false
+    t.boolean "done"
     t.bigint "winner_id"
     t.index ["player1_id"], name: "index_matches_on_player1_id"
     t.index ["player2_id"], name: "index_matches_on_player2_id"
@@ -71,6 +71,11 @@ ActiveRecord::Schema.define(version: 2022_06_02_154048) do
     t.datetime "updated_at", precision: 6, null: false
     t.integer "atp_points"
     t.string "atpid"
+    t.date "date_of_birth"
+    t.integer "competitions_played"
+    t.integer "competitions_won"
+    t.integer "matches_played"
+    t.integer "matches_won"
   end
 
   create_table "selections", force: :cascade do |t|
@@ -81,6 +86,7 @@ ActiveRecord::Schema.define(version: 2022_06_02_154048) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.integer "position"
+    t.integer "points"
     t.integer "player_points"
     t.index ["player_id"], name: "index_selections_on_player_id"
     t.index ["team_id"], name: "index_selections_on_team_id"
