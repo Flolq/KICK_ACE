@@ -165,8 +165,9 @@ class TeamsController < ApplicationController
     @players_selected = []
     @players = Player.all
     selections = @league.selections
-    # won_selections = selections.where("selection.progress = ?", "bid_won")
-    selections.each do |selection|
+    won_selections = Selection.where("progress = 'bid_won'")
+
+    won_selections.each do |selection|
       @players_selected << selection.player
     end
 
