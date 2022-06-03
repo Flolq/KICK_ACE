@@ -20,7 +20,8 @@ Rails.application.routes.draw do
 
   resources :news, only: [:index]
   resources :players, only: [:index, :show] do
-    resources :matches, only: :show
+    resources :matches, only: [:show]
   end
   resources :selections, only: [:update]
+  resources :matches, only: [:index]
 end

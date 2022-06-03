@@ -1,0 +1,9 @@
+<ul>
+  <% @matches.each do |match|%>
+    <li>
+      <div><%= match.tournament.name %></div>
+      <div><%= match.player1.last_name %> vs. <%= match.player2.last_name %></div>
+      <div>Winner: <%= match.winner.last_name %></div>
+    </li>
+  <% end %>
+</ul>
