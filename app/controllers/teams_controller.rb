@@ -148,16 +148,12 @@ class TeamsController < ApplicationController
     @remaining_budget = @starting_budget - @budget_spent
     @team.budget = @remaining_budget
 
-
-
-
   end
 
   def my_secured_selections
     @team = Team.find(params[:id])
     @league = @team.league
     @my_secured_selections = @team.selections.where("progress = ?", "bid_won")
-    # @my_secured_selections = @my_secured_selection.sort_by("price")
   end
 
   def defining_remaining_players
@@ -165,7 +161,12 @@ class TeamsController < ApplicationController
     @players_selected = []
     @players = Player.all
     selections = @league.selections
-    won_selections = Selection.where("progress = 'bid_won'")
+    won_selections = []
+    selections.each do |selection|
+      if selection.progress = "bid_won"
+        won_selections << selection
+      end
+    end
 
     won_selections.each do |selection|
       @players_selected << selection.player
@@ -176,5 +177,6 @@ class TeamsController < ApplicationController
         @remaining_players << player
       end
     end
+
   end
 end
