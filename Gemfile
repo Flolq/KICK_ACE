@@ -26,6 +26,7 @@ gem 'redis', '~> 4.0'
 # Use Active Model has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 gem 'acts_as_list'
+gem 'devise_invitable', '~> 2.0.0'
 
 # SideKiq for background jobs
 gem 'sidekiq'

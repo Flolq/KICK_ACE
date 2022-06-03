@@ -30,6 +30,7 @@ class LeaguesController < ApplicationController
     @teams = @league.teams
   end
 
+
   def update
     @league = League.find(params[:id])
     @league.update(league_params)
