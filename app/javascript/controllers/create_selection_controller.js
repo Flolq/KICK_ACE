@@ -4,7 +4,7 @@ export default class extends Controller {
   static targets = []
 
   connect() {
-    console.log("hello from the create selection controller")
+    // console.log("hello from the create selection controller")
   }
 
   create(event) {

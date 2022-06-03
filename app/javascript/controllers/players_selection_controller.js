@@ -1,7 +1,7 @@
 import { Controller } from "stimulus"
 
 export default class extends Controller {
-  static targets = ["team", "players"]
+  static targets = ["team"]
 
   connect() {
   }
@@ -11,8 +11,10 @@ export default class extends Controller {
     this.teamTarget.insertAdjacentHTML("beforeend", addTag)
   }
 
-  remove(event) {
+  disable(event) {
     event.preventDefault()
+    // console.log(this.iconTarget).
+    console.log(event.currentTarget)
     event.currentTarget.classList.add("d-none")
   }
 }
