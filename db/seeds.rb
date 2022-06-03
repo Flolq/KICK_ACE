@@ -6,9 +6,7 @@ require 'openssl'
 
 puts "To start, let's destroy the db"
 
-Tournament.destroy_all
 Selection.destroy_all
-Player.destroy_all
 Team.destroy_all
 League.destroy_all
 User.destroy_all
@@ -61,33 +59,69 @@ def create_players(players)
   )
 end
 
+def update_players(players)
+  players.each do |player|
+    points = player["points"]
+    name = player["competitor"]["name"].split(", ")
+
+    Player.update!(
+      first_name: name.last,
+      last_name: name.first,
+      ranking: player["rank"],
+      atp_points: points,
+      min_price: points * 5000,
+      nationality: player["competitor"]["country"],
+      atpid: player["competitor"]["id"]
+    )
+  end
+
+  Player.update!(
+    first_name: "Ranked",
+    last_name: "Non",
+    ranking: 501,
+    atp_points: 0,
+    min_price: 0,
+    nationality: "Unknown",
+    atpid: "unknown"
+  )
+end
+
 player_rankings_url = "#{URL}/rankings#{ENDPOINT}"
 data = search_for_data(player_rankings_url)
 sleep 1
 players = data["rankings"][0]["competitor_rankings"]
-create_players(players)
+
+if Player.count.zero?
+  create_players(players)
+else
+  update_players(players)
+end
 
 puts 'We have our players !!!!'
 
-puts 'Has someone said tournaments? Ok ok, do not move ...'
 
-def create_tournaments(tournaments)
-  tournaments.each do |tournament|
-    if tournament["level"]
-      Tournament.create(
-        name: tournament["name"],
-        level: tournament["level"]
-      )
+if Tournament.count.zero?
+  puts 'Has someone said tournaments? Ok ok, do not move ...'
+
+  def create_tournaments(tournaments)
+    tournaments.each do |tournament|
+      if tournament["level"]
+        Tournament.create(
+          name: tournament["name"],
+          level: tournament["level"]
+        )
+      end
     end
   end
+
+  tournaments_url = "#{URL}/competitions#{ENDPOINT}"
+  data = search_for_data(tournaments_url)
+  sleep 1
+  create_tournaments(data["competitions"])
+
+  puts 'Done ;)'
 end
 
-tournaments_url = "#{URL}/competitions#{ENDPOINT}"
-data = search_for_data(tournaments_url)
-sleep 1
-create_tournaments(data["competitions"])
-
-puts 'Done ;)'
 
 if Match.count.zero?
   puts "The first round of matches ..."
