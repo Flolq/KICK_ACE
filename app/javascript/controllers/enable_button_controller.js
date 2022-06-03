@@ -1,17 +1,18 @@
 import { Controller } from "stimulus"
 
 export default class extends Controller {
-  static targets = ["player", "budget", "button"]
+  static targets = ["player", "budget", "button", "secured"]
 
   connect() {
   }
 
   enable(event) {
     event.preventDefault()
-    // console.log (this.playerTargets)
+    const nb_secured_players = parseInt(this.securedTarget.innerHTML,10)
+    console.log(nb_secured_players)
     let values = []
     this.playerTargets.forEach(element => values.push(parseInt(element.value, 10)))
-    if ((values.filter((a) => a).length > 7) && (parseInt(this.budgetTarget.innerHTML, 10) > 0)) {
+    if ((values.filter((a) => a).length > (7 - nb_secured_players)) && (parseInt(this.budgetTarget.innerHTML, 10) > 0)) {
       this.buttonTarget.classList.remove('disabled')
     }
   }
