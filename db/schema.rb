@@ -41,7 +41,7 @@ ActiveRecord::Schema.define(version: 2022_06_03_102018) do
     t.bigint "tournament_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.boolean "done", default: false
+    t.boolean "done"
     t.bigint "winner_id"
     t.index ["player1_id"], name: "index_matches_on_player1_id"
     t.index ["player2_id"], name: "index_matches_on_player2_id"
@@ -86,6 +86,7 @@ ActiveRecord::Schema.define(version: 2022_06_03_102018) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.integer "position"
+    t.integer "points"
     t.integer "player_points"
     t.index ["player_id"], name: "index_selections_on_player_id"
     t.index ["team_id"], name: "index_selections_on_team_id"
