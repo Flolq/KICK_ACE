@@ -1,25 +1,26 @@
-<h1><%= "#{@player["competitor"]["name"].split(", ").last} #{@player["competitor"]["name"].split(", ").first}" %></h1>
+<div class="container-fluid">
+  <h1><%= "#{@player.first_name} #{@player.last_name}" %></h1>
 
-<p>Country: <%= @player["competitor"]["country"] %></p>
-<p>Date of birth: <%= @player["info"]["date_of_birth"] %></p>
-<p>Rank: <%= @player["competitor_rankings"][0]["rank"] %></p>
-<p>Statistics this year:</p>
-<ul>
-  <% statistic = @player["periods"][0]["statistics"] %>
-  <li>Competitions played: <%= statistic["competitions_played"] %></li>
-  <li>Competitions won: <%= statistic["competitions_won"] %></li>
-  <li>Matches played: <%= statistic["matches_played"] %></li>
-  <li>Matches won: <%= statistic["matches_won"] %></li>
-</ul>
+  <div>Country: <%= @player.nationality %></div>
+  <div>Date of birth: <%= @player.date_of_birth %></div>
+  <div>Rank: <%= @player.ranking %></div>
+  <div>Statistics this year:</div>
+  <ul class="tennis-list">
+    <li>Competitions played: <%= @player.competitions_played %></li>
+    <li>Competitions won: <%= @player.competitions_won %></li>
+    <li>Matches played: <%= @player.matches_played %></li>
+    <li>Matches won: <%= @player.matches_won %></li>
+  </ul>
+  <div>Points earned: <%= @points %> points</div>
 
-<% match_players = @match["summaries"].last["sport_event"]["competitors"] %>
-<p>Next Match: <%= "#{match_players[0]["name"].split(", ").last} #{match_players[0]["name"].split(", ").first}" %>
- vs. <%= "#{match_players[1]["name"].split(", ").last} #{match_players[1]["name"].split(", ").first}" %>
-</p>
-<%= link_to "See details", player_match_path(@player["competitor"]["id"].split(":").last, @match["summaries"].last["sport_event"]["id"].split(":").last) %>
-
-<!-- <div data-controller="display-match"
-     data-display-match-key-value="<%= ENV['SPORTS_RADAR_API_KEY'] %>"
-     data-display-match-player-id-value="<%= @player["competitor"]["id"] %>">
-
-</div> -->
+  <h3>Previous plays:</h3>
+  <ul class="tennis-list">
+    <% @matches.each do |match|%>
+      <li>
+        <div><%= match.tournament.name %></div>
+        <div><%= match.player1.last_name %> vs. <%= match.player2.last_name %></div>
+        <div>Winner: <%= match.winner.last_name %></div>
+      </li>
+    <% end %>
+  </ul>
+</div>

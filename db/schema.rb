@@ -71,6 +71,11 @@ ActiveRecord::Schema.define(version: 2022_06_03_102018) do
     t.datetime "updated_at", precision: 6, null: false
     t.integer "atp_points"
     t.string "atpid"
+    t.date "date_of_birth"
+    t.integer "competitions_played"
+    t.integer "competitions_won"
+    t.integer "matches_played"
+    t.integer "matches_won"
   end
 
   create_table "selections", force: :cascade do |t|
@@ -116,7 +121,18 @@ ActiveRecord::Schema.define(version: 2022_06_03_102018) do
     t.datetime "updated_at", precision: 6, null: false
     t.string "nickname"
     t.boolean "admin", default: false, null: false
+    t.string "invitation_token"
+    t.datetime "invitation_created_at"
+    t.datetime "invitation_sent_at"
+    t.datetime "invitation_accepted_at"
+    t.integer "invitation_limit"
+    t.string "invited_by_type"
+    t.bigint "invited_by_id"
+    t.integer "invitations_count", default: 0
     t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["invitation_token"], name: "index_users_on_invitation_token", unique: true
+    t.index ["invited_by_id"], name: "index_users_on_invited_by_id"
+    t.index ["invited_by_type", "invited_by_id"], name: "index_users_on_invited_by"
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
