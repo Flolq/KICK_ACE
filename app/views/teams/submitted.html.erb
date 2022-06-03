@@ -1,0 +1,7 @@
+<p>Status of the team: <%= @team.progress %></p>
+
+<% if @teams_non_submitted.length > 0 %>
+  <%= render 'submitted_waiting' %>
+<% else %>
+  <%= render 'intermediary_results' %>
+<% end %>

@@ -23,5 +23,11 @@ Rails.application.routes.draw do
     resources :matches, only: [:show]
   end
   resources :selections, only: [:update]
+
+  get "leagues/:id/teams/:id/starting", to: "teams#starting", as: :starting
+  get "leagues/:id/teams/:id/submitted", to: "teams#submitted", as: :submitted
+  get "leagues/:id/teams/:id/extra_round", to: "teams#extra_round", as: :extra_round
+  
   resources :matches, only: [:index]
+
 end
