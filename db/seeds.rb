@@ -3,6 +3,7 @@ require "json"
 require 'uri'
 require 'net/http'
 require 'openssl'
+require 'date'
 
 puts "To start, let's destroy the db"
 
@@ -32,73 +33,81 @@ def search_for_data(url)
   return JSON.parse(response.read_body)
 end
 
-def create_players(players)
-  players.each do |player|
-    points = player["points"]
-    name = player["competitor"]["name"].split(", ")
+if Player.count.zero?
+  def create_players(players)
+    players.each do |player|
+      points = player["points"]
+      name = player["competitor"]["name"].split(", ")
+
+      Player.create!(
+        first_name: name.last,
+        last_name: name.first,
+        ranking: player["rank"],
+        atp_points: points,
+        min_price: points * 5000,
+        nationality: player["competitor"]["country"],
+        atpid: player["competitor"]["id"]
+      )
+    end
 
     Player.create!(
-      first_name: name.last,
-      last_name: name.first,
-      ranking: player["rank"],
-      atp_points: points,
-      min_price: points * 5000,
-      nationality: player["competitor"]["country"],
-      atpid: player["competitor"]["id"]
+      first_name: "Ranked",
+      last_name: "Non",
+      ranking: 501,
+      atp_points: 0,
+      min_price: 0,
+      nationality: "Unknown",
+      atpid: "unknown"
     )
   end
 
-  Player.create!(
-    first_name: "Ranked",
-    last_name: "Non",
-    ranking: 501,
-    atp_points: 0,
-    min_price: 0,
-    nationality: "Unknown",
-    atpid: "unknown"
-  )
-end
+  def update_players(players)
+    players.each do |player|
+      points = player["points"]
 
-def update_players(players)
-  players.each do |player|
-    points = player["points"]
-    name = player["competitor"]["name"].split(", ")
+      target_player = Player.find_by(atpid: player["competitor"]["id"])
 
-    Player.update!(
-      first_name: name.last,
-      last_name: name.first,
-      ranking: player["rank"],
-      atp_points: points,
-      min_price: points * 5000,
-      nationality: player["competitor"]["country"],
-      atpid: player["competitor"]["id"]
-    )
+      target_player.update(
+        ranking: player["rank"],
+        atp_points: points,
+        min_price: points * 5000
+      )
+    end
   end
 
-  Player.update!(
-    first_name: "Ranked",
-    last_name: "Non",
-    ranking: 501,
-    atp_points: 0,
-    min_price: 0,
-    nationality: "Unknown",
-    atpid: "unknown"
-  )
+  def add_infos_to_player(player_id, player_atpid)
+    player_detail_url = "#{URL}/competitors/#{player_atpid}/profile#{ENDPOINT}"
+    data = search_for_data(player_detail_url)
+    sleep 1
+
+    date_array = data["info"]["date_of_birth"].split("-")
+    birthdate = Date.new(date_array[0].to_i, date_array[1].to_i, date_array[2].to_i)
+
+    player = Player.find(player_id)
+    player.date_of_birth = birthdate
+    player.competitions_played = data["periods"].first["statistics"]["competitions_played"]
+    player.competitions_won = data["periods"].first["statistics"]["competitions_won"]
+    player.matches_played = data["periods"].first["statistics"]["matches_played"]
+    player.matches_won = data["periods"].first["statistics"]["matches_won"]
+  end
+
+  player_rankings_url = "#{URL}/rankings#{ENDPOINT}"
+  data = search_for_data(player_rankings_url)
+  sleep 1
+  players = data["rankings"][0]["competitor_rankings"]
+
+  if Player.count.zero?
+    create_players(players)
+  else
+    update_players(players)
+  end
+
+  Player.all.first(100).each do |tennisplayer|
+    add_infos_to_player(tennisplayer.id, tennisplayer.atpid)
+  end
+
+  puts 'We have our players !!!!'
 end
-
-player_rankings_url = "#{URL}/rankings#{ENDPOINT}"
-data = search_for_data(player_rankings_url)
-sleep 1
-players = data["rankings"][0]["competitor_rankings"]
-
-if Player.count.zero?
-  create_players(players)
-else
-  update_players(players)
-end
-
-puts 'We have our players !!!!'
-
 
 if Tournament.count.zero?
   puts 'Has someone said tournaments? Ok ok, do not move ...'
@@ -156,6 +165,16 @@ if Match.count.zero?
 
   dates.each do |date|
     matches_url = "#{URL}/schedules/#{date}/summaries#{ENDPOINT}"
+    data = search_for_data(matches_url)
+    create_matches(data["summaries"])
+    sleep 1
+
+    matches_url = "#{URL}/schedules/#{date}/summaries#{ENDPOINT}&start=200"
+    data = search_for_data(matches_url)
+    create_matches(data["summaries"])
+    sleep 1
+
+    matches_url = "#{URL}/schedules/#{date}/summaries#{ENDPOINT}&start=400"
     data = search_for_data(matches_url)
     create_matches(data["summaries"])
     sleep 1

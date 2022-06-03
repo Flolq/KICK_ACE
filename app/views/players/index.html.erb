@@ -1,11 +1,13 @@
-<h1>Players In TOP 100 ATP</h1>
+<div class="container-fluid">
+  <h1>Players In TOP 100 ATP</h1>
 
-<ul>
-  <% @players.each do |player| %>
-    <li>
-      <%= player.ranking %>ème - <%= player.first_name %> <%= player.last_name %>
-       -
-       <%= link_to "more info", player_path(player.id) %>
-    </li>
-  <% end %>
-</ul>
+  <ul class="tennis-list">
+    <% @players.each do |player| %>
+      <li>
+        <%= player.ranking %>ème - <%= player.first_name %> <%= player.last_name %>
+        -
+        <%= link_to "more info", player_path(player.id) %>
+      </li>
+    <% end %>
+  </ul>
+</div>
