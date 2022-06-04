@@ -89,6 +89,8 @@ if Player.count.zero?
     player.competitions_won = data["periods"].first["statistics"]["competitions_won"]
     player.matches_played = data["periods"].first["statistics"]["matches_played"]
     player.matches_won = data["periods"].first["statistics"]["matches_won"]
+
+    player.save!
   end
 
   player_rankings_url = "#{URL}/rankings#{ENDPOINT}"
