@@ -61,13 +61,21 @@ class TeamsController < ApplicationController
 
     @team.progress = "bids_submitted"
 
-    @team.selections.each do |selection|
-      selection.progress = "bid_submitted"
+    @kept_selections = []
+    all_selections = @team.selections.group_by { |selection| selection.player_id }
+
+    all_selections.each do |player_id, player_selections|
+      players_selections = player_selections.sort_by { |selection| selection.updated_at }.reverse
+      players_selections[0].progress = "bid_submitted"
+      @kept_selections << players_selections[0]
     end
+
     @teams_non_submitted = @league.teams.select{ |team| team.progress != "bids_submitted" }
     @teams_submitted = @league.teams.select{ |team| team.progress == "bids_submitted" }
 
-    results
+    if @teams_non_submitted.empty?
+      results
+    end
 
     @team.save
   end
@@ -82,7 +90,6 @@ class TeamsController < ApplicationController
     @selections_already_secured.each do |selection|
       @players_selected << selection.player
     end
-
 
     @remaining_players = []
     @players = Player.all
