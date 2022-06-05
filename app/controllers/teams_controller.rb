@@ -26,11 +26,7 @@ class TeamsController < ApplicationController
   def starting
     @team = Team.find(params[:id])
     @league = @team.league
-  end
 
-
-
-  def edit
     @teams_non_submitted = @league.teams.where("progress = 'starting'")
     @teams_submitted = @league.teams.where("progress = 'bids_submitted'")
 
@@ -43,11 +39,14 @@ class TeamsController < ApplicationController
     else
       @players = Player.all
     end
+
     respond_to do |format|
       format.html # Follow regular flow of Rails
       format.text { render partial: 'teams/list', locals: { players: @players }, formats: [:html] }
     end
+  end
 
+  def edit
   end
 
   def update
@@ -71,7 +70,6 @@ class TeamsController < ApplicationController
     results
 
     @team.save
-
   end
 
   def extra_round

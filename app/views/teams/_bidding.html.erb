@@ -35,7 +35,7 @@
 
 <%= link_to "SUBMIT YOUR BIDS", submitted_path(@league, @team), class:"btn btn-dark disabled", data: {enable_button_target: "button" } %>
 
-  <%= form_with url: edit_league_team_path(@league,@team), method: :get, html: { class:
+  <%= form_with url: starting_path(@league,@team), method: :get, html: { class:
     'mb-4', data: { search_target: 'form' } } do |f| %>
     <%= f.text_field :query,
                      class: "form-control",
