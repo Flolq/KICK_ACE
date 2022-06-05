@@ -1,5 +1,5 @@
 
-<div class="container" data-controller = "budget-update enable-button search">
+<div class="container" data-controller = "budget-update enable-button search disable-add">
   <h1>Starting a new round of bids!</h1>
 
 
@@ -44,14 +44,15 @@
                      data: { search_target: 'input', action: 'keyup->search#update' } %>
                      <% end %>
 
-<div class="container d-flex" data-controller="players-selection">
+<div class="container d-flex" data-controller="players-selection counter">
 
   <%= render 'list', players: @remaining_players %>
 
 
-  <div class="my_team m-5 w-75" data-controller = "create-selection">
+  <div class="my_team m-5 w-75" data-controller = "create-selection display-warning">
     <ul class="list-group" id="team" data-players-selection-target="team">
-      <li class="list-group-item"> <strong>MY TEAM</strong> </li>
+      <li class="list-group-item"> <strong>MY TEAM: </strong> </li>
+      <li class="list-group-item"> # of players: <div data-counter-target = "counter" data-disable-add-target = "counter">0</div>  </li>
     </ul>
   </div>
 </div>
