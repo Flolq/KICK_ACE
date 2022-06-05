@@ -74,6 +74,7 @@ class TeamsController < ApplicationController
     @teams_submitted = @league.teams.select{ |team| team.progress == "bids_submitted" }
 
     if @teams_non_submitted.empty?
+      raise
       results
     end
 
@@ -168,7 +169,7 @@ class TeamsController < ApplicationController
     selections = @league.selections
     won_selections = []
     selections.each do |selection|
-      if selection.progress = "bid_won"
+      if selection.progress == "bid_won"
         won_selections << selection
       end
     end
