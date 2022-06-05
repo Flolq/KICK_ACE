@@ -1,6 +1,6 @@
 class TeamsController < ApplicationController
-  before_action :my_secured_selections, only: [:starting, :submitted, :extra_round]
-  before_action :defining_remaining_players, only: [:starting, :submitted, :extra_round]
+  before_action :my_secured_selections, only: [:starting, :submitted, :final]
+  before_action :defining_remaining_players, only: [:starting, :submitted, :final]
 
 
   def new
@@ -74,35 +74,50 @@ class TeamsController < ApplicationController
     @teams_submitted = @league.teams.select{ |team| team.progress == "bids_submitted" }
 
     if @teams_non_submitted.empty?
-      raise
       results
-    end
-
-    @team.save
-  end
-
-  def extra_round
-    @team = Team.find(params[:id])
-    @team.progress = "bidding"
-    @league = @team.league
-    @players_selected = []
-    @selections_already_secured = Selection.where("progress = ?", "bid_won")
-
-    @selections_already_secured.each do |selection|
-      @players_selected << selection.player
-    end
-
-    @remaining_players = []
-    @players = Player.all
-    @players.each do |player|
-      unless @players_selected.include?(player)
-        @remaining_players << player
+      if @current_user_won_results.length == 8
+        @team.progress = "finalized"
+        redirect_to final_path(@league, @team)
       end
     end
+
+    @teams_non_finalized = @league.teams.select{ |team| team.progress != "finalized" }
+    @teams_finalized = @league.teams.select{ |team| team.progress == "finalized" }
+
     @team.save
+
+  end
+
+  def final
+    @team = Team.find(params[:id])
+    @league = @team.league
+    @teams_non_finalized = @league.teams.select{ |team| team.progress != "finalized" }
+    @teams_finalized = @league.teams.select{ |team| team.progress == "finalized" }
+
   end
 
 
+
+  # def extra_round
+  #   @team = Team.find(params[:id])
+  #   @team.progress = "bidding"
+  #   @league = @team.league
+  #   @players_selected = []
+  #   @selections_already_secured = Selection.where("progress = ?", "bid_won")
+
+  #   @selections_already_secured.each do |selection|
+  #     @players_selected << selection.player
+  #   end
+
+  #   @remaining_players = []
+  #   @players = Player.all
+  #   @players.each do |player|
+  #     unless @players_selected.include?(player)
+  #       @remaining_players << player
+  #     end
+  #   end
+  #   @team.save
+  # end
 
   def show
     @team = Team.find(params[:id])
@@ -118,8 +133,13 @@ class TeamsController < ApplicationController
   end
 
   def results
-    selections = @league.selections
-    selections = selections.group_by { |selection| selection.player_id }
+    league_selections = @league.selections
+    submitted_selections = []
+    league_selections.each do |selection|
+      submitted_selections << selection if selection.progress == "bid_submitted"
+    end
+
+    selections = league_selections.group_by { |selection| selection.player_id }
     @results = []
     @current_user_won_results = []
     @opponents_won_results = []
@@ -183,6 +203,5 @@ class TeamsController < ApplicationController
         @remaining_players << player
       end
     end
-
   end
 end

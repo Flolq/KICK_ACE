@@ -26,7 +26,7 @@ Rails.application.routes.draw do
 
   get "leagues/:id/teams/:id/starting", to: "teams#starting", as: :starting
   get "leagues/:id/teams/:id/submitted", to: "teams#submitted", as: :submitted
-  get "leagues/:id/teams/:id/extra_round", to: "teams#extra_round", as: :extra_round
+  get "leagues/:id/teams/:id/final", to: "teams#final", as: :final
 
   resources :matches, only: [:index]
 

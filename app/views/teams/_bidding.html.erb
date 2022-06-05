@@ -33,7 +33,7 @@
   <h3 class = "text-center">Place your bids on 8 players!</h3>
 
 
-<%= link_to "SUBMIT YOUR BIDS", submitted_path(@league, @team), class:"btn btn-dark disabled", data: {enable_button_target: "button" } %>
+<%= link_to "SUBMIT YOUR BIDS", submitted_path(@league, @team), class:"btn btn-dark disabled", data: {enable_button_target: "button" }, remote: true %>
 
   <%= form_with url: starting_path(@league,@team), method: :get, html: { class:
     'mb-4', data: { search_target: 'form' } } do |f| %>
