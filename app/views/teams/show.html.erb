@@ -54,11 +54,24 @@
     </div>
   </div>
 
+
   <ul class="carousel">
     <% @selections.each do |selection| %>
-      <li class="carousel__item" data-action="click->statistics#revealContent" data-statistics-player-value="<%= selection.player.last_name %>">
-        <div class="carousel__item-wrapper" style="background: url(<%= image_path "players/#{selection.player.last_name.downcase}.png" %>);"><p><%= selection.player.last_name %></p></div>
+      <% player = selection.player %>
+      <li class="carousel__item" data-action="click->statistics#revealContent" data-statistics-id-param="<%= player.id %>">
+        <div class="carousel__item-wrapper" style="background: url(<%= image_path "players/#{player.last_name.downcase}.png" %>);"><p><%= player.last_name %></p></div>
       </li>
+      <div class="card-statistics d-none" data-statistics-target="content" data-statistics-player-value="<%= player.id %>">
+         <div><h3>Statistics this year</h3></div>
+         <div>
+           <p>Date of birth: <%= player.date_of_birth %></p>
+           <p>Competitions played: <%= player.competitions_played %></p>
+           <p>Competitions won: <%= player.competitions_won %></p>
+           <p>Matches played: <%= player.matches_played %></p>
+           <p>Matches won: <%= player.matches_won %></p>
+           <p>Points earned: <%= selection.player_points %> points</p>
+         </div>
+       </div>
     <% end %>
   </ul>
   <div class="carousel__controls">
@@ -66,16 +79,6 @@
     <button class="carousel__controls--right" data-action="click->statistics#removeContent"><i class="fa-solid fa-circle-chevron-right"></i></button>
   </div>
 
-  <div class="card-statistics d-none" data-statistics-target="content">
-    <div><h3>Statistics this year</h3></div>
-    <div>
-      <p>Date of birth: </p>
-      <p>Competitions played: </p>
-      <p>Competitions won: </p>
-      <p>Matches played: </p>
-      <p>Matches won: </p>
-    </div>
-  </div>
 
 
  <%# <div class="button-btml center"><%= link_to "Back to my league", league_path(params[:league_id]), class: "bouton-transp center" %></div>
