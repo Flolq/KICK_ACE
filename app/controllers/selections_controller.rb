@@ -15,7 +15,6 @@ class SelectionsController < ApplicationController
     @selection.save
   end
 
-
   def update
     @selection = Selection.find(params[:id])
 
@@ -24,6 +23,16 @@ class SelectionsController < ApplicationController
     else
       render "teams/show"
     end
+
+    # respond_to do |format|
+    #   if @selection.update(selection_params)
+    #     format.html { redirect_to team_path(@selection.team), notice: 'Task was successfully updated.' }
+    #     format.json { render :show, status: :ok, location: @selection }
+    #   else
+    #     format.html { render :edit }
+    #     format.json { render json: @selection.errors, status: :unprocessable_entity }
+    #   end
+    # end
   end
 
   def destroy

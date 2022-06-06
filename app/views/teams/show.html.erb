@@ -2,55 +2,33 @@
   <h1>Manage my team</h1>
   <div class="box-drag-drop">
     <div class="drag-drop row" data-statistics-target="drag">
-      <div class="col-3">
-        <div class="center">
-          <% (1..6).to_a.each do |i| %>
-            <div class="player-ranking center">
-              Player <%= i %> :
+      <div id="players" data-controller="sortable" data-sortable-animation-value="250" data-sortable-resource-name-value="selection">
+        <% @selections.each do |selection| %>
+          <% if selection.position == 7 || selection.position == 8 %>
+            <div class="col-6">
+              <div class="card-product" data-sortable-update-url="<%= selection_path(selection) %>">
+                <div class="card-product-infos">
+                  <%= image_tag 'tennis-ball-green.png'%>
+                  <div><%= selection.position %></div>
+                  <div><%= selection.player.last_name %></div>
+                </div>
+                <i class="fa-solid fa-grip"></i>
+              </div>
             </div>
-          <% end %>
-        </div>
-        <div>
-          <% (7..8).to_a.each do |i| %>
-            <div class="player-ranking substitute center">
-              Subsitute:
-            </div>
-          <% end %>
-        </div>
-      </div>
-      <div class="col-4 center">
-        <div id="players" data-controller="sortable" data-sortable-animation-value="150" data-sortable-resource-name-value="selection">
-          <% @selections.each_with_index do |selection,index| %>
-            <div class="card-product" data-sortable-update-url="<%= selection_path(selection) %>">
-              <%= image_tag 'tennis-ball-green.png'%>
-              <div class="card-product-infos">
-                <h2><%= selection.player.last_name %></h2>
+          <% else %>
+            <div class="col-12">
+              <div class="card-product" data-sortable-update-url="<%= selection_path(selection) %>">
+                <div class="card-product-infos-important">
+                  <%= image_tag 'tennis-ball-green.png'%>
+                  <div class="card-product-position"><%= selection.position %></div>
+                  <div><%= selection.player.last_name %></div>
+                </div>
+                <i class="fa-solid fa-grip"></i>
               </div>
             </div>
           <% end %>
-        </div>
+        <% end %>
       </div>
-      <div class="col-3">
-        <div class="center">
-          <% (1..6).to_a.each do |i| %>
-            <div class="player-ranking center">
-              pts : x <%= 11 - i %>
-            </div>
-          <% end %>
-        </div>
-        <div>
-          <% (7..8).to_a.each do |i| %>
-            <div class="player-ranking substitute center">
-              pts : x 0
-            </div>
-          <% end %>
-        </div>
-      </div>
-      <i class="titulaires-box"></i>
-      <i class="substitutes-box"></i>
-    </div>
-    <div class= "player-stats" data-statistics-target="stats">
-      <h1>Players stats</h1>
     </div>
   </div>
 
@@ -58,20 +36,22 @@
   <ul class="carousel">
     <% @selections.each do |selection| %>
       <% player = selection.player %>
-      <li class="carousel__item" data-action="click->statistics#revealContent" data-statistics-id-param="<%= player.id %>">
+      <li class="carousel__item" data-action="click->statistics#revealContent" data-statistics-player-id-param="<%= player.id %>">
         <div class="carousel__item-wrapper" style="background: url(<%= image_path "players/#{player.last_name.downcase}.png" %>);"><p><%= player.last_name %></p></div>
       </li>
-      <div class="card-statistics d-none" data-statistics-target="content" data-statistics-player-value="<%= player.id %>">
-         <div><h3>Statistics this year</h3></div>
-         <div>
-           <p>Date of birth: <%= player.date_of_birth %></p>
-           <p>Competitions played: <%= player.competitions_played %></p>
-           <p>Competitions won: <%= player.competitions_won %></p>
-           <p>Matches played: <%= player.matches_played %></p>
-           <p>Matches won: <%= player.matches_won %></p>
-           <p>Points earned: <%= selection.player_points %> points</p>
-         </div>
-       </div>
+      <div class="card-statistics d-none"
+           data-statistics-target="content"
+           data-statistics-player-id="<%= player.id %>">
+        <div><h3>Statistics this year</h3></div>
+        <div>
+          <p>Date of birth: <%= player.date_of_birth %></p>
+          <p>Competitions played: <%= player.competitions_played %></p>
+          <p>Competitions won: <%= player.competitions_won %></p>
+          <p>Matches played: <%= player.matches_played %></p>
+          <p>Matches won: <%= player.matches_won %></p>
+          <p>Points earned: <%= selection.player_points %> points</p>
+        </div>
+      </div>
     <% end %>
   </ul>
 
