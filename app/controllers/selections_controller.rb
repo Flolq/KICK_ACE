@@ -17,16 +17,18 @@ class SelectionsController < ApplicationController
 
   def update
     @selection = Selection.find(params[:id])
-
-    if @selection.update(selection_params)
-      redirect_to team_path(@selection.team)
-    else
-      render "teams/show"
-    end
-
+    @team = @selection.team
+    @selections = @team.selections.order(:position)
+    selection_to_move = @selections.delete(@selection)
+    @selections.insert(params[:position], selection_to_move)
+    @selections.save!
+    #   redirect_to team_path(@selection.team)
+    # else
+    #   render "teams/show"
+    # end
     respond_to do |format|
       format.html { redirect_to team_path(@selection.team) }
-      format.text { raise }
+      format.text { render partial: 'teams/players_drag', locals: { selections: @selections }, formats: [:html] }
     end
   end
 

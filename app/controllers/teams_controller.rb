@@ -134,7 +134,7 @@ class TeamsController < ApplicationController
     @selections.each do |selection|
       player = selection.player
       matches = Match.where(player1: player).or(Match.where(player2: player)).order(date: :desc)
-      if selection.player_points.zero?
+      if selection.player_points == 0
         points = player_points(matches, player)
         selection.player_points = points * BONUS_MULTIPLICATOR["pos#{selection.position}".to_sym]
         selection.save!

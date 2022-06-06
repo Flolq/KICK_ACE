@@ -13,17 +13,17 @@ export default class extends Controller {
     const sortable = new Sortable(el, {
       onEnd: function(evt) {
         const patch_url = evt.item.firstElementChild.getAttribute("data-sortable-update-url")
-
         fetch(patch_url, {
           method: "PATCH",
-          headers: { "Accept": "text/plain", "X-CSRF-Token": csrfToken() },
-          body: evt.oldIndex
+          headers: {  "Accept": "text/plain", "X-CSRF-Token": csrfToken(), 'Content-Type': 'application/json' },
+          body: JSON.stringify({ "position": evt.newIndex })
         })
           .then(response => response.text())
           .then((data) => {
-            console.log(data)
+            el.innerHTML = data
           })
       }
     })
   }
 }
+// {selection: {position: evt.oldIndex}}
