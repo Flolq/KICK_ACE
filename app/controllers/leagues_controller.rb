@@ -28,6 +28,7 @@ class LeaguesController < ApplicationController
   def edit
     @league = League.find(params[:id])
     @teams = @league.teams
+    @token = @league.token
   end
 
 
@@ -36,6 +37,11 @@ class LeaguesController < ApplicationController
     @league.update(league_params)
 
     redirect_to edit_league_path(@league)
+  end
+
+  def token
+    league = League.find_by(token: params[:token])
+    redirect_to edit_league_path(league)
   end
 
 

@@ -27,7 +27,10 @@ Rails.application.routes.draw do
   get "leagues/:id/teams/:id/starting", to: "teams#starting", as: :starting
   get "leagues/:id/teams/:id/submitted", to: "teams#submitted", as: :submitted
   get "leagues/:id/teams/:id/final", to: "teams#final", as: :final
+  get "leagues/token/:token", to: "leagues#token", as: :token
+
 
   resources :matches, only: [:index]
+
 
 end

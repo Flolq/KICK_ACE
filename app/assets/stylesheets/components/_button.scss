@@ -30,12 +30,22 @@
   font-weight: lighter;
   border: 0.2vh solid $orange;
   width: 20vh;
+    cursor: pointer;
   &:hover {
-    background-color: $light-orange;
-    color: $orange;
+    background-color: $orange;
+    color: white;
   }
 }
 
 .button-btml {
   margin-top: 9vh;
+}
+
+.btn-outline-primary {
+  border-color: $orange !important;
+  color: $orange !important;
+  &:hover {
+    background-color: $orange !important;
+    color: white !important;
+  }
 }

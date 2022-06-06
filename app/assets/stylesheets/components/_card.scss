@@ -350,6 +350,7 @@ h1 {
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-direction: column;
   background-color: $light-orange;
   width: 253px;
   height: 130px;
