@@ -26,6 +26,12 @@ class SelectionsController < ApplicationController
     end
   end
 
+  def destroy
+    @selection = Selection.find([params[:id]])
+    @selection.destroy
+  end
+
+
   private
 
   def selection_params
