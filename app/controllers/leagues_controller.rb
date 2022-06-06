@@ -12,6 +12,9 @@ class LeaguesController < ApplicationController
     @league = League.new(league_params)
     @league.owner = current_user
     if @league.save
+      @chatroom = Chatroom.new
+      @chatroom.league = @league
+      @chatroom.save
       redirect_to edit_league_path(@league)
     else
       render :new
@@ -23,6 +26,7 @@ class LeaguesController < ApplicationController
     @teams = @league.teams
     @team = Team.where(["league_id = ? and user_id = ?", params[:id], current_user.id]).first
     @selections = @team.selections.sort_by { |player| player[:position] }
+    @chatroom = Chatroom.where("league_id = ?", params[:id]).first
   end
 
   def edit
