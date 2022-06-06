@@ -10,15 +10,9 @@ class User < ApplicationRecord
   has_many :leagues, through: :teams
   has_many :selections, through: :teams
   has_many :messages
-  # after_invitation_accepted :invite_accepted
+  after_invitation_accepted :invite_accepted
 
-  # def invite_sent
-  #   redirect_to leagues_path
-  # end
-
-  # def redirect
-  #   if self.created_by_invite?
-  #     redirect_to leagues_path
-  #   end
-  # end
+  def invite_accepted
+    redirect_to leagues_path
+  end
 end

@@ -1,11 +1,11 @@
-:root {
-  --card-height: 40vw;
-  --card-max-height: 305px;
-  --card-min-height: 240;
-  --card-width: 40vw;
-  --card-max-width: 225px;
-  --card-min-width: 180px;
-}
+// :root {
+//   --card-height: 40vw;
+//   --card-max-height: 305px;
+//   --card-min-height: 240;
+//   --card-width: 40vw;
+//   --card-max-width: 225px;
+//   --card-min-width: 180px;
+// }
 
 
 .carousel {
@@ -25,12 +25,12 @@
   position: absolute;
   height: 0px;
   width: 0px;
-  height: var(--card-height);
-  width: var(--card-width);
-  max-width: var(--card-max-width);
-  max-height: var(--card-max-height);
-  min-height: var(--card-min-height);
-  min-width: var(--card-min-width);
+  height: 40vw;
+  width: 40vw;
+  max-width: 225px;
+  max-height: 305px;
+  min-height: 240px;
+  min-width: 180px;
   top: 7vh;
   right: 0;
   left: 0;
@@ -42,7 +42,7 @@
   border-radius: 1.5vmax;
   opacity: 0;
   p{
-    color: $white;
+    color: black;
     bottom: -10px;
     font-size: 12px;
     font-weight: lighter;

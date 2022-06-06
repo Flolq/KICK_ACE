@@ -1,6 +1,6 @@
 .navbar {
-  border-bottom: 1px solid $orange;
-  margin-bottom: 15px;
+  border-bottom: 0.2vh solid $orange;
+  margin-bottom: 2vh;
 }
 
 .items {
@@ -9,38 +9,37 @@
   justify-content: space-between;
   align-items: center;
   width: 100%;
-  height: 35px;
+  height: 5vh;
   background-color: white;
 }
 
 .button-navbar {
   position: relative;
-  width: 30px;
-  font-size: 25px;
+  font-size: 4vh;
 }
 
 .link-navbar {
   position: absolute;
-  right: 10px;
-  top: 60px;
+  right: 2vh;
+  top: 9vh;
+  padding: 2vh;
   display: flex;
   flex-direction: column;
   background-color: $light-orange;
-  padding: 10px;
-  border-radius: 10px;
+  border-radius: 2vh;
   a {
     color: $orange;
   }
 }
 
-.dropdown-menu {
-  background: $orange;
-  border-radius: 15px;
-  font-size: 12px;
-}
+// .dropdown-menu {
+//   background: $orange;
+//   border-radius: 1.5vh;
+//   font-size: 2vh;
+// }
 
-.dropdown-item:hover{
-  background: $orange;
-  color: $orange;
-  font-weight: bolder;
-}
+// .dropdown-item:hover{
+//   background: $orange;
+//   color: $orange;
+//   font-weight: bolder;
+// }
