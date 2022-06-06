@@ -10,10 +10,11 @@ Rails.application.routes.draw do
   resources :users, only: [:show]
   resources :leagues, only: [:new, :create, :show, :edit, :update, :index] do
     resources :teams, only: [:new, :create, :edit, :update, :show]
-    resources :chatrooms, only: [:show] do
-      resources :messages, only: [:create]
-    end
     resources :rounds, only: [:show]
+  end
+
+  resources :chatrooms, only: [:show] do
+    resources :messages, only: [:create]
   end
 
   resources :selections, only: [:new, :create,:edit, :update, :destroy]
