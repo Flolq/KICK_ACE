@@ -1,0 +1,33 @@
+.homescroller {
+  background-image: linear-gradient(to bottom, rgba(255, 255, 255,0.2), rgba(255, 255, 255,0.2)),
+  url('tennis-court.jpeg');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  object-fit: cover;
+  position: absolute;
+  z-index: 2;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-radius: 5px;
+  h1 {
+    margin-top: 65vh;
+    color: white;
+    text-shadow: 1px white;
+    font-size: 35px;
+  }
+}
+
+.button-home {
+  margin-top: 2vh;
+  width: 143px;
+}
+
+.button-home:hover {
+  border: 2px solid white;
+  border-radius: 10px;
+}

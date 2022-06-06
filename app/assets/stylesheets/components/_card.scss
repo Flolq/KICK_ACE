@@ -40,6 +40,12 @@
   align-items: center;
 }
 
+.carousel-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .card-carousel {
   margin-top: 15px;
   margin-bottom: 15px;
@@ -49,13 +55,6 @@
   position: relative
 }
 
-
-.racket {
-  position: absolute;
-  left: 5%;
-  bottom: 10%;
-  transform: rotate(-140deg);
-}
 
 .carousel-league {
   display: flex;
@@ -72,26 +71,21 @@
   }
 }
 
-.carousel-news {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: $light-orange;
-  width: 223px;
-  height: 130px;
-  border-radius: 10px;
-  padding-left: 30px;
-  padding-right: 30px;
-  a {
-    color: $orange;
-  }
-}
+// .carousel-news {
+//   display: flex;
+//   justify-content: center;
+//   align-items: center;
+//   background-color: $light-orange;
+//   width: 223px;
+//   height: 130px;
+//   border-radius: 10px;
+//   padding-left: 30px;
+//   padding-right: 30px;
+//   a {
+//     color: $orange;
+//   }
+// }
 
-.stream-logo {
-  position: absolute;
-  left: 5%;
-  top: 5%;
-}
 
 .fa-circle-chevron-left {
   position: absolute;
@@ -293,5 +287,80 @@ h1 {
   p {
     font-size: 12px;
     line-height: 1.2;
+  }
+}
+
+.card-league {
+  background: $light-orange;
+  border-radius: 10px;
+  height: 50px;
+  width: 100%;
+  margin-top: 10px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  color: $orange;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  .racket {
+    transform: rotate(-140deg);
+  }
+}
+
+.card-league-add {
+  background: rgba(128, 128, 128, 0.1);
+  border-radius: 10px;
+  height: 50px;
+  width: 90%;
+  margin-top: 10px;
+  margin-bottom: 30px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  color: grey;
+  border: dotted 1px grey;
+  a {
+    color: grey;
+    font-size: 30px;
+  }
+}
+
+.scroll {
+  width: 100%;
+  height: 120px;
+  overflow-x: hidden;
+  overflow-y: auto;
+  text-align: center;
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.carousel-news {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: $light-orange;
+  width: 253px;
+  height: 130px;
+  border-radius: 10px;
+  padding-left: 30px;
+  padding-right: 30px;
+  margin: 15px;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  a {
+    color: $orange;
+  }
+  p {
+    width: auto;
+  }
+  position: relative;
+  .stream-logo {
+    position: absolute;
+    top: 5px;
+    left: 5px;
   }
 }
