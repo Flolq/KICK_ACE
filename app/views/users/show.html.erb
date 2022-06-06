@@ -13,14 +13,14 @@
 
   <div class= "center-flex">
     <div class="scroll">
-      <div class="card-league">
         <% @leagues.each do |league| %>
+        <div class="card-league">
           <div class="racket">
             <%= image_tag 'racket.png', width: '50px' %>
           </div>
           <div><h3><%= link_to league.name, league_path(league) %></h3></div>
+        </div>
         <% end %>
-      </div>
     </div>
     <div class="card-league-add">
       <%= link_to "+", new_league_path %>

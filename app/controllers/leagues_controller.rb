@@ -28,6 +28,7 @@ class LeaguesController < ApplicationController
   def edit
     @league = League.find(params[:id])
     @teams = @league.teams
+    @token = @league.token
   end
 
 
