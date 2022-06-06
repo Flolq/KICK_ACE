@@ -1,6 +1,13 @@
 <ul>
   <% @leagues.each do |league| %>
-      <li><%= league.name %> <%= link_to "Join League", edit_league_path(league) %>
- </li>
+      <% if league.teams.count >= league.number_of_users %>
+        <li><%= league.name %> (the league is full, sorry!) </li>
+      <% elsif league.users.include?(current_user)%>
+        <li><%= league.name %> </li>
+      <% else %>
+        <li><%= league.name %> <%= link_to "Join League", edit_league_path(league) %></li>
+      <% end %>
   <% end %>
 </ul>
+
+  <%= link_to "Create a new league", new_league_path %>

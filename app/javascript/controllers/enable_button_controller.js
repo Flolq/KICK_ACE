@@ -9,7 +9,6 @@ export default class extends Controller {
   enable(event) {
     event.preventDefault()
     const nb_secured_players = parseInt(this.securedTarget.innerHTML,10)
-    console.log(nb_secured_players)
     let values = []
     this.playerTargets.forEach(element => values.push(parseInt(element.value, 10)))
     if ((values.filter((a) => a).length > (7 - nb_secured_players)) && (parseInt(this.budgetTarget.innerHTML, 10) > 0)) {
