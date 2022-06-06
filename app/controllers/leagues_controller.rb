@@ -38,6 +38,11 @@ class LeaguesController < ApplicationController
     redirect_to edit_league_path(@league)
   end
 
+  def token
+    league = League.find_by(token: params[:token])
+    redirect_to edit_league_path(league)
+  end
+
 
   private
 

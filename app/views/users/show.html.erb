@@ -31,24 +31,15 @@
 
   <div class="marquee">
     <div class="marquee-content">
-      <div class="carousel-news">
-        <div class="stream-logo">
-          <%= image_tag 'stream-black.png', width: '20px' %>
-        </div>
-        <p>Nadal and Djokovic have both won 41 per cent of first-serve return points, but the World No. 1 holds the edge on second-serve return, where he has claimed 63 per cent of the points on offer, compared to Nadal</p>
-      </div>
-      <div class="carousel-news">
-        <div class="stream-logo">
+      <% @html_doc.search(".breve").each do |element| %>
+        <div class="carousel-news">
+          <div class="stream-logo">
             <%= image_tag 'stream-black.png', width: '20px' %>
+          </div>
+          <p><%= element.text.strip %></p>
+          <%= link_to "Read article", "https://www.tennisactu.net/#{element.attribute("href").value}", target: "_blank" %>
         </div>
-        <p>blablabla</p>
-      </div>
-      <div class="carousel-news">
-        <div class="stream-logo">
-          <%= image_tag 'stream-black.png', width: '20px' %>
-        </div>
-        <p>bliblibli</p>
-      </div>
+      <% end %>
     </div>
   </div>
 
@@ -122,8 +113,3 @@
       <button type="button" class="carousel-btn" id="next" data-action="click->carousel-news#slideRight" data-carousel-news-target="next">
         <i class="fa-solid fa-chevron-right"></i>
       </button> -->
-
-<!-- <%= @html_doc.each do |element| %>
-  <p><%= element.text.strip %></p>
-  <p><%= element.attribute("href").value %></p>
-<% end %> -->
