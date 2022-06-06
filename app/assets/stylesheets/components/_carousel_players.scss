@@ -7,16 +7,12 @@
   --card-min-width: 180px;
 }
 
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
 
 .carousel {
   height: 15vh;
-  bottom: 0;
+  bottom: 186px;
   left: 0;
+  position: fixed;
 }
 
 .carousel:hover {
@@ -74,6 +70,7 @@
 
 .carousel__controls {
   position: fixed;
+  top: 85vh;
   top: 86vh;
   width: 40vw;
   height: 5vw;
