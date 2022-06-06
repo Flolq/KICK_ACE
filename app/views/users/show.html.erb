@@ -31,11 +31,13 @@
       <div class="marquee-content">
         <% @html_doc.search(".breve").each do |element| %>
           <div class="carousel-news">
-            <div class="stream-logo">
+            <div class="atp-logo">
               <%= image_tag 'atp-logo.png', width: '60vh' %>
             </div>
-            <p><%= element.text.strip %></p>
-            <%= link_to "Read article", "https://www.tennisactu.net/#{element.attribute("href").value}", target: "_blank" %>
+            <div class="text-news">
+              <p><%= element.text.strip %></p>
+              <%= link_to "Read article", "https://www.tennisactu.net/#{element.attribute("href").value}", target: "_blank" %>
+            </div>
           </div>
         <% end %>
       </div>
