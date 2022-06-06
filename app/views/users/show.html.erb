@@ -1,18 +1,66 @@
-<% content_for :head do %>
-  <meta name="turbolinks-cache-control" content="no-cache">
-<% end %>
+<!-- <div class="homescroller">
+  <div class="title-homescroller"><h1>Break the rules !</h1></div>
+  <div class="button-home">
+    <%= image_tag 'logo-kick-ace-white.png', width: '140px' %>
+  </div>
+</div> -->
 
-<div class="container">
-  <h1 class="center">Hi <%= current_user.nickname %> !</h1>
+<div class="container-fluid">
 
-  <% @leagues.each do |league| %>
-    <div class="center"><h3><%= link_to league.name, league_path(league) %></h3></div>
+  <h1>Hi <%= current_user.nickname %> !</h1>
+
+  <h2>My Leagues</h2>
+
+  <div class= "center-flex">
+    <div class="scroll">
+      <div class="card-league">
+        <% @leagues.each do |league| %>
+          <div class="racket">
+            <%= image_tag 'racket.png', width: '50px' %>
+          </div>
+          <div><h3><%= link_to league.name, league_path(league) %></h3></div>
+        <% end %>
+      </div>
     </div>
-  <% end %>
+    <div class="card-league-add">
+      <%= link_to "+", new_league_path %>
+    </div>
+  </div>
+
+  <h2>News</h2>
+
+  <div class="marquee">
+    <div class="marquee-content">
+      <div class="carousel-news">
+        <div class="stream-logo">
+          <%= image_tag 'stream-black.png', width: '20px' %>
+        </div>
+        <p>Nadal and Djokovic have both won 41 per cent of first-serve return points, but the World No. 1 holds the edge on second-serve return, where he has claimed 63 per cent of the points on offer, compared to Nadal</p>
+      </div>
+      <div class="carousel-news">
+        <div class="stream-logo">
+            <%= image_tag 'stream-black.png', width: '20px' %>
+        </div>
+        <p>blablabla</p>
+      </div>
+      <div class="carousel-news">
+        <div class="stream-logo">
+          <%= image_tag 'stream-black.png', width: '20px' %>
+        </div>
+        <p>bliblibli</p>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- <% content_for :head do %>
+  <meta name="turbolinks-cache-control" content="no-cache">
+<% end %> -->
 
   <!-- <div class="card-carousel">
     <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
-      <div class="carousel-inner">
+      <div class="carousel-inner carousel-center">
         <% @leagues.each do |league| %>
           <div class="carousel-item active">
             <div class="carousel-league">
@@ -23,21 +71,18 @@
             </div>
           </div>
         <% end %>
-      </div>
+        </div>
       <div class="button-carousel">
         <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
           <span class="fa-solid fa-circle-chevron-left" aria-hidden="true"></span>
           <span class="visually-hidden">Previous</span>
         </button>
-          <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
           <span class="fa-solid fa-circle-chevron-right" aria-hidden="true"></span>
           <span class="visually-hidden">Next</span>
         </button>
       </div>
-    </div>
-  </div> -->
-
-  <%= link_to "Create a new league", new_league_path %>
+    </div> -->
 
   <!-- <div class="scroller">
     <div>your content</div>
@@ -76,14 +121,9 @@
       </div>
       <button type="button" class="carousel-btn" id="next" data-action="click->carousel-news#slideRight" data-carousel-news-target="next">
         <i class="fa-solid fa-chevron-right"></i>
-      </button>
-
-</div> -->
+      </button> -->
 
 <!-- <%= @html_doc.each do |element| %>
   <p><%= element.text.strip %></p>
   <p><%= element.attribute("href").value %></p>
 <% end %> -->
-
-
-<%= link_to "See all leagues", leagues_path %>
