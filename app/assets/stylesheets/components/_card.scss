@@ -1,19 +1,27 @@
 .card-container {
-  position: relative;
-  .ranking-laurier {
-    position: absolute;
-    left: 43%;
-    bottom: 145px;
-  }
+  width: 100%;
+  display: flex;
+  justify-content: center;
 }
 
 .ranking-card {
-  padding: 10px 0px;
+  padding: 2vh 5vh;
   background: rgba(211, 82, 41, 0.05);
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-  border-radius: 10px;
-  margin-bottom: 25px;
-  margin-top: 25px;
+  box-shadow: 0vh 2vh 2vh rgba(0, 0, 0, 0.25);
+  border-radius: 2vh;
+  margin-bottom: 5vh;
+  margin-top: 3vh;
+  position: relative;
+  .text-ranking {
+    display: flex;
+    flex-direction: column;
+    justify-content: left;
+    align-items: flex-start;
+  }
+  .ranking-laurier {
+    position: absolute;
+    top: -3vh;
+  }
 }
 
 .card-text {
@@ -21,16 +29,16 @@
   font-style: normal;
   text-align: center;
   color: $orange;
-  .title {
-    font-weight: 600;
-    font-size: 20px;
-    line-height: 25px;
-    margin-bottom: 3px;
-  }
   .team {
-    font-size: 12px;
-    line-height: 15px;
+    font-size: 1.5vh;
+    line-height: 2vh;
   }
+}
+
+.title {
+  font-size: 2.5vh;
+  margin-top: 3vh;
+  margin-bottom: 2vh;
 }
 
 .center {
@@ -133,7 +141,18 @@
 }
 
 .card-player-league-view {
+  margin-top: 1vh;
   position: relative;
+  .img-player-league{
+    height: 5vh;
+  }
+}
+
+.player-selection {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
 }
 
 .circle {
@@ -166,20 +185,8 @@ h1 {
   vertical-align: middle;
 }
 
-.position-top-players {
-  position: absolute;
-  bottom : 70px;
-  left: 50px;
-}
-
-.position-bottom-players {
-  position: absolute;
-  bottom : 70px;
-  right: 60px;
-  }
-
 .orange-bot {
-  border-bottom: solid 0.5px $orange;
+  border-bottom: solid 0.2vh $orange;
 }
 
 .player-name {
@@ -363,4 +370,18 @@ h1 {
     top: 5px;
     left: 5px;
   }
+}
+
+.bottom-league-show {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  bottom: 0vh;
+  height: 9vh;
+}
+
+.box-league {
+  flex-grow: 1;
+  align-items: center;
+  justify-content: center;
 }

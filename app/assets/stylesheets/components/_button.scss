@@ -1,34 +1,35 @@
-.carousel-btn {
-  border-radius: 50%;
-  background-color: $orange;
-  border: 0px solid transparent;
-  font-weight: bold;
-  color: white;
-  font-size: 10px;
-  padding: 4px 8px;
-}
+// .carousel-btn {
+//   border-radius: 50%;
+//   background-color: $orange;
+//   border: 0px solid transparent;
+//   font-weight: bold;
+//   color: white;
+//   font-size: 10px;
+//   padding: 4px 8px;
+// }
 
-.disabled-carousel-btn {
-  border-radius: 50%;
-  background-color: #cf856e;
-  border: 0px solid transparent;
-  font-weight: bold;
-  color: rgb(168, 168, 168);
-  font-size: 10px;
-  padding: 4px 8px;
-}
+// .disabled-carousel-btn {
+//   border-radius: 50%;
+//   background-color: #cf856e;
+//   border: 0px solid transparent;
+//   font-weight: bold;
+//   color: rgb(168, 168, 168);
+//   font-size: 10px;
+//   padding: 4px 8px;
+// }
 
 .bouton-transp {
   display: flex;
   justify-content: center;
   align-items: center;
   background: transparent;
-  font-size: 10px;
-  padding: 6px 18px;
-  border-radius: 10px;
+  font-size: 1.5vh;
+  padding: 1vh 3vh;
+  margin: 2.5vh;
+  border-radius: 2vh;
   font-weight: lighter;
-  border: 1px solid $orange;
-  width: 140px;
+  border: 0.2vh solid $orange;
+  width: 20vh;
   &:hover {
     background-color: $light-orange;
     color: $orange;
