@@ -5,15 +5,16 @@ Rails.application.routes.draw do
   end
 
   devise_for :users
-  root to: 'users#show'
+  root to: 'users#homepage'
 
   resources :users, only: [:show]
   resources :leagues, only: [:new, :create, :show, :edit, :update, :index] do
     resources :teams, only: [:new, :create, :edit, :update, :show]
-    resources :chatrooms, only: [:show] do
-      resources :messages, only: [:create]
-    end
     resources :rounds, only: [:show]
+  end
+
+  resources :chatrooms, only: [:show] do
+    resources :messages, only: [:create]
   end
 
   resources :selections, only: [:new, :create,:edit, :update, :destroy]
@@ -27,7 +28,10 @@ Rails.application.routes.draw do
   get "leagues/:id/teams/:id/starting", to: "teams#starting", as: :starting
   get "leagues/:id/teams/:id/submitted", to: "teams#submitted", as: :submitted
   get "leagues/:id/teams/:id/final", to: "teams#final", as: :final
+  get "leagues/token/:token", to: "leagues#token", as: :token
+
 
   resources :matches, only: [:index]
+
 
 end

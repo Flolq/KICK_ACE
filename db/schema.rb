@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_06_05_080039) do
+ActiveRecord::Schema.define(version: 2022_06_06_134046) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -41,7 +41,7 @@ ActiveRecord::Schema.define(version: 2022_06_05_080039) do
     t.bigint "tournament_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.boolean "done"
+    t.boolean "done", default: false
     t.bigint "winner_id"
     t.index ["player1_id"], name: "index_matches_on_player1_id"
     t.index ["player2_id"], name: "index_matches_on_player2_id"
@@ -51,13 +51,11 @@ ActiveRecord::Schema.define(version: 2022_06_05_080039) do
 
   create_table "messages", force: :cascade do |t|
     t.string "content"
-    t.bigint "league_id", null: false
     t.bigint "user_id", null: false
     t.bigint "chatroom_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["chatroom_id"], name: "index_messages_on_chatroom_id"
-    t.index ["league_id"], name: "index_messages_on_league_id"
     t.index ["user_id"], name: "index_messages_on_user_id"
   end
 
@@ -94,7 +92,7 @@ ActiveRecord::Schema.define(version: 2022_06_05_080039) do
   create_table "teams", force: :cascade do |t|
     t.string "name"
     t.string "progress"
-    t.integer "points"
+    t.integer "points", default: 0
     t.bigint "user_id", null: false
     t.bigint "league_id", null: false
     t.datetime "created_at", precision: 6, null: false
@@ -143,7 +141,6 @@ ActiveRecord::Schema.define(version: 2022_06_05_080039) do
   add_foreign_key "matches", "players", column: "winner_id"
   add_foreign_key "matches", "tournaments"
   add_foreign_key "messages", "chatrooms"
-  add_foreign_key "messages", "leagues"
   add_foreign_key "messages", "users"
   add_foreign_key "selections", "players"
   add_foreign_key "selections", "teams"
