@@ -13,6 +13,9 @@ class UsersController < ApplicationController
     @html_doc = Nokogiri::HTML(html_file)
   end
 
+  def homepage
+  end
+
   private
 
   def set_user
