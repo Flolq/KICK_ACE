@@ -27,6 +27,11 @@
 
 
   <br>
+  <% if @teams_submitted.length == @league.number_of_users || @league.round_progress == "bidding_submitted" %>
+     <h3>All teams have placed their bids </h3>
+      <%= link_to "See results & next round", bidding_path(@league, @team), class: "btn btn-success" %>
+
+  <% else %>
 
     <h3>Teams that have placed their bids</h3>
     <ul class="list-group"><% @teams_submitted.each do |team| %></ul>
@@ -38,7 +43,8 @@
       <li class="list-group-item"><%= team.name %> || Player: <%= team.user.nickname %> </li>
     <% end %>
 
-    <a class="btn btn-success" href=".">Refresh</a>
-    <%= link_to "homepage", user_path(current_user) %>
+    <%= link_to "Refresh", submitted_path(@league, @team), class: "btn btn-success" %>
+
+  <% end %>
 
 </div>

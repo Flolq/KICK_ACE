@@ -9,7 +9,7 @@ Rails.application.routes.draw do
 
   resources :users, only: [:show]
   resources :leagues, only: [:new, :create, :show, :edit, :update, :index] do
-    resources :teams, only: [:new, :create, :edit, :update, :show]
+    resources :teams, only: [:new, :create, :show]
     resources :chatrooms, only: [:show] do
       resources :messages, only: [:create]
     end
@@ -24,9 +24,11 @@ Rails.application.routes.draw do
   end
   resources :selections, only: [:update]
 
-  get "leagues/:id/teams/:id/starting", to: "teams#starting", as: :starting
+  get "leagues/:id/teams/:id/bidding", to: "teams#bidding", as: :bidding
   get "leagues/:id/teams/:id/submitted", to: "teams#submitted", as: :submitted
+  get "leagues/:id/teams/:id/recap", to: "teams#recap", as: :recap
   get "leagues/:id/teams/:id/final", to: "teams#final", as: :final
+
 
   resources :matches, only: [:index]
 
