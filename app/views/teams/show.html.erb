@@ -1,39 +1,51 @@
 <div class="container-fluid" data-controller="statistics">
-  <h1>Manage my team</h1>
-  <div class="box-drag-drop">
-    <div class="drag-drop row" data-statistics-target="drag">
-      <div id="players" data-controller="drag-player" data-drag-player-target="team">
-        <%= render 'players_drag', selections: @selections %>
+  <div>
+    <h1>Manage my team</h1>
+    <div class="box-drag-drop" data-statistics-target="drag">
+      <div id="players" class="drag-drop">
+        <% (1..8).to_a.each do |position| %>
+          <div class="row margin-bottom-2">
+            <div class="position"><%= position %></div>
+          </div>
+        <% end %>
+      </div>
+      <%= render 'players_drag', selections: @selections %>
+      <div class="bonuses">
+        <div class="bonuses">x10</div>
+        <div class="bonuses">x8</div>
+        <div class="bonuses">x6</div>
+        <div class="bonuses">x4</div>
+        <div class="bonuses">x2</div>
       </div>
     </div>
-  </div>
 
 
-  <ul class="carousel">
-    <% @selections.each do |selection| %>
-      <% player = selection.player %>
-      <li class="carousel__item" data-action="click->statistics#revealContent" data-statistics-player-id-param="<%= player.id %>">
-        <div class="carousel__item-wrapper" style="background: url(<%= image_path "players/#{player.last_name.downcase}.png" %>);"><p><%= player.last_name %></p></div>
-      </li>
-      <div class="card-statistics d-none"
-           data-statistics-target="content"
-           data-statistics-player-id="<%= player.id %>">
-        <div><h3>Statistics this year</h3></div>
-        <div>
-          <p>Date of birth: <%= player.date_of_birth %></p>
-          <p>Competitions played: <%= player.competitions_played %></p>
-          <p>Competitions won: <%= player.competitions_won %></p>
-          <p>Matches played: <%= player.matches_played %></p>
-          <p>Matches won: <%= player.matches_won %></p>
-          <p>Points earned: <%= selection.player_points %> points</p>
+    <ul class="carousel">
+      <% @selections.each do |selection| %>
+        <% player = selection.player %>
+        <li class="carousel__item" data-action="click->statistics#revealContent" data-statistics-player-id-param="<%= player.id %>">
+          <div class="carousel__item-wrapper" style="background: url(<%= image_path "players/#{player.last_name.downcase}.png" %>);"><p><%= player.last_name %></p></div>
+        </li>
+        <div class="card-statistics d-none"
+            data-statistics-target="content"
+            data-statistics-player-id="<%= player.id %>">
+          <div><h3>Statistics this year</h3></div>
+          <div>
+            <p>Date of birth: <%= player.date_of_birth %></p>
+            <p>Competitions played: <%= player.competitions_played %></p>
+            <p>Competitions won: <%= player.competitions_won %></p>
+            <p>Matches played: <%= player.matches_played %></p>
+            <p>Matches won: <%= player.matches_won %></p>
+            <p>Points earned: <%= selection.player_points %> points</p>
+          </div>
         </div>
-      </div>
-    <% end %>
-  </ul>
+      <% end %>
+    </ul>
 
-  <div class="carousel__controls">
-    <button class="carousel__controls--left" data-action="click->statistics#removeContent"><i class="fa-solid fa-circle-chevron-left"></i></button>
-    <button class="carousel__controls--right" data-action="click->statistics#removeContent"><i class="fa-solid fa-circle-chevron-right"></i></button>
+    <div class="carousel__controls">
+      <button class="carousel__controls--left" data-action="click->statistics#removeContent"><i class="fa-solid fa-circle-chevron-left"></i></button>
+      <button class="carousel__controls--right" data-action="click->statistics#removeContent"><i class="fa-solid fa-circle-chevron-right"></i></button>
+    </div>
   </div>
 
  <%# <div class="button-btml center"><%= link_to "Back to my league", league_path(params[:league_id]), class: "bouton-transp center" %></div>

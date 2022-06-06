@@ -1,7 +1,7 @@
 import { Controller } from "stimulus"
 
 export default class extends Controller {
-  static targets = ["content", "drag", "stats"]
+  static targets = ["content", "drag"]
 
   connect() {
 
@@ -14,12 +14,10 @@ export default class extends Controller {
 
     content.classList.toggle("d-none")
     this.dragTarget.classList.toggle("d-none")
-    this.statsTarget.classList.toggle("d-none")
   }
 
   removeContent() {
     this.contentTargets.forEach(content => content.classList.add("d-none"))
     this.dragTarget.classList.remove("d-none")
-    this.statsTarget.classList.remove("d-none")
   }
 }

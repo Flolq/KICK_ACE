@@ -1,25 +1,12 @@
-<% selections.each do |selection| %>
-  <% if selection.position == 7 || selection.position == 8 %>
-    <div class="col-6">
-      <div class="card-product">
-        <div class="card-product-infos">
-          <%= image_tag 'tennis-ball-green.png'%>
-          <div><%= selection.position %></div>
-          <div><%= selection.player.last_name %></div>
-        </div>
-        <i class="fa-solid fa-grip"></i>
+<div class="row" data-controller="drag-player" data-drag-player-target="team">
+  <% selections.each_with_index do |selection, index| %>
+    <div class="card-product col-12" data-sortable-update-url="<%= selection_path(selection) %>" >
+      <div class="card-product-infos-important">
+        <%= image_tag 'tennis-ball-green.png'%>
+        <div class="card-product-position"><%= selection.position %></div>
+        <div><%= selection.player.last_name %></div>
       </div>
-    </div>
-  <% else %>
-    <div class="col-12">
-      <div class="card-product" data-sortable-update-url="<%= selection_path(selection) %>">
-        <div class="card-product-infos-important">
-          <%= image_tag 'tennis-ball-green.png'%>
-          <div class="card-product-position"><%= selection.position %></div>
-          <div><%= selection.player.last_name %></div>
-        </div>
-        <i class="fa-solid fa-grip"></i>
-      </div>
+      <i class="fa-solid fa-grip"></i>
     </div>
   <% end %>
-<% end %>
+</div>

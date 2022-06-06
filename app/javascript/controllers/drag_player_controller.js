@@ -12,16 +12,15 @@ export default class extends Controller {
 
     const sortable = new Sortable(el, {
       onEnd: function(evt) {
-        const patch_url = evt.item.firstElementChild.getAttribute("data-sortable-update-url")
+        const patch_url = evt.item.getAttribute("data-sortable-update-url")
+        console.log(patch_url)
         fetch(patch_url, {
           method: "PATCH",
           headers: {  "Accept": "text/plain", "X-CSRF-Token": csrfToken(), 'Content-Type': 'application/json' },
           body: JSON.stringify({ "position": evt.newIndex })
         })
           .then(response => response.text())
-          .then((data) => {
-            el.innerHTML = data
-          })
+          .then((data) => {})
       }
     })
   }
