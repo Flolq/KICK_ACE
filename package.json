@@ -16,6 +16,7 @@
     "stimulus": "^3.0.1",
     "stimulus-carousel": "^4.0.0",
     "stimulus-dropdown": "^2.0.0",
+    "stimulus-scroll-progress": "^4.0.0",
     "stimulus-sortable": "^3.2.0",
     "swiper": "^8.2.2",
     "turbolinks": "^5.2.0",

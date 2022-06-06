@@ -1,0 +1,75 @@
+<div class="container text-center w-75">
+  <br>
+  <h1>League: <%= @team.league.name %></h1>
+  <h2>The bidding round is now over!</h2>
+  <h2>Your team: <%= @team.name %></h2>
+  <h2><%= @team.progress %></h2>
+  <br>
+  <h3>Congratulations! You have finalised your team with 8 champions!</h3>
+
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">Player</th>
+        <th scope="col">Your winning bid</th>
+      </tr>
+    </thead>
+    <tbody>
+    <% @my_secured_selections.each do |selection| %></ul>
+      <tr>
+        <td><%=Player.find(selection[:player_id]).first_name%> <%=Player.find(selection[:player_id]).last_name%></td>
+        <td><%=selection.price%> m€ </td>
+      </tr>
+    <% end %>
+    <tr>
+      <td></td>
+      <td></td>
+    </tr>
+
+    </tbody>
+  </table>
+
+  <br>
+
+  <h3>Here is a recap of the bids won during the auction rounds!</h3>
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">Player</th>
+        <th scope="col">Winning bid</th>
+        <th scope="col">Winning team</th>
+        <th scope="col">Winning user</th>
+      </tr>
+    </thead>
+    <tbody>
+    <% @opponents_won_results.each do |result| %></ul>
+      <tr>
+        <td><%=Player.find(result[:player_id]).first_name%> <%=Player.find(result[:player_id]).last_name%></td>
+        <td><%=result[:winning_selection].price%> m€ </td>
+        <td><%=result[:winning_team].name%> </td>
+        <td><%=result[:winning_user].nickname%> </td>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
+
+  <% if @teams_non_finalized.empty? %>
+
+    <h2>All teams of the leagues are now finalized!</h2>
+    <h2>Let's get ready to ruuuuuuuuuumble</h2>
+    <a href="#" class = "btn btn-success">GO MANAGE YOUR TEAM</a>
+
+  <% else %>
+
+    <h3>We're still waiting for your fellow opponents to finalize their teams...</h2>
+    <ul class="list-group"><% @teams_non_finalized.each do |team| %></ul>
+      <li class="list-group-item"><%= team.name %> || Player: <%= team.user.nickname %> ||  <%= team.progress%> </li>
+    <% end %>
+
+    <%= link_to "Refresh", submitted_path(@league, @team), class: "btn btn-success" %>
+
+
+  <% end %>
+
+
+</div>

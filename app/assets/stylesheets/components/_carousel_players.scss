@@ -9,7 +9,6 @@
 
 
 .carousel {
-  width: 100vw;
   height: 15vh;
   bottom: 186px;
   left: 0;
@@ -65,13 +64,14 @@
   align-items: flex-end;
   z-index: 1;
   background: black;
-  height: 85%;
+  height: 100%;
   width: 100%;
 }
 
 .carousel__controls {
   position: fixed;
   top: 85vh;
+  top: 86vh;
   width: 40vw;
   height: 5vw;
   left: 0;

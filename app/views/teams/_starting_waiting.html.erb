@@ -3,12 +3,12 @@
 
     <h5>The following people have joined</h5>
     <ul>
-      <%= @league.teams.each do |team| %>
+      <% @league.teams.each do |team| %>
         <li><%= team.name %> (<%= team.user.nickname %>)</li>
       <% end %>
     </ul>
 
     <h5>We're now waiting for other people to join in</h5>
 
-    <a href="" class="btn btn-success">Share the league with your friends!</a>
+    <a href="" class="btn btn-success disabled">Share the league with your friends!</a>
   </div>
