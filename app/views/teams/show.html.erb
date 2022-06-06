@@ -2,11 +2,11 @@
   <h1>Manage my team</h1>
   <div class="box-drag-drop">
     <div class="drag-drop row" data-statistics-target="drag">
-      <div id="players" data-controller="sortable" data-sortable-animation-value="250" data-sortable-resource-name-value="selection">
+      <div id="players" data-controller="drag-player" data-drag-player-target="team">
         <% @selections.each do |selection| %>
           <% if selection.position == 7 || selection.position == 8 %>
             <div class="col-6">
-              <div class="card-product" data-sortable-update-url="<%= selection_path(selection) %>">
+              <div class="card-product">
                 <div class="card-product-infos">
                   <%= image_tag 'tennis-ball-green.png'%>
                   <div><%= selection.position %></div>

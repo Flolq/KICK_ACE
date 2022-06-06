@@ -1,7 +1,7 @@
 import { Controller } from "stimulus"
 
 export default class extends Controller {
-  static targets = ["input","players","form"]
+  // static targets = ["input","players","form"]
 
   connect() {
     // console.log("hello from the search controller")
@@ -10,14 +10,14 @@ export default class extends Controller {
     // console.log(this.playersTarget)
   }
 
-  update() {
-    console.log(this.formTarget.action)
-    const url = `${this.formTarget.action}?query=${this.inputTarget.value}&commit=Search`
-      fetch(url, { headers: { "Accept": "text/plain" } })
-        .then(response => response.text())
-        .then((data) => {
-        this.playersTarget.innerHTML = data
-      })
-  }
+  // update() {
+  //   console.log(this.formTarget.action)
+  //   const url = `${this.formTarget.action}?query=${this.inputTarget.value}&commit=Search`
+  //     fetch(url, { headers: { "Accept": "text/plain" } })
+  //       .then(response => response.text())
+  //       .then((data) => {
+  //       this.playersTarget.innerHTML = data
+  //     })
+  // }
 
 }

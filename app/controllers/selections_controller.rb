@@ -24,15 +24,10 @@ class SelectionsController < ApplicationController
       render "teams/show"
     end
 
-    # respond_to do |format|
-    #   if @selection.update(selection_params)
-    #     format.html { redirect_to team_path(@selection.team), notice: 'Task was successfully updated.' }
-    #     format.json { render :show, status: :ok, location: @selection }
-    #   else
-    #     format.html { render :edit }
-    #     format.json { render json: @selection.errors, status: :unprocessable_entity }
-    #   end
-    # end
+    respond_to do |format|
+      format.html { redirect_to team_path(@selection.team) }
+      format.text { raise }
+    end
   end
 
   def destroy
@@ -44,6 +39,6 @@ class SelectionsController < ApplicationController
   private
 
   def selection_params
-    params.require(:selection).permit(:position, :player_id, :team_id, :price)
+    params.require(:selection).permit(:position)
   end
 end
