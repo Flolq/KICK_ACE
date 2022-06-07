@@ -1,7 +1,10 @@
-<% if @league.teams.length < @league.number_of_users %>
-  <%= render 'bidding_waiting' %>
-<% elsif @league.round_progress == "finalized" %>
-  <%= render 'final'  %>
-<% else %>
-  <%= render 'bidding_active' %>
-<% end %>
+<div class="container-fluid">
+
+  <% if @league.teams.length < @league.number_of_users %>
+    <%= render 'bidding_waiting' %>
+  <% elsif @league.round_progress == "finalized" %>
+    <%= render 'final'  %>
+  <% else %>
+    <%= render 'bidding_active' %>
+  <% end %>
+</div>

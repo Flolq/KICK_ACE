@@ -1,14 +1,16 @@
-  <div class="container">
-    <h1>Thanks for joining the league!</h1>
+  <div class="container-fluid">
+    <div class="white center"><h1>Thanks for joining the league!</h1></div>
 
-    <h5>The following people have joined</h5>
-    <ul>
-      <% @league.teams.each do |team| %>
-        <li><%= team.name %> (<%= team.user.nickname %>)</li>
-      <% end %>
-    </ul>
+    <div class="text-shadow-white"><h5>The following people have joined</h5></div>
+    <div>
+      <ul class="text-shadow-white">
+        <% @league.teams.each do |team| %>
+          <li><%= team.name %> (<%= team.user.nickname %>)</li>
+        <% end %>
+      </ul>
+    </div>
 
-    <h5>We're now waiting for other people to join in</h5>
+    <h3>We're now waiting for other people to join in</h3>
 
-    <a href="" class="btn btn-success disabled">Share the league with your friends!</a>
+    <div class="center"><a href="" class="center bouton-transp-share">Share the league with your friends!</a></div>
   </div>
