@@ -57,7 +57,10 @@ class TeamsController < ApplicationController
     search_players
 
     if @team.progress == "bids_submitted"
-      auctions
+      if @league.round_progress != "auctions_closed"
+        auctions
+        @league.round_progress = "auctions_closed"
+      end
       updating_budget
     end
 
@@ -67,15 +70,19 @@ class TeamsController < ApplicationController
     if @current_user_secured_selections.length >= 8
       @team.progress = "finalized"
       @team.save
+
       defining_finalized_teams
+
+      defining_submitted_teams
+
       progressing_league_round_progress
-      render :final
+
+      redirect_to final_path(@league, @team)
+      return
     end
 
     @team.progress = "bidding"
     @team.save
-    @league.round_progress = "bidding_ongoing"
-    @league.save
   end
 
   def recap
@@ -88,24 +95,7 @@ class TeamsController < ApplicationController
 
     @team.progress = "bids_submitted"
 
-    filtered_selections = []
-    @kept_selections = []
-
-    all_selections = @team.selections
-
-    all_selections.each do |selection|
-      unless selection.progress == "bid_won" || selection.progress == "bid_lost"
-        filtered_selections << selection
-      end
-    end
-
-    grouped_selections = filtered_selections.group_by { |selection| selection.player_id }
-    grouped_selections.each do |_player_id, player_selections|
-      players_selections = player_selections.sort_by { |selection| selection.updated_at }.reverse
-      players_selections[0].progress = "bid_submitted"
-      players_selections[0].save
-      @kept_selections << players_selections[0]
-    end
+    filtering_selections
 
     @team.save
 
@@ -119,7 +109,18 @@ class TeamsController < ApplicationController
 
     render :recap
 
+
   end
+
+  def final
+    @team.progress = "finalized"
+    @team.save
+    defining_finalized_teams
+
+    defining_submitted_teams
+
+  end
+
 
   def show
     @team = Team.find(params[:id])
@@ -313,5 +314,30 @@ class TeamsController < ApplicationController
     @league.round_progress = "bidding_submitted" if @teams_submitted.length == @league.number_of_users
     @league.round_progress = "finalized" if @teams_finalized.length == @league.number_of_users
     @league.save
+  end
+
+  def filtering_selections
+    filtered_selections = []
+    @kept_selections = []
+
+    all_selections = @team.selections
+
+    if @league.round_progress == "bidding_submitted"
+      filtered_selections = all_selections
+    else
+      all_selections.each do |selection|
+        unless selection.progress == "bid_won" || selection.progress == "bid_lost"
+          filtered_selections << selection
+        end
+      end
+    end
+
+    grouped_selections = filtered_selections.group_by { |selection| selection.player_id }
+    grouped_selections.each do |_player_id, player_selections|
+      players_selections = player_selections.sort_by { |selection| selection.updated_at }.reverse
+      players_selections[0].progress = "bid_submitted"
+      players_selections[0].save
+      @kept_selections << players_selections[0]
+    end
   end
 end
