@@ -24,12 +24,21 @@ class LeaguesController < ApplicationController
 
   def show
     @league = League.find(params[:id])
-    @teams = @league.teams.order(points: :desc)
     @team = Team.where(["league_id = ? and user_id = ?", params[:id], current_user.id]).first
-    @selections = @team.selections.sort_by { |player| player[:position] }
-    @chatroom = Chatroom.where("league_id = ?", params[:id]).first
-    if !@chatroom.nil?
-      @message = @chatroom.messages.last
+    if !@team
+      redirect_to edit_league_path(@league)
+    elsif @league.teams.length < @league.number_of_users
+      redirect_to bidding_path(@league, @team)
+      return
+    else
+      @league = League.find(params[:id])
+      @teams = @league.teams.order(points: :desc)
+      @team = Team.where(["league_id = ? and user_id = ?", params[:id], current_user.id]).first
+      @selections = @team.selections.sort_by { |player| player[:position] }
+      @chatroom = Chatroom.where("league_id = ?", params[:id]).first
+      if !@chatroom.nil?
+        @message = @chatroom.messages.last
+      end
     end
   end
 
