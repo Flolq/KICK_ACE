@@ -1,5 +1,5 @@
 .team {
-  font-size: 2vh;
+  font-size: 16px;
   font-weight: bold;
   line-height: 2vh;
   display: flex;
@@ -13,7 +13,7 @@
     width: 10vw;
   }
   img {
-    margin-right: 2vh;
+    margin-right: 12px;
   }
   .team-name {
     flex-grow: 1;
@@ -40,13 +40,26 @@
   }
   .ranking-laurier {
     position: absolute;
-    top: -5vh;
-    left: 18vh;
+    top: -9vw;
+    left: 36vw;
   }
   .title {
-    font-size: 4vh;
+    font-size: 32px;
     font-weight: bold;
     text-align: center;
     font-family: $second-headers-font;
   }
+}
+
+#team-name {
+  text-align: center;
+  margin-bottom: 5vw;
+  letter-spacing: 5px;
+  font-family: $second-headers-font;
+  font-size: 24px;
+  font-weight: bold;
+  background-size: cover;
+  background-position: center;
+  padding: 20px 0;
+  border-bottom: 1px solid #D35229;
 }
