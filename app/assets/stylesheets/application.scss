@@ -73,7 +73,12 @@ p {
 }
 
 .text-shadow-white {
-  text-shadow: 0px 0px 1px white;
+  color: rgb(1, 60, 1);
+}
+
+
+.green {
+  color: rgb(1, 60, 1);
 }
 
 .center-div {
@@ -83,4 +88,10 @@ p {
 
 .color-darker {
   color: black;
+}
+
+.back-shadow {
+  background: rgba(255, 255, 255, 0.7);
+  box-shadow: 0vh 2vh 2vh rgba(0, 0, 0, 0.25);
+  padding: 2vh;
 }

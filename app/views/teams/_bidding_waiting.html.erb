@@ -1,24 +1,26 @@
 <div class="container-fluid">
   <div class="white center"><h1>Thanks for joining the league!</h1></div>
 
-  <div class="color-darker"><h5>The following people have joined</h5></div>
-  <div>
-    <ul class="color-darker">
-      <% @league.teams.each do |team| %>
-        <li><%= team.name %> (<%= team.user.nickname %>)</li>
+  <div class="back-shadow">
+    <div class="color-darker"><h5>The following people have joined</h5></div>
+    <div class="text-ranking mt-4 mb-4">
+      <% @league.teams.each_with_index do |team, index| %>
+        <div class="team">
+          <div class="team-position"><%= index + 1 %></div>
+          <div class="team-name"><%= team.name %></div>
+        </div>
       <% end %>
-    </ul>
-  </div>
-
-  <h3 class="color-darker">We're now waiting for other people to join in</h3>
-
-  <div class="form-edit-league">
-    <div>Invite your friends!</div>
-    <div class="input-group" data-controller="clipboard" data-clipboard-feedback-text-value="Copied!">
-      <input class="form-control" data-clipboard-target="input" type="text" value="http://localhost:3000/leagues/<%= @league.id%>/teams/new" readonly>
-      <div class="input-group-append">
-        <button id="copy-button" class="btn btn-outline-primary" data-action="click->clipboard#copy">Copy link</button>
+    </div>
+    <h3 class="color-darker">We're now waiting for other people to join</h3>
+    <div class="form-edit-league">
+      <div>Invite friends!</div>
+      <div class="input-group" data-controller="clipboard" data-clipboard-feedback-text-value="Copied!">
+        <input class="form-control" data-clipboard-target="input" type="text" value="http://www.kick-ace.me/leagues/<%= @league.id%>/teams/new" readonly>
+        <div class="input-group-append">
+          <button id="copy-button" class="btn btn-outline-primary" data-action="click->clipboard#copy">Copy link</button>
+        </div>
       </div>
     </div>
   </div>
+
 </div>

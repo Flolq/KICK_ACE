@@ -1,16 +1,14 @@
-<table class="table">
-  <thead>
-        <tr>
-          <th scope="col">Player</th>
-          <th scope="col">Your winning bid</th>
-        </tr>
-      </thead>
-      <tbody>
-      <% @current_user_secured_selections.each do |selection| %></ul>
-        <tr>
-          <td><%=Player.find(selection[:player_id]).first_name%> <%=Player.find(selection[:player_id]).last_name%></td>
-          <td><%=selection.price%> m€ </td>
-        </tr>
-      <% end %>
-      </tbody>
-</table>
+<div class="secured-team-box">
+  <p class = "title-auctions">You already secured the below players</p>
+  <% @current_user_secured_selections.each do |selection| %>
+  <div class="secured-player-list">
+    <div class = "player-name">
+      <%=Player.find(selection[:player_id]).first_name%>
+      <%=Player.find(selection[:player_id]).last_name%>
+    </div>
+    <div class = "player-price">
+      <%= selection.price%> m€
+    </div>
+  </div>
+  <% end %>
+</div>

@@ -1,5 +1,5 @@
 
-<div class="container" data-controller = "budget-update enable-button search disable-add players-selection">
+<div class="container" data-controller = "budget-update enable-button search disable-add players-selection counter"">
   <h1 class = "white font-weight-bold big-title">Place your bids!</h1>
 
   <% unless @current_user_secured_selections.empty? %>
@@ -19,50 +19,32 @@
                       <% end %>
 
 
-  <div class="container d-flex flex-column" data-controller="counter" data-search-target = "players">
-    <div class="d-flex justify-content-around font-weight-bold budget-box" data-budget-update-target= "recap">
+  <div class="container d-flex flex-column" data-search-target = "players">
+    <div class="justify-content-around font-weight-bold budget-box" data-budget-update-target= "recap">
         <div>Remaining budget: </div>
         <div data-budget-update-target = "budget" data-enable-button-target = "budget"> <%= @team.budget %> </div> <p data-budget-update-target = "max" class="d-none"><%= @team.budget %> </p>
         <div> m€ </div>
     </div>
 
-    <p class="title-auctions white">AVAILABLE PLAYERS</p>
+    <p class="title-auctions">AVAILABLE PLAYERS</p>
 
     <%= render 'list', players: @remaining_players %>
 
   </div>
 
-  <div class="container border border-warning d-flex flex-column" >
+  <div class="container d-flex flex-column" >
     <p class="title-auctions">MY TEAM</p>
-    <div class="d-flex justify-content-around font-weight-bold team-box"  data-controller = "create-selection display-warning">
-      <div>Number of players left to obtain: </div>
+    <div class="d-flex justify-content-around font-weight-bold count-box "  data-controller = "create-selection display-warning">
+      <div>Number of players to add: </div>
       <div  data-counter-target = "counter" data-disable-add-target = "counter" > <%= 8-@current_user_secured_selections.length %></div><div class="d-none" data-enable-button-target="required"><%= 8-@current_user_secured_selections.length %></div>
     </div>
 
-    <div class="d-flex flex-column team-box" data-players-selection-target="team">
-
-
-        <div class="d-flex team-list">
-          <div class = "player-name">
-            firstname
-            lastname
-          </div>
-          <div class = "player-price">
-            39 m€
-          </div>
-          <div>
-            <%= link_to "scnk", data: {action: "click->enable-button#enable ajax:success->players-selection#update click->players-selection#disable click->disable-add#disable click->counter#reduce", disable_add_target: "players"}, remote: true do %>
-              <i class="plus-icon fa-solid fa-circle-plus align-items-right"></i>
-            <% end %>
-          </div>
-        </div>
-      </div>
-
+    <div class="team-box" data-players-selection-target="team">
+    </div>
 
   </div>
 
-
-    <%= link_to "SUBMIT YOUR BIDS", submitted_path(@league, @team), class:"btn btn-dark disabled text-center", data: {enable_button_target: "button" } %>
-
+  <div class="submit-box">
+    <%= link_to "SUBMIT", submitted_path(@league, @team), class:"btn-submit-bids disabled", data: {enable_button_target: "button" } %>
   </div>
 </div>
