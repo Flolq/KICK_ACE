@@ -1,14 +1,15 @@
 <div class="container-fluid">
   <div class="white"><h1><%= @league.name %></h1></div>
-  <div class="white center text-shadow"><h3>(created by <%= @league.owner.nickname %>)</h3></div>
 
-  <div class="center text-shadow-white"><h2>Here are the teams that have joined the league</h2></div>
-  <div>
-    <ul>
-      <% @teams.each do |team| %>
-          <li><%= team.name %> (<%= team.user.nickname %>)  </li>
-      <% end %>
-    </ul>
+  <div class="back-shadow">
+    <div class="center"><h2>Here are the teams that have joined the league</h2></div>
+    <div>
+      <ul>
+        <% @teams.each do |team| %>
+            <li><%= team.name %> (<%= team.user.nickname %>)  </li>
+        <% end %>
+      </ul>
+    </div>
   </div>
 
   <div class="center">
