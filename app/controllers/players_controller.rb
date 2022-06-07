@@ -23,7 +23,7 @@ class PlayersController < ApplicationController
   }
 
   def index
-    @players = Player.all.first(100)
+    @players = Player.all.first(50)
   end
 
   def show
