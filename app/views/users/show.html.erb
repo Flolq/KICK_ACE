@@ -6,12 +6,14 @@
     <div class="center"><h2 class="white">My Leagues</h2></div>
     <div class="scroll">
         <% @leagues.each do |league| %>
-        <div class="card-league">
-          <!-- <div class="racket">
-            <%= image_tag 'racket.png', width: '45vh' %>
-          </div> -->
-          <div><h3><%= link_to league.name, league_path(league) %></h3></div>
-        </div>
+          <%= link_to league_path(league) do %>
+            <div class="card-league">
+              <!-- <div class="racket">
+                <%= image_tag 'racket.png', width: '45vh' %>
+              </div> -->
+              <div><h3><%= league.name %></h3></div>
+            </div>
+          <% end %>
         <% end %>
     </div>
     <div class="card-league-add">
