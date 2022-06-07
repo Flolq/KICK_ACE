@@ -4,6 +4,7 @@ export default class extends Controller {
   static targets = ["player", "budget", "button", "counter", "required"]
 
   connect() {
+    console.log("hello from the enable button controller")
   }
 
     enable(event) {

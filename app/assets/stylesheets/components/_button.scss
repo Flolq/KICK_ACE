@@ -165,3 +165,23 @@
     color: white;
   }
 }
+
+.btn-submit-bids {
+  background-color: $light-orange;
+  color: $orange;
+  width: 40%;
+  height: 35px;
+  margin: 0 auto;
+  padding-top: 2vh;
+  padding-bottom: 2vh;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  position: fixed;
+  bottom: 70px;
+  justify-content: space-around;
+
+  border-radius: 5px;
+  border: 0.2vh solid $orange;
+
+}
