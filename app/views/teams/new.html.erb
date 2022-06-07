@@ -1,12 +1,13 @@
 <div class="container-fluid">
 
-  <h1>Welcome to the league <%= @league.name %></h1>
-  <h2>Now is the time to create your team of champions</h2>
+  <div class="white center"><h1>Welcome to the league <%= @league.name %> !</h1></div>
+  <div class="center text-shadow-white"><h2>Now is the time to create your team of champions</h2></div>
+  <div class="form-new-team">
+    <%= simple_form_for [@league, @team] do |f| %>
+      <%= f.input :name, label: "Name of your team" %>
+      <%= f.input :photo, as: :file %>
+      <%= f.button :submit, class: 'bouton-transp-submit' %>
+    <% end%>
+  </div>
 
-<br>
-  <%= simple_form_for [@league, @team] do |f| %>
-    <%= f.input :name, label: "Name of your team" %>
-    <%= f.input :photo, as: :file %>
-    <%= f.submit %>
-  <% end%>
 </div>
