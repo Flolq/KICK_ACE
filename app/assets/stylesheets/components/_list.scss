@@ -1,3 +1,15 @@
 .tennis-list {
   list-style: none;
 }
+
+.title {
+  color: $orange;
+}
+
+.players-list {
+  color: black;
+  border-bottom: solid 0.1px;
+  font-size: 12px;
+  padding: 4px;
+  width: 100%;
+}
