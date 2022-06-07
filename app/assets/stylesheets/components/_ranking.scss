@@ -1,0 +1,41 @@
+.team {
+  font-size: 2vh;
+  font-weight: bold;
+  line-height: 2vh;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  width: 100%;
+  padding-bottom: 10px;
+  margin-top: 10px;
+  border-bottom: 1px solid orange;
+  .team-position {
+    width: 10vw;
+  }
+  img {
+    margin-right: 2vh;
+  }
+  .team-name {
+    flex-grow: 1;
+  }
+}
+
+.ranking-card {
+  background: rgba(211, 82, 41, 0.05);
+  box-shadow: 0vh 2vh 2vh rgba(0, 0, 0, 0.25);
+  margin-bottom: 5vh;
+  margin-top: 3vh;
+  position: relative;
+  padding: 2vh;
+  .text-ranking {
+    display: flex;
+    flex-direction: column;
+    justify-content: left;
+    align-items: flex-start;
+    width: 100%;
+  }
+  .ranking-laurier {
+    position: absolute;
+    top: -3vh;
+  }
+}

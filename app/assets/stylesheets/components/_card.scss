@@ -4,35 +4,11 @@
   justify-content: center;
 }
 
-.ranking-card {
-  padding: 2vh 5vh;
-  background: rgba(211, 82, 41, 0.05);
-  box-shadow: 0vh 2vh 2vh rgba(0, 0, 0, 0.25);
-  border-radius: 2vh;
-  margin-bottom: 5vh;
-  margin-top: 3vh;
-  position: relative;
-  .text-ranking {
-    display: flex;
-    flex-direction: column;
-    justify-content: left;
-    align-items: flex-start;
-  }
-  .ranking-laurier {
-    position: absolute;
-    top: -3vh;
-  }
-}
-
 .card-text {
   font-family: $headers-font;
   font-style: normal;
   text-align: center;
   color: $orange;
-  .team {
-    font-size: 1.5vh;
-    line-height: 2vh;
-  }
 }
 
 .title {
