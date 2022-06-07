@@ -7,6 +7,10 @@
         <%= player.ranking %>ème - <%= player.first_name %> <%= player.last_name %>
         -
         <%= link_to "more info", player_path(player.id) %>
+        -
+        <% if player.photo.attached? %>
+          <%= cl_image_tag player.photo.key, height: 300, width: 400, crop: :fill %>
+        <% end %>
       </li>
     <% end %>
   </ul>
