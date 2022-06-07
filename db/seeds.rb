@@ -1,6 +1,7 @@
 require 'faker'
 require "json"
 require 'uri'
+require 'open-uri'
 require 'net/http'
 require 'openssl'
 require 'date'
@@ -214,13 +215,17 @@ puts 'Your league is created, congrats guys'
 
 puts 'Now, build up your team !!!!'
 
+
 6.times do
-  Team.create!(
+  team_photo = URI.open("https://res.cloudinary.com/dx5ha1ecm/image/upload/v1654592216/m5mgvwp8xxgk5tnuxxnh.png")
+
+  team = Team.create!(
     name: Faker::Sports::Football.team,
     user_id: User.first.id + i,
     points: rand(100..300),
     league: League.first,
   )
+  team.photo.attach(io: team_photo, filename: 'team_logo.png', content_type: 'image/png')
   i += 1
 end
 

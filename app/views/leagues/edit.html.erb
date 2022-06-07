@@ -1,25 +1,29 @@
-<h1><%= @league.name %></h1><p>(created by <%= @league.owner.nickname %>)</p>
+<div class="container-fluid">
+  <div class="white"><h1><%= @league.name %></h1></div>
+  <div class="white center text-shadow"><h3>(created by <%= @league.owner.nickname %>)</h3></div>
 
-<h2>Here are the teams that have joined the league</h2>
-<ul>
-  <% @teams.each do |team| %>
-      <li><%= team.name %> (<%= team.user.nickname %>)  </li>
-  <% end %>
-</ul>
-
-
-<div><%= link_to "Create a team to join the league!", new_league_team_path(@league) %></div>
-
-<br>
-<div>Invite your friends!</div>
-<div class="input-group" data-controller="clipboard" data-clipboard-feedback-text-value="Copied!">
-  <input class="form-control" data-clipboard-target="input" type="text" value="http://localhost:3000/leagues/<%= @league.id%>/teams/new" readonly>
-  <div class="input-group-append">
-    <button id="copy-button" class="btn btn-outline-primary" data-action="click->clipboard#copy">Copy link</button>
+  <div class="center text-shadow-white"><h2>Here are the teams that have joined the league</h2></div>
+  <div>
+    <ul>
+      <% @teams.each do |team| %>
+          <li><%= team.name %> (<%= team.user.nickname %>)  </li>
+      <% end %>
+    </ul>
   </div>
+
+  <div class="center">
+    <div class="center bouton-transp-new-league"><%= link_to "Create a team to join the league!", new_league_team_path(@league) %></div>
+  </div>
+
+  <div class="form-edit-league">
+    <div>Invite your friends!</div>
+    <div class="input-group" data-controller="clipboard" data-clipboard-feedback-text-value="Copied!">
+      <input class="form-control" data-clipboard-target="input" type="text" value="http://localhost:3000/leagues/<%= @league.id%>/teams/new" readonly>
+      <div class="input-group-append">
+        <button id="copy-button" class="btn btn-outline-primary" data-action="click->clipboard#copy">Copy link</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- <%= link_to "homepage", user_path(current_user) %> -->
 </div>
-
-
-
-<br>
-<%= link_to "homepage", user_path(current_user) %>

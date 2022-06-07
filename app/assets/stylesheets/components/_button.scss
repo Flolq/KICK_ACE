@@ -38,6 +38,97 @@
   }
 }
 
+.bouton-transp-submit {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: white;
+  font-size: 12px;
+  // padding: 1vh 3vh;
+  margin: 5vw;
+  border-radius: 5vw;
+  font-weight: lighter;
+  border: 0.2vh solid $orange;
+  width: 40vw;
+    cursor: pointer;
+  &:hover {
+    background-color: $orange;
+    color: white;
+  }
+}
+
+.bouton-transp-new-league {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: white;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  font-size: 15px;
+  border-radius: 10px;
+  font-weight: lighter;
+  border: 1px solid $orange;
+  width: 70vw;
+  cursor: pointer;
+  a{
+    color: $orange;
+  }
+  &:hover {
+    background-color: $orange;
+    color: white;
+    a{
+      color:white;
+    }
+  }
+}
+
+.bouton-transp-share {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: white;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  font-size: 15px;
+  border-radius: 10px;
+  font-weight: lighter;
+  border: 1px solid $orange;
+  width: 70vw;
+  cursor: pointer;
+  color: $orange;
+  margin-bottom: 10vw;
+  a{
+    color: $orange;
+  }
+  &:hover {
+    background-color: $orange;
+    color: white;
+    a{
+      color:white;
+    }
+  }
+}
+
+.bouton-plain {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: $orange;
+  font-size: 1.5vh;
+  padding: 1vh 3vh;
+  margin-bottom: 5vw;;
+  border-radius: 2vh;
+  font-weight: bold;
+  border: 0.2vh solid $orange;
+  width: 20vh;
+  cursor: pointer;
+  box-shadow: 0 0 0 5px $orange, inset 0 0 0 1px #fff;
+  &:hover {
+    background-color: white;
+    color: $orange;
+  }
+}
+
 .button-btml {
   margin-top: 9vh;
 }
