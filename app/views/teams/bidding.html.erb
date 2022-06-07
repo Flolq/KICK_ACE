@@ -1,5 +1,3 @@
-<p>Status of the team: <%= @team.progress %></p>
-
 <% if @league.teams.length < @league.number_of_users %>
   <%= render 'bidding_waiting' %>
 <% elsif @league.round_progress == "finalized" %>
