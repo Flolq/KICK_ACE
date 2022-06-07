@@ -10,14 +10,15 @@ export default class extends Controller {
     // console.log(this.playersTarget)
   }
 
-  // update() {
-  //   console.log(this.formTarget.action)
-  //   const url = `${this.formTarget.action}?query=${this.inputTarget.value}&commit=Search`
-  //     fetch(url, { headers: { "Accept": "text/plain" } })
-  //       .then(response => response.text())
-  //       .then((data) => {
-  //       this.playersTarget.innerHTML = data
-  //     })
-  // }
+  update() {
+    console.log(this.formTarget.action)
+    console.log(this.inputTarget.value)
+    const url = `${this.formTarget.action}?query=${this.inputTarget.value}`
+      fetch(url, { headers: { "Accept": "text/plain" } })
+        .then(response => response.text())
+        .then((data) => {
+        this.playersTarget.innerHTML = data
+      })
+  }
 
 }

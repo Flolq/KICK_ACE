@@ -1,0 +1,16 @@
+<table class="table">
+  <thead>
+        <tr>
+          <th scope="col">Player</th>
+          <th scope="col">Your winning bid</th>
+        </tr>
+      </thead>
+      <tbody>
+      <% @current_user_secured_selections.each do |selection| %></ul>
+        <tr>
+          <td><%=Player.find(selection[:player_id]).first_name%> <%=Player.find(selection[:player_id]).last_name%></td>
+          <td><%=selection.price%> m€ </td>
+        </tr>
+      <% end %>
+      </tbody>
+</table>

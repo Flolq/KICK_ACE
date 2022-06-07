@@ -11,6 +11,7 @@ class LeaguesController < ApplicationController
   def create
     @league = League.new(league_params)
     @league.owner = current_user
+    @league.round_progress = "starting"
     if @league.save
       @chatroom = Chatroom.new
       @chatroom.league = @league
@@ -23,10 +24,13 @@ class LeaguesController < ApplicationController
 
   def show
     @league = League.find(params[:id])
-    @teams = @league.teams
+    @teams = @league.teams.order(points: :desc)
     @team = Team.where(["league_id = ? and user_id = ?", params[:id], current_user.id]).first
     @selections = @team.selections.sort_by { |player| player[:position] }
     @chatroom = Chatroom.where("league_id = ?", params[:id]).first
+    if !@chatroom.nil?
+      @message = @chatroom.messages.last
+    end
   end
 
   def edit
