@@ -1,0 +1,55 @@
+.search-box  {
+  background-color: $light-orange;
+  color: $orange;
+  width: 50%;
+  height: 5vh;
+  padding-left: 4vh;
+  padding-right: 4vh;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  font-size: 2vh;
+}
+
+.budget-box {
+  color: black;
+  font-size: 14px;
+  padding: 4px;
+  width: 100%;
+  font-weight: bold;
+}
+
+.players-box {
+  height: 150px;
+  padding: 0 30px;
+  border: solid 0.5px black;
+  border-radius: 5px;
+  background-color: rgba(255,255,255,0.6);
+}
+.player-name {
+  width: 160px;
+  color: black;
+  font-size: 14px;
+  text-align: left;
+}
+.player-price {
+  font-size: 14px;
+  width: 70px;
+}
+
+.team-box {
+  color: black;
+  font-size: 12px;
+  padding: 4px;
+  width: 80%;
+  font-weight: bold;
+  border: solid 1px red;
+  background-color: $light-orange;
+  margin: 0 auto;
+}
+
+.bid-box {
+  text-align: right;
+  font-size: 12px;
+  margin-top: 5px;
+}
