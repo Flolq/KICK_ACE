@@ -36,21 +36,22 @@
           <div class="card-product no-bonus col-12">Sub</div>
         </div>
       </div>
-      <div class="bottom-league-show"><%= link_to "Confirm team", league_path(params[:league_id]), class: "btn-confirm" %></div>
+      <!-- <div class="bottom-league-show"><%= link_to "Confirm team", league_path(params[:league_id]), class: "btn-confirm" %></div> -->
     </div>
   </div>
+
   <div class="box-home">
     <ul class="carousel">
       <% @selections.each do |selection| %>
         <% player = selection.player %>
-          <li class="carousel__item" data-action="click->statistics#revealContent" data-statistics-player-id-param="<%= player.id %>">
+          <li class="carousel__item center" data-action="click->statistics#revealContent" data-statistics-player-id-param="<%= player.id %>">
             <div class="carousel__item-wrapper" style="background: url(<%= image_path "players/#{player.last_name.downcase}.png" %>);"><p><%= player.last_name %></p></div>
           </li>
-        <div class="card-statistics d-none"
+          <div class="card-statistics d-none"
             data-statistics-target="content"
             data-statistics-player-id="<%= player.id %>">
-            <div><h3>Statistics this year</h3></div>
-            <div>
+            <div class="statistics-title"><h2>Statistics this year</h2></div>
+            <div class="statistics-text">
               <p>Date of birth: <%= player.date_of_birth %></p>
               <p>Competitions played: <%= player.competitions_played %></p>
               <p>Competitions won: <%= player.competitions_won %></p>
@@ -58,7 +59,7 @@
               <p>Matches won: <%= player.matches_won %></p>
               <p>Points earned: <%= selection.player_points %> points</p>
             </div>
-        </div>
+          </div>
       <% end %>
     </ul>
     <div class="carousel__controls">

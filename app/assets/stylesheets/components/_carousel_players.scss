@@ -9,31 +9,29 @@
 
 
 .carousel {
-  height: 17vh;
-  bottom: 20vh;
-  left: 25vw;
+  // display: flex;
+  // align-items: center;
+  // justify-content: center;
+  // height: 17vh;
+  // bottom: 20vh;
+  // left: 25vw;
   //position: fixed;
 }
 
-.carousel:hover {
-  cursor: grab;
-}
+// .carousel:hover {
+//   cursor: grab;
+// }
 
 
 
 .carousel__item {
-  position: absolute;
-  height: 0px;
-  width: 0px;
-  height: 40vw;
-  width: 40vw;
-  max-width: 225px;
-  max-height: 305px;
-  min-height: 331px;
-  min-width: 180px;
-  top: 7vh;
-  right: 0;
-  left: 0;
+  position: fixed;
+  left: 31vw;
+  max-width: 190px;
+  max-height: 280px;
+  min-height: 250px;
+  min-width: 140px;
+  top: 122vw;
   margin: auto;
   list-style-type: none;
   z-index: 0;

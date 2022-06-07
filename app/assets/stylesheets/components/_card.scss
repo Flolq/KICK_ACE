@@ -235,23 +235,33 @@ h1 {
 .card-statistics {
   background: $light-orange;
   border-radius: 10px;
-  height: 25vh;
-  width: 77%;
-  color: grey;
-  z-index: 0;
-  position: fixed;
-  top: 200px;
-  left: 6.5vh;
+  height: 70vw;
+  width: 70vw;
+  margin-left: 3vw;
+  color: black;
   z-index: -1;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
-  color: $orange;
+  align-items: flex-start;
+  padding-top: 10vw;
+  padding-bottom: 10vw;
+  h2 {
+    color: $orange;
+  }
   p {
     font-size: 12px;
     line-height: 1.2;
   }
+}
+
+.statistics-text {
+  margin-left: 7vw;
+  margin-right: 2vw;
+}
+
+.statistics-title {
+  margin-left: 10vw;
 }
 
 .card-league {
@@ -284,10 +294,10 @@ h1 {
 .card-league-add {
   background: rgba(128, 128, 128, 0.1);
   border-radius: 2vh;
-  height: 7vh;
+  height: 6vh;
   width: 100%;
-  margin-top: 1vh;
-  margin-bottom: 2vh;
+  // margin-top: 1vh;
+  margin-bottom: 1vh;
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -302,8 +312,7 @@ h1 {
 
 .scroll {
   // width: 100%;
-  margin-top: 1vh;
-  margin-bottom: 3vh;
+  // margin-bottom: 3vh;
   padding-left: 2vh;
   padding-bottom: 2vh;
   height: 35vh;
@@ -327,14 +336,14 @@ h1 {
   background-color: $light-orange;
   width: 40vh;
   border-radius: 2vh;
-  margin: 3vh;
+  margin: 1vh;
   padding: 2vh;
   box-shadow: 0vh 0.5vh 0.5vh rgba(0, 0, 0, 0.25);
   a {
     color: $orange;
   }
   p {
-    margin-top: 3vh;
+    margin-top: 2vh;
     font-size: 1.5vh;
     text-align: justify;
     line-height: 2vh;
