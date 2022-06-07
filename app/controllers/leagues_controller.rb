@@ -23,6 +23,7 @@ class LeaguesController < ApplicationController
   end
 
   def show
+    @leagues = League.where(user_id: current_user)
     @league = League.find(params[:id])
     @team = Team.where(["league_id = ? and user_id = ?", params[:id], current_user.id]).first
     if !@team
