@@ -14,7 +14,12 @@
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  animation: scrolling 30s linear infinite;
+  animation: scrolling 20s linear infinite;
+}
+
+.marquee-content:hover{
+  animation-play-state: paused;
+  -webkit-animation-play-state: paused;
 }
 
 @keyframes scrolling {

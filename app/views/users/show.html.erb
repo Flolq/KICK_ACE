@@ -1,14 +1,15 @@
 <div class="container-fluid">
 
   <div class="box-home">
-    <h1>Hi <%= current_user.nickname %> !</h1>
-    <h2>My Leagues</h2>
+    <!-- <h1>Hi <%= current_user.nickname %> !</h1>
+    <div class="center"><%= image_tag 'logo-tennisman.png', width: '35vh' %></div> -->
+    <div class="center"><h2 class="white">My Leagues</h2></div>
     <div class="scroll">
         <% @leagues.each do |league| %>
         <div class="card-league">
-          <div class="racket">
+          <!-- <div class="racket">
             <%= image_tag 'racket.png', width: '45vh' %>
-          </div>
+          </div> -->
           <div><h3><%= link_to league.name, league_path(league) %></h3></div>
         </div>
         <% end %>
@@ -19,7 +20,7 @@
   </div>
 
   <div class="box-home">
-    <h2>News</h2>
+    <div class="center"><h2>News</h2></div>
     <div class="marquee">
       <div class="marquee-content">
         <% @html_doc.search(".breve").each do |element| %>
@@ -29,8 +30,8 @@
             </div>
             <div class="text-news">
               <p><%= element.text.strip %></p>
-              <%= link_to "Read article", "https://www.tennisactu.net/#{element.attribute("href").value}", target: "_blank" %>
             </div>
+            <%= link_to "Read article", "https://www.tennisactu.net/#{element.attribute("href").value}", target: "_blank" %>
           </div>
         <% end %>
       </div>

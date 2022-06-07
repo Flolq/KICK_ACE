@@ -17,7 +17,9 @@ export default class extends Controller {
         fetch(patch_url, {
           method: "PATCH",
           headers: {  "Accept": "text/plain", "X-CSRF-Token": csrfToken(), 'Content-Type': 'application/json' },
-          body: JSON.stringify({ "position": evt.newIndex })
+          body: JSON.stringify({
+            "position": evt.newIndex
+          })
         })
           .then(response => response.text())
           .then((data) => {})
