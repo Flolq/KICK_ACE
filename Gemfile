@@ -27,6 +27,7 @@ gem 'redis', '~> 4.0'
 # gem 'bcrypt', '~> 3.1.7'
 gem 'acts_as_list'
 gem 'devise_invitable', '~> 2.0.0'
+gem 'cloudinary', '~> 1.16.0'
 
 # SideKiq for background jobs
 gem 'sidekiq'

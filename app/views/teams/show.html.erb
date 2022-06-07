@@ -1,63 +1,69 @@
 <div class="container-fluid" data-controller="statistics">
-  <div>
-    <h1>Manage my team</h1>
-    <div class="box-drag-drop" data-statistics-target="drag">
-      <div id="players" class="drag-drop">
-        <% (1..8).to_a.each do |position| %>
-          <div class="row margin-bottom-2">
-            <div class="position"><%= position %></div>
-          </div>
-        <% end %>
+  <div class="box-home">
+    <div class="row" data-statistics-target="drag">
+      <div class="col-2">
+        <div id="players" class="row">
+          <% (1..6).to_a.each do |position| %>
+              <div class="card-product player-rank col-12"><%= position %></div>
+          <% end %>
+          <% (7..8).to_a.each do |position| %>
+              <div class="card-product player-rank-sub col-12"><%= position %></div>
+          <% end %>
+        </div>
       </div>
-      <div class="row" id="players" data-controller="sortable" data-sortable-animation-value="150" data-sortable-resource-name-value="selection">
-        <% @selections.each_with_index do |selection, index| %>
-          <div class="card-product col-12" data-sortable-update-url="<%= selection_path(selection) %>" >
-            <div class="card-product-infos-important">
-              <%= image_tag 'tennis-ball-green.png'%>
-              <div class="card-product-position"><%= selection.position %></div>
-              <div><%= selection.player.last_name %></div>
+      <div class="col-8">
+        <div class="row" id="players" data-controller="sortable" data-sortable-animation-value="150" data-sortable-resource-name-value="selection">
+          <% @selections.each_with_index do |selection, index| %>
+            <div class="card-product col-12" data-sortable-update-url="<%= selection_path(selection) %>" >
+              <div class="card-product-infos-important">
+                <%= image_tag 'tennis-ball-green.png'%>
+                <div><%= selection.player.last_name %></div>
+              </div>
+              <i class="fa-solid fa-grip"></i>
             </div>
-            <i class="fa-solid fa-grip"></i>
-          </div>
-        <% end %>
+          <% end %>
+        </div>
       </div>
-      <div class="bonuses">
-        <div class="bonuses">x10</div>
-        <div class="bonuses">x8</div>
-        <div class="bonuses">x6</div>
-        <div class="bonuses">x4</div>
-        <div class="bonuses">x2</div>
+      <div class="col-2">
+        <div class="row">
+          <div class="card-product player-bonus col-12">x10</div>
+          <div class="card-product player-bonus col-12">x8</div>
+          <div class="card-product player-bonus col-12">x6</div>
+          <div class="card-product player-bonus col-12">x4</div>
+          <div class="card-product no-bonus col-12"></div>
+          <div class="card-product no-bonus col-12"></div>
+          <div class="card-product no-bonus col-12">Sub</div>
+          <div class="card-product no-bonus col-12">Sub</div>
+        </div>
       </div>
+      <div class="bottom-league-show"><%= link_to "Confirm team", league_path(params[:league_id]), class: "btn-confirm" %></div>
     </div>
-
-
+  </div>
+  <div class="box-home">
     <ul class="carousel">
       <% @selections.each do |selection| %>
         <% player = selection.player %>
-        <li class="carousel__item" data-action="click->statistics#revealContent" data-statistics-player-id-param="<%= player.id %>">
-          <div class="carousel__item-wrapper" style="background: url(<%= image_path "players/#{player.last_name.downcase}.png" %>);"><p><%= player.last_name %></p></div>
-        </li>
+          <li class="carousel__item" data-action="click->statistics#revealContent" data-statistics-player-id-param="<%= player.id %>">
+            <div class="carousel__item-wrapper" style="background: url(<%= image_path "players/#{player.last_name.downcase}.png" %>);"><p><%= player.last_name %></p></div>
+          </li>
         <div class="card-statistics d-none"
             data-statistics-target="content"
             data-statistics-player-id="<%= player.id %>">
-          <div><h3>Statistics this year</h3></div>
-          <div>
-            <p>Date of birth: <%= player.date_of_birth %></p>
-            <p>Competitions played: <%= player.competitions_played %></p>
-            <p>Competitions won: <%= player.competitions_won %></p>
-            <p>Matches played: <%= player.matches_played %></p>
-            <p>Matches won: <%= player.matches_won %></p>
-            <p>Points earned: <%= selection.player_points %> points</p>
-          </div>
+            <div><h3>Statistics this year</h3></div>
+            <div>
+              <p>Date of birth: <%= player.date_of_birth %></p>
+              <p>Competitions played: <%= player.competitions_played %></p>
+              <p>Competitions won: <%= player.competitions_won %></p>
+              <p>Matches played: <%= player.matches_played %></p>
+              <p>Matches won: <%= player.matches_won %></p>
+              <p>Points earned: <%= selection.player_points %> points</p>
+            </div>
         </div>
       <% end %>
     </ul>
-
     <div class="carousel__controls">
       <button class="carousel__controls--left" data-action="click->statistics#removeContent"><i class="fa-solid fa-circle-chevron-left"></i></button>
       <button class="carousel__controls--right" data-action="click->statistics#removeContent"><i class="fa-solid fa-circle-chevron-right"></i></button>
     </div>
   </div>
-
- <%# <div class="button-btml center"><%= link_to "Back to my league", league_path(params[:league_id]), class: "bouton-transp center" %></div>
 </div>
