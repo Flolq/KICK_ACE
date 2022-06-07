@@ -79,15 +79,15 @@ function dragger(element) {
     distanceY = 0;
   };
 
-  window.onmousemove = (e) => {
-    if (!mouseIsDown) return;
-    distanceX = e.clientX - startX;
-    distanceY = e.clientY - startY;
-    distance = Math.sqrt(Math.pow(distanceX, 2) + Math.pow(distanceY, 2));
+  // window.onmousemove = (e) => {
+  //   if (!mouseIsDown) return;
+  //   distanceX = e.clientX - startX;
+  //   distanceY = e.clientY - startY;
+  //   distance = Math.sqrt(Math.pow(distanceX, 2) + Math.pow(distanceY, 2));
 
-    if (typeof callbacks._onDrag == "function")
-      callbacks._onDrag({ distanceX, distanceY, distance });
-  };
+  //   if (typeof callbacks._onDrag == "function")
+  //     callbacks._onDrag({ distanceX, distanceY, distance });
+  // };
 
   return functions;
 }
