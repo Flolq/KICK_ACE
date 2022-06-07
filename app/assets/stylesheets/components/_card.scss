@@ -202,22 +202,46 @@ h1 {
 
 .card-product {
   overflow: hidden;
+  width: 100%;
   height: 21px;
   display: flex;
   align-items: center;
-  margin-bottom: 10px;
-  border-radius: 20px;
-  h2 {
-    margin-top: 5px;
-    font-size: 12px;
-    font-weight: bold;
-    margin-left: 5px;
+  justify-content: space-between;
+  margin-bottom: 2px;
+  padding: 20px;
+  border: 1px solid black;
+  .card-product-position {
+    margin-right: 10px;
   }
+}
+
+.card-product-infos {
+  display: flex;
+  align-items: center;
   img {
     height: 15px;
     width: 15px;
     object-fit: scale-down ;
+    margin-right: 20px;
   }
+  font-size: 12px;
+  margin-left: 5px;
+}
+
+.card-product-infos-important {
+  display: flex;
+  align-items: center;
+  padding-left: 20px;
+  img {
+    height: 15px;
+    width: 15px;
+    object-fit: scale-down ;
+    margin-right: 20px;
+  }
+  margin-top: 5px;
+  font-size: 16px;
+  font-weight: bold;
+  margin-left: 5px;
 }
 
 .player-ranking {
@@ -258,21 +282,6 @@ h1 {
   top: 43.3vh;
   left: 6.5vh;
   z-index: -1;
-}
-
-.drag-drop {
-  z-index: 1;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  margin-top: 10px;
-}
-
-.box-drag-drop {
-  background-color: transparent;
-  margin-top: 10px;
-  height: 37vh;
 }
 
 .card-statistics {

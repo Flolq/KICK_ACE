@@ -1,0 +1,30 @@
+.box-drag-drop {
+  display: flex;
+}
+
+.drag-drop {
+  margin-right: 30px;
+  .margin-bottom-2 {
+    margin-bottom: 4px;
+  }
+}
+
+.position {
+  text-align: center;
+  overflow: hidden;
+  width: 100%;
+  height: 21px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.bonuses {
+  font-size: 18px;
+  font-weight: bold;
+  width: 10vh;
+  margin-left: 8px;
+  margin-bottom: 20px;
+  text-align: center;
+}

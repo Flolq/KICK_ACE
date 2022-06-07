@@ -12,6 +12,15 @@ class TeamsController < ApplicationController
     final: 2500
   }
 
+  BONUS_MULTIPLICATOR = {
+    pos1: 10,
+    pos2: 8,
+    pos3: 6,
+    pos4: 4,
+    pos5: 2,
+    pos6: 1
+  }
+
   ATP_1000_ROUND_POINTS = {
     round_of_32: 60,
     round_of_16: 80,
@@ -118,9 +127,15 @@ class TeamsController < ApplicationController
     @selections.each do |selection|
       player = selection.player
       matches = Match.where(player1: player).or(Match.where(player2: player)).order(date: :desc)
-      points = player_points(matches, player)
-      selection.player_points = points
-      selection.save!
+      if selection.player_points == 0
+        points = player_points(matches, player)
+        selection.player_points = points * BONUS_MULTIPLICATOR["pos#{selection.position}".to_sym]
+        selection.save!
+      elsif selection.updated_at < matches.first.date
+        points = add_player_points(match.first.date, player)
+        selection.player_points = points * BONUS_MULTIPLICATOR["pos#{selection.position}".to_sym]
+        selection.save!
+      end
     end
   end
 
@@ -172,21 +187,40 @@ class TeamsController < ApplicationController
   end
 
   def player_points(matches, player)
-    buffer = ""
     points = 0
 
     matches.each do |match|
-      if buffer == match.tournament.name
-        points += 0
-      elsif match.winner == player
+      if match.winner == player
         points += ((player.ranking - (player == match.player1 ? match.player2.ranking : match.player1.ranking)) + 100) * 8
+        if match.round.split("\"")[3] == "final" && match.tournament.level == "atp_1000"
+          points += 2000
+        elsif match.round.split("\"")[3] == "final" && match.tournament.level == "grand_slam"
+          points += 5000
+        end
       elsif match.tournament.level == "atp_1000"
         points += ATP_1000_ROUND_POINTS[match.round.split("\"")[3].to_sym]
       else
         points += GRAND_SLAM_ROUND_POINTS[match.round.split("\"")[3].to_sym]
       end
+    end
 
-      buffer = match.tournament.name
+    return points
+  end
+
+  def add_player_points(match, player)
+    points = 0
+
+    if match.winner == player
+      points += ((player.ranking - (player == match.player1 ? match.player2.ranking : match.player1.ranking)) + 100) * 8
+      if match.round.split("\"")[3] == "final" && match.tournament.level == "atp_1000"
+        points += 2000
+      elsif match.round.split("\"")[3] == "final" && match.tournament.level == "grand_slam"
+        points += 5000
+      end
+    elsif match.tournament.level == "atp_1000"
+      points += ATP_1000_ROUND_POINTS[match.round.split("\"")[3].to_sym]
+    else
+      points += GRAND_SLAM_ROUND_POINTS[match.round.split("\"")[3].to_sym]
     end
 
     return points

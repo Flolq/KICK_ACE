@@ -42,7 +42,7 @@ ActiveRecord::Schema.define(version: 2022_06_06_134046) do
     t.bigint "tournament_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.boolean "done", default: false
+    t.boolean "done"
     t.bigint "winner_id"
     t.index ["player1_id"], name: "index_matches_on_player1_id"
     t.index ["player2_id"], name: "index_matches_on_player2_id"

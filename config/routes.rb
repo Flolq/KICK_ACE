@@ -23,7 +23,6 @@ Rails.application.routes.draw do
   resources :players, only: [:index, :show] do
     resources :matches, only: [:show]
   end
-  resources :selections, only: [:update]
 
   get "leagues/:id/teams/:id/bidding", to: "teams#bidding", as: :bidding
   get "leagues/:id/teams/:id/submitted", to: "teams#submitted", as: :submitted
