@@ -9,7 +9,18 @@
           </div>
         <% end %>
       </div>
-      <%= render 'players_drag', selections: @selections %>
+      <div class="row" id="players" data-controller="sortable" data-sortable-animation-value="150" data-sortable-resource-name-value="selection">
+        <% @selections.each_with_index do |selection, index| %>
+          <div class="card-product col-12" data-sortable-update-url="<%= selection_path(selection) %>" >
+            <div class="card-product-infos-important">
+              <%= image_tag 'tennis-ball-green.png'%>
+              <div class="card-product-position"><%= selection.position %></div>
+              <div><%= selection.player.last_name %></div>
+            </div>
+            <i class="fa-solid fa-grip"></i>
+          </div>
+        <% end %>
+      </div>
       <div class="bonuses">
         <div class="bonuses">x10</div>
         <div class="bonuses">x8</div>
