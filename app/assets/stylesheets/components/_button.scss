@@ -28,6 +28,7 @@
   margin: 2.5vh;
   border-radius: 2vh;
   font-weight: lighter;
+  color: $orange;
   border: 0.2vh solid $orange;
   width: 20vh;
     cursor: pointer;
@@ -52,4 +53,24 @@
 
 .btn-chatroom {
   height: 38px !important;
+}
+
+.btn-confirm {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: transparent;
+  font-size: 1.5vh;
+  padding: 1vh 3vh;
+  margin: 2.5vh;
+  border-radius: 2vh;
+  font-weight: lighter;
+  color: $orange;
+  border: 0.2vh solid $orange;
+  width: 20vh;
+    cursor: pointer;
+  &:hover {
+    background-color: $orange;
+    color: white;
+  }
 }

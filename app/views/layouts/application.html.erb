@@ -19,6 +19,8 @@
     <%= render 'shared/navbar' %>
     <%= render 'shared/flashes' %>
       <%= yield %>
-    <%= render 'shared/footer' %>
+    <!-- <% unless action_name = "sign_in" || action_name ="sign_up" %> -->
+      <%= render 'shared/footer' %>
+    <!-- <% end %> -->
   </body>
 </html>
