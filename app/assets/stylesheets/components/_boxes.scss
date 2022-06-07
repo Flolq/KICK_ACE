@@ -9,14 +9,15 @@
   flex-direction: column;
   position: relative;
   font-size: 2vh;
+  margin-top: 10px;
 }
 
 .budget-box {
   color: black;
-  font-size: 14px;
+  font-size: 20px;
   padding: 4px;
   width: 100%;
-  font-weight: bold;
+  display: flex;
 }
 
 .players-box {
@@ -31,6 +32,7 @@
   color: black;
   font-size: 14px;
   text-align: left;
+  align-items: center;
 }
 .player-price {
   font-size: 14px;
@@ -38,18 +40,50 @@
 }
 
 .team-box {
+  display: flex;
+  flex-direction: column;
   color: black;
   font-size: 12px;
   padding: 4px;
   width: 80%;
   font-weight: bold;
-  border: solid 1px red;
   background-color: $light-orange;
   margin: 0 auto;
+  align-items: center;
 }
 
 .bid-box {
   text-align: right;
+  font-size: 14px;
+  width: 60px;
+  align-items: center;
+
+}
+
+.count-box {
+  display: flex;
+  color: black;
+  border: solid 1px $orange;
   font-size: 12px;
-  margin-top: 5px;
+  padding: 4px;
+  width: 80%;
+  font-weight: bold;
+  background-color: $light-orange;
+  margin: 0 auto;
+  align-items: center;
+}
+
+.submit-box{
+  width: 150px;
+  text-align: center;
+  margin: 0 auto;
+}
+
+.secured-team-box{
+  display: flex;
+  flex-direction: column;
+  background-color: rgba(255,255,255,0.5);
+  color: black;
+  padding: 5px 15px;
+
 }
