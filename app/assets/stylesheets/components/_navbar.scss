@@ -1,6 +1,6 @@
 .navbar {
-  border-bottom: 0.2vh solid $orange;
-  margin-bottom: 2vh;
+  border-bottom: 0.2vh solid white;
+  margin-bottom: 3vh;
 }
 
 .items {
@@ -10,12 +10,15 @@
   align-items: center;
   width: 100%;
   height: 5vh;
-  background-color: white;
+  padding-top: 3vh;
+  padding-bottom: 3vh;
+  // background-color: white;
 }
 
 .button-navbar {
   position: relative;
   font-size: 4vh;
+  color: white;
 }
 
 .link-navbar {
@@ -28,7 +31,7 @@
   background-color: $light-orange;
   border-radius: 2vh;
   a {
-    color: $orange;
+    color: white;
   }
 }
 

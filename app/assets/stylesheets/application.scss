@@ -22,7 +22,10 @@ body {
   display: flex;
   flex-direction: column;
   height: 100vh;
+  background-image: url("background-bicolor.png");
+  background-size: cover;
 }
+
 .container-fluid {
   flex-grow: 1;
   display: flex;
@@ -40,7 +43,7 @@ h1 {
 }
 
 h2 {
-  font-size: 2.5vh;
+  font-size: 3.5vh;
   font-weight: lighter;
 }
 
@@ -56,4 +59,8 @@ p {
   text-align: justify;
   margin-top: 1vh;
   margin-bottom: 1vh;
+}
+
+.white {
+  color: white;
 }
