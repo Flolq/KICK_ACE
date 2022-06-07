@@ -1,24 +1,3 @@
-// This file is automatically compiled by Webpack, along with any other files
-// present in this directory. You're encouraged to place your actual application logic in
-// a relevant structure within app/javascript and only use these pack files to reference
-// that code so it'll be compiled.
-
-//= require jquery
-//= require jquery.slick
-//= require rails-ujs
-import Rails from "@rails/ujs"
-import Turbolinks from "turbolinks"
-import * as ActiveStorage from "@rails/activestorage"
-import "channels"
-// import 'swiper/css/bundle'
-import "controllers"
-import "bootstrap"
-import $ from "jquery";
-
-Rails.start()
-Turbolinks.start()
-ActiveStorage.start()
-
 function dragger(element) {
   const callbacks = {
     _onDragEnd: undefined,
@@ -361,15 +340,3 @@ const carouselPlayers = window.addEventListener('load', (event) => {
 });
 
 export { carouselPlayers }
-
-// const root = document.documentElement;
-// const marqueeElementsDisplayed = getComputedStyle(root).getPropertyValue("--marquee-elements-displayed");
-// const marqueeContent = document.querySelector("ul.marquee-content");
-
-// root.style.setProperty("--marquee-elements", marqueeContent.children.length);
-
-// for(let i=0; i<marqueeElementsDisplayed; i++) {
-//   marqueeContent.appendChild(marqueeContent.children[i].cloneNode(true));
-// }
-
-// DO NOT PASS

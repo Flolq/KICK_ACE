@@ -5,7 +5,7 @@ Rails.application.routes.draw do
   end
 
   devise_for :users
-  root to: 'users#homepage'
+  root to: 'users#show'
 
   resources :users, only: [:show]
   resources :leagues, only: [:new, :create, :show, :edit, :update, :index] do
@@ -23,12 +23,13 @@ Rails.application.routes.draw do
   resources :players, only: [:index, :show] do
     resources :matches, only: [:show]
   end
-  resources :selections, only: [:update]
 
-  get "leagues/:id/teams/:id/starting", to: "teams#starting", as: :starting
+  get "leagues/:id/teams/:id/bidding", to: "teams#bidding", as: :bidding
   get "leagues/:id/teams/:id/submitted", to: "teams#submitted", as: :submitted
+  get "leagues/:id/teams/:id/recap", to: "teams#recap", as: :recap
   get "leagues/:id/teams/:id/final", to: "teams#final", as: :final
   get "leagues/token/:token", to: "leagues#token", as: :token
+
 
 
   resources :matches, only: [:index]

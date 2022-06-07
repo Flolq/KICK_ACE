@@ -1,7 +1,7 @@
 import { Controller } from "stimulus"
 
 export default class extends Controller {
-  static targets = ["input","players","form"]
+  // static targets = ["input","players","form"]
 
   connect() {
     // console.log("hello from the search controller")
@@ -12,7 +12,8 @@ export default class extends Controller {
 
   update() {
     console.log(this.formTarget.action)
-    const url = `${this.formTarget.action}?query=${this.inputTarget.value}&commit=Search`
+    console.log(this.inputTarget.value)
+    const url = `${this.formTarget.action}?query=${this.inputTarget.value}`
       fetch(url, { headers: { "Accept": "text/plain" } })
         .then(response => response.text())
         .then((data) => {

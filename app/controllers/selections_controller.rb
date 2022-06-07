@@ -15,14 +15,13 @@ class SelectionsController < ApplicationController
     @selection.save
   end
 
-
   def update
     @selection = Selection.find(params[:id])
+    @selection.update(selection_params)
 
-    if @selection.update(selection_params)
-      redirect_to team_path(@selection.team)
-    else
-      render "teams/show"
+    respond_to do |format|
+      format.html { redirect_to team_path(@selection.team) }
+      format.text
     end
   end
 
@@ -35,6 +34,6 @@ class SelectionsController < ApplicationController
   private
 
   def selection_params
-    params.require(:selection).permit(:position, :player_id, :team_id, :price)
+    params.require(:selection).permit(:position, :player_id, :price, :team_id)
   end
 end
