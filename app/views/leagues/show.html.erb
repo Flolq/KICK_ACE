@@ -1,51 +1,52 @@
 <div class="container-fluid">
-  <div class="card-container">
-    <div class="ranking-card card-text center mx-5">
-      <div class="ranking-laurier"><%= image_tag 'laurier.png', width: '45vh' %></div>
-      <div class="title">Ranking</div>
-      <div class="text-ranking">
-        <% i = 1 %>
-        <% @teams.each do |team| %>
-          <div class="team"><%= i %> - <%= team.name %> - <%= team.points %>pts</div>
-            <% i += 1 %>
-          <% end %>
-       </div>
-      </div>
+  <div class="ranking-card">
+    <div class="ranking-laurier"><%= image_tag 'laurier.png', width: '80vh' %></div>
+    <div class="title"><%= @league.name %></div>
+    <div class="text-ranking">
+      <% @teams.each_with_index do |team, index| %>
+        <div class="team">
+          <div class="team-position"><%= index + 1 %></div>
+          <%= cl_image_tag team.photo.key, height: 40, width: 40, crop: :fill, radius: "max" %>
+          <div class="team-name"><%= team.name %></div>
+          <div class="team-points"><%= team.points %>pts</div>
+        </div>
+      <% end %>
     </div>
   </div>
 
   <div class="box-league">
-    <h2><div class="title center"><%= @team.name %></div></h2>
-    <div class="orange-bot player-selection">
+    <div id="team-name" style="background-image: linear-gradient(rgba(255,255,255,0.8),rgba(255,255,255,1)), url(<%= cl_image_path @team.photo.key %>);"><%= @team.name.upcase %></div>
+    <div class="player-selection">
       <% @selections.each_with_index do |selection, index| %>
         <% if index <= 1 %>
-          <div class="center card-player-league-view">
-            <div class="circle"><%= selection.position %></div>
-            <div class="player-name"><%= selection.player.last_name %></div>
-            <div class="img-player-laegue"><%= image_tag "players/#{selection.player.last_name.downcase}.png", width: '45vh' %></div>
+          <div class="player-card-important" style="background-image: linear-gradient(rgba(0,0,0,0.4),rgba(0,0,0,0.4)), url(<%= image_path "background" %>);">
+            <div class="player-card-image-important" style="background-image: url(<%= image_path "players/#{selection.player.last_name.downcase}" %>)">
+              <div class="player-name">
+                <div><%= selection.position %></div>
+                <div><%= selection.player.last_name %></div>
+              </div>
+            </div>
           </div>
         <% end %>
       <% end %>
     </div>
-    <div class="orange-bot player-selection">
+    <div class="player-selection mb-5">
       <% @selections.each_with_index do |selection, index| %>
         <% if index > 1 && index < 6 %>
-          <div class="center card-player-league-view">
-            <div class="circle"><%= selection.position %></div>
-            <div class="player-name"><%= selection.player.first_name %></div>
-            <div><%= image_tag "players/#{selection.player.last_name.downcase}.png", width: '45vh' %></div>
+          <div class="player-card" style="background-image: linear-gradient(rgba(0,0,0,0.4),rgba(0,0,0,0.4)), url(<%= image_path "background" %>);">
+            <div class="player-card-image" style="background-image: url(<%= image_path "players/#{selection.player.last_name.downcase}" %>)">
+              <div class="player-name">
+                <div><%= selection.position %></div>
+                <div><%= selection.player.last_name %></div>
+              </div>
+            </div>
           </div>
         <% end %>
       <% end %>
     </div>
-  </div>
-  
-  <div class="row>
-    <div class="col-6 box-league">
-      <div class="bottom-league-show"><%= link_to "Manage my team", [@league, @team], class: "bouton-transp" %></div>
-    </div>
+    <div class="center-div"><%= link_to "MANAGE", [@league, @team], class: "bouton-plain" %></div>
     <% if !@chatroom.nil? %>
-      <div class="col-6 box-league">
+      <div class="col-6">
         <% if !@message.nil? %>
           <div class="bottom-league-show"><%= link_to "Chatroom", chatroom_path(@chatroom, anchor:"message-#{@message.id}"), class: "bouton-transp" %></div>
         <% else %>
@@ -54,4 +55,5 @@
       </div>
     <% end %>
   </div>
+
 </div>
