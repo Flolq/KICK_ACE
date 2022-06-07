@@ -1,7 +1,10 @@
-<h1>Create your league</h1>
-
-<%= simple_form_for(@league) do |f| %>
-  <%= f.input :name %>
-  <%= f.input :number_of_users %>
-  <%= f.submit %>
-<% end %>
+<div class="container-fluid">
+  <div>
+    <h1>Create your league</h1>
+    <%= simple_form_for(@league) do |f| %>
+    <%= f.input :name %>
+    <%= f.input :number_of_users %>
+    <%= f.submit %>
+    <% end %>
+  </div>
+</div>

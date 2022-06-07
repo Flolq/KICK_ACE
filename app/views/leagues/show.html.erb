@@ -1,59 +1,52 @@
-<div class="container">
-  <h1><%= @league.name %></h1>
-
-  <div class="card-container">
-    <div class="ranking-laurier"><%= image_tag 'laurier.png', width: '40px' %></div>
-    <div class="ranking-card card-text center mx-5">
-      <div class="title">Ranking</div>
-      <% i = 1 %>
-      <% @teams.each do |team| %>
-        <div class="team"><%= i %> - <%= team.name %> - <%= team.points %>pts</div>
-        <% i += 1 %>
-      <% end %>
+<div class="container-fluid">
+    <div class="card-container">
+      <div class="ranking-card card-text center mx-5">
+        <div class="ranking-laurier"><%= image_tag 'laurier.png', width: '45vh' %></div>
+        <div class="title">Ranking</div>
+        <div class="text-ranking">
+          <% i = 1 %>
+          <% @teams.each do |team| %>
+            <div class="team"><%= i %> - <%= team.name %> - <%= team.points %>pts</div>
+            <% i += 1 %>
+          <% end %>
+        </div>
+      </div>
     </div>
   </div>
 
-
-  <div class="card-text mt-3">
-    <div class="title"><%= @team.name %></div>
-    <div class="row orange-bot">
+  <div class="box-league">
+    <h2><div class="title center"><%= @team.name %></div></h2>
+    <div class="orange-bot player-selection">
       <% @selections.each_with_index do |selection, index| %>
         <% if index <= 1 %>
-          <div class="col-6 center card-player-league-view">
-            <div class="position-top-players circle"><%= selection.position %></div>
-            <div><%= image_tag 'gasquet.png', width: '50px' %></div>
+          <div class="center card-player-league-view">
+            <div class="circle"><%= selection.position %></div>
+            <div class="player-name"><%= selection.player.last_name %></div>
+            <div class="img-player-laegue"><%= image_tag "players/#{selection.player.last_name.downcase}.png", width: '45vh' %></div>
           </div>
         <% end %>
       <% end %>
     </div>
-    <div class="row">
-      <% @selections.each_with_index do |selection, index| %>
-        <% if index <= 1 %>
-          <div class="col-6 center card-container mt-1 mb-2">
-            <div class="player-name"><%= selection.player.first_name %></div>
-          </div>
-        <% end %>
-      <% end %>
-    </div>
-    <div class="row orange-bot">
+    <div class="orange-bot player-selection">
       <% @selections.each_with_index do |selection, index| %>
         <% if index > 1 && index < 6 %>
-          <div class="col-3 center card-player-league-view">
-            <div class="position-bottom-players circle"><%= selection.position %></div>
-            <div><%= image_tag 'gasquet.png', width: '50px' %></div>
-          </div>
-        <% end %>
-      <% end %>
-    </div>
-    <div class="row">
-      <% @selections.each_with_index do |selection, index| %>
-        <% if index > 1 && index < 6 %>
-          <div class="col-3 center card-player-league-view mt-1 mb-2">
+          <div class="center card-player-league-view">
+            <div class="circle"><%= selection.position %></div>
             <div class="player-name"><%= selection.player.first_name %></div>
+            <div><%= image_tag "players/#{selection.player.last_name.downcase}.png", width: '45vh' %></div>
           </div>
         <% end %>
       <% end %>
     </div>
   </div>
-  <div class="mt-2 center"><%= link_to "Manage my team", [@league, @team], class: "bouton-transp center" %></div>
+  <div class="row">
+    <div class="col-6 box-league">
+      <div class="bottom-league-show"><%= link_to "Manage my team", [@league, @team], class: "bouton-transp" %></div>
+    </div>
+      <div class="col-6 box-league">
+      <% if @chatroom != nil %>
+        <div class="bottom-league-show"><%= link_to "Chatroom", chatroom_path(@chatroom), class: "bouton-transp" %></div>
+      <% end %>
+    </div>
+  </div>
 </div>

@@ -13,6 +13,9 @@ class LeaguesController < ApplicationController
     @league.owner = current_user
     @league.round_progress = "starting"
     if @league.save
+      @chatroom = Chatroom.new
+      @chatroom.league = @league
+      @chatroom.save
       redirect_to edit_league_path(@league)
     else
       render :new
@@ -21,14 +24,16 @@ class LeaguesController < ApplicationController
 
   def show
     @league = League.find(params[:id])
-    @teams = @league.teams.sort_by { |element| -element[:points] }
+    @teams = @league.teams.order(points: :desc)
     @team = Team.where(["league_id = ? and user_id = ?", params[:id], current_user.id]).first
     @selections = @team.selections.sort_by { |player| player[:position] }
+    @chatroom = Chatroom.where("league_id = ?", params[:id]).first
   end
 
   def edit
     @league = League.find(params[:id])
     @teams = @league.teams
+    @token = @league.token
   end
 
 
@@ -37,6 +42,11 @@ class LeaguesController < ApplicationController
     @league.update(league_params)
 
     redirect_to edit_league_path(@league)
+  end
+
+  def token
+    league = League.find_by(token: params[:token])
+    redirect_to edit_league_path(league)
   end
 
 
