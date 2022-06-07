@@ -1,6 +1,6 @@
 class TeamsController < ApplicationController
-  before_action :my_secured_selections, only: [:starting, :submitted, :final]
-  before_action :defining_remaining_players, only: [:starting, :submitted, :final]
+  before_action :secured_selections, only: [:submitted, :results, :final]
+  before_action :defining_remaining_players, only: [:submitted, :results, :final]
 
   GRAND_SLAM_ROUND_POINTS = {
     round_of_128: 50,
@@ -32,26 +32,45 @@ class TeamsController < ApplicationController
     @team.user = current_user
     @team.progress = "starting"
     @team.budget = 500
+    @league.save
 
     if @team.save
-      redirect_to starting_path(@league, @team)
+      redirect_to bidding_path(@league, @team)
     else
       render :new
     end
   end
 
-  def starting
+  def bidding
     @team = Team.find(params[:id])
     @league = @team.league
+
+    search_players
+
+    if @team.progress == "bids_submitted"
+      auctions
+      updating_budget
+    end
+
+    secured_selections
+    defining_remaining_players
+
+    if @current_user_secured_selections.length >= 8
+      @team.progress = "finalized"
+      @team.save
+      defining_finalized_teams
+      progressing_league_round_progress
+      render :final
+    end
+
+    @team.progress = "bidding"
+    @team.save
+    @league.round_progress = "bidding_ongoing"
+    @league.save
   end
 
-  def edit
-  end
+  def recap
 
-  def update
-    @team = Team.find(params[:id])
-    @league = League.find(params[:league_id])
-    redirect_to edit_league_team_path(@league, @team)
   end
 
   def submitted
@@ -60,64 +79,38 @@ class TeamsController < ApplicationController
 
     @team.progress = "bids_submitted"
 
+    filtered_selections = []
     @kept_selections = []
-    all_selections = @team.selections.group_by { |selection| selection.player_id }
 
-    all_selections.each do |player_id, player_selections|
-      players_selections = player_selections.sort_by { |selection| selection.updated_at }.reverse
-      players_selections[0].progress = "bid_submitted"
-      @kept_selections << players_selections[0]
-    end
+    all_selections = @team.selections
 
-    @teams_non_submitted = @league.teams.select{ |team| team.progress != "bids_submitted" }
-    @teams_submitted = @league.teams.select{ |team| team.progress == "bids_submitted" }
-
-    if @teams_non_submitted.empty?
-      results
-      if @current_user_won_results.length == 8
-        @team.progress = "finalized"
-        redirect_to final_path(@league, @team)
+    all_selections.each do |selection|
+      unless selection.progress == "bid_won" || selection.progress == "bid_lost"
+        filtered_selections << selection
       end
     end
 
-    @teams_non_finalized = @league.teams.select{ |team| team.progress != "finalized" }
-    @teams_finalized = @league.teams.select{ |team| team.progress == "finalized" }
+    grouped_selections = filtered_selections.group_by { |selection| selection.player_id }
+    grouped_selections.each do |_player_id, player_selections|
+      players_selections = player_selections.sort_by { |selection| selection.updated_at }.reverse
+      players_selections[0].progress = "bid_submitted"
+      players_selections[0].save
+      @kept_selections << players_selections[0]
+    end
 
     @team.save
 
+    defining_submitted_teams
+
+    defining_finalized_teams
+
+    progressing_league_round_progress
+
+    @league.save
+
+    render :recap
+
   end
-
-  def final
-    @team = Team.find(params[:id])
-    @league = @team.league
-    @teams_non_finalized = @league.teams.select{ |team| team.progress != "finalized" }
-    @teams_finalized = @league.teams.select{ |team| team.progress == "finalized" }
-
-  end
-
-
-
-
-  # def extra_round
-  #   @team = Team.find(params[:id])
-  #   @team.progress = "bidding"
-  #   @league = @team.league
-  #   @players_selected = []
-  #   @selections_already_secured = Selection.where("progress = ?", "bid_won")
-
-  #   @selections_already_secured.each do |selection|
-  #     @players_selected << selection.player
-  #   end
-
-  #   @remaining_players = []
-  #   @players = Player.all
-  #   @players.each do |player|
-  #     unless @players_selected.include?(player)
-  #       @remaining_players << player
-  #     end
-  #   end
-  #   @team.save
-  # end
 
   def show
     @team = Team.find(params[:id])
@@ -139,54 +132,20 @@ class TeamsController < ApplicationController
       .permit(:name, selections_attributes: [:player_id, :price])
   end
 
-  def results
-    league_selections = @league.selections
-    submitted_selections = []
-    league_selections.each do |selection|
-      submitted_selections << selection if selection.progress == "bid_submitted"
-    end
-
-    selections = league_selections.group_by { |selection| selection.player_id }
-    @results = []
-    @current_user_won_results = []
-    @opponents_won_results = []
-
-    @starting_budget = 500
-    @budget_spent = 0
-
-    selections.each do |player_id, player_selections|
-      players_selections = player_selections.sort_by { |selection| selection.price }.reverse
-
-      winning_selection = players_selections.shift()
-      winning_selection.progress = "bid_won"
-      winning_selection.save
-
-      losing_selections = players_selections
-      losing_selections.each do |selection|
-        selection.progress = "bid_lost"
-        selection.save
-      end
-
-      winning_user = User.joins(:teams).where("user_id = ?", winning_selection.team.user_id)[0]
-      @results << { player_id: player_id, winning_user: winning_user, winning_team: winning_selection.team, winning_selection: winning_selection, losing_selections: losing_selections }
-      if current_user == winning_user
-        @current_user_won_results << { player_id: player_id, winning_user: winning_user, winning_team: winning_selection.team, winning_selection: winning_selection, losing_selections: losing_selections }
-        @budget_spent += winning_selection.price
-      else
-        @opponents_won_results << { player_id: player_id, winning_user: winning_user, winning_team: winning_selection.team, winning_selection: winning_selection, losing_selections: losing_selections }
-      end
-      @players_selected << player_id
-    end
-
-    @remaining_budget = @starting_budget - @budget_spent
-    @team.budget = @remaining_budget
-
-  end
-
-  def my_secured_selections
+  def secured_selections
     @team = Team.find(params[:id])
     @league = @team.league
-    @my_secured_selections = @team.selections.where("progress = ?", "bid_won")
+    @current_user_secured_selections = []
+    @opponents_secured_selections = []
+    @league.selections.each do |selection|
+      if selection.progress == "bid_won"
+        if current_user == User.joins(:teams).where("user_id = ?", selection.team.user_id)[0]
+          @current_user_secured_selections << selection
+        else
+          @opponents_secured_selections << selection
+        end
+      end
+    end
   end
 
   def defining_remaining_players
@@ -231,5 +190,94 @@ class TeamsController < ApplicationController
     end
 
     return points
+  end
+
+  def auctions
+    league_selections = @league.selections
+    submitted_selections = []
+    league_selections.each do |selection|
+      submitted_selections << selection if selection.progress == "bid_submitted"
+    end
+    selections = submitted_selections.group_by { |selection| selection.player_id }
+
+    @results = []
+    @current_user_won_results = []
+    @opponents_won_results = []
+
+    @starting_budget = @team.budget
+    @budget_spent = 0
+
+    selections.each do |player_id, player_selections|
+
+      if player_selections.length == 1
+        winning_selection = player_selections[0]
+        winning_selection.progress = "bid_won"
+        winning_selection.save
+      else
+
+      player_selections = player_selections.sort_by { |selection| selection.price }.reverse
+
+      if (player_selections[0].price == player_selections[1].price) && (player_selections[0].updated_at > player_selections[1].updated_at)
+        player_selections[0], player_selections[1] = player_selections[1], player_selections[0]
+      end
+        winning_selection = player_selections.shift()
+        losing_selections = player_selections
+
+        winning_selection.progress = "bid_won"
+        winning_selection.save
+
+        losing_selections = player_selections
+        losing_selections.each do |selection|
+          selection.progress = "bid_lost"
+          selection.save
+        end
+      end
+    end
+    @team.save
+
+  end
+
+  def search_players
+    if params[:query].present?
+      sql_query = " \
+      players.first_name @@ :query \
+      OR players.last_name @@ :query \
+    "
+      @players = Player.where(sql_query, query: "%#{params[:query]}%")
+    else
+      @players = Player.all
+    end
+    respond_to do |format|
+      format.html
+      format.text { render partial: 'teams/list', locals: { players: @players }, formats: [:html] }
+    end
+  end
+
+  def updating_budget
+    starting_budget = @team.budget
+    budget_spent = 0
+    @team.selections.each do |selection|
+      if selection.progress == "bid_won"
+        budget_spent += selection.price
+      end
+    end
+    @team.budget = starting_budget - budget_spent
+    @team.save
+  end
+
+  def defining_finalized_teams
+    @teams_non_finalized = @league.teams.select{ |team| team.progress != "finalized" }
+    @teams_finalized = @league.teams.select{ |team| team.progress == "finalized" }
+  end
+
+  def defining_submitted_teams
+    @teams_submitted = @league.teams.select{ |team| team.progress == "bids_submitted" }
+    @teams_non_submitted = @league.teams.select{ |team|  team.progress != "bids_submitted" }
+  end
+
+  def progressing_league_round_progress
+    @league.round_progress = "bidding_submitted" if @teams_submitted.length == @league.number_of_users
+    @league.round_progress = "finalized" if @teams_finalized.length == @league.number_of_users
+    @league.save
   end
 end

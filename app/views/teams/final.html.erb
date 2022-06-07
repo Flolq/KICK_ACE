@@ -15,7 +15,7 @@
       </tr>
     </thead>
     <tbody>
-    <% @my_secured_selections.each do |selection| %></ul>
+    <% @current_user_secured_selections.each do |selection| %></ul>
       <tr>
         <td><%=Player.find(selection[:player_id]).first_name%> <%=Player.find(selection[:player_id]).last_name%></td>
         <td><%=selection.price%> m€ </td>
@@ -31,23 +31,21 @@
 
   <br>
 
-  <h3>Here is a recap of the bids won during the auction rounds!</h3>
+  <h3>Here is a recap of the bids by your opponents won during the auction rounds!</h3>
   <table class="table">
     <thead>
       <tr>
         <th scope="col">Player</th>
         <th scope="col">Winning bid</th>
         <th scope="col">Winning team</th>
-        <th scope="col">Winning user</th>
       </tr>
     </thead>
     <tbody>
-    <% @opponents_won_results.each do |result| %></ul>
+    <% @opponents_secured_selections.each do |selection| %></ul>
       <tr>
-        <td><%=Player.find(result[:player_id]).first_name%> <%=Player.find(result[:player_id]).last_name%></td>
-        <td><%=result[:winning_selection].price%> m€ </td>
-        <td><%=result[:winning_team].name%> </td>
-        <td><%=result[:winning_user].nickname%> </td>
+        <td><%=Player.find(selection[:player_id]).first_name%> <%=Player.find(selection[:player_id]).last_name%></td>
+        <td><%=selection.price%> m€ </td>
+        <td><%=Team.find(selection[:team_id]).name%> </td>
       </tr>
     <% end %>
     </tbody>

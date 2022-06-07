@@ -11,6 +11,7 @@ class LeaguesController < ApplicationController
   def create
     @league = League.new(league_params)
     @league.owner = current_user
+    @league.round_progress = "starting"
     if @league.save
       @chatroom = Chatroom.new
       @chatroom.league = @league
