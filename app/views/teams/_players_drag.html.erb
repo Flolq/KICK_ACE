@@ -1,4 +1,4 @@
-<div class="row" data-controller="drag-player" data-drag-player-target="team">
+<div class="row" data-controller="sortable" data-sortable-animation-value="150" data-sortable-resource-name-value="selection">
   <% selections.each_with_index do |selection, index| %>
     <div class="card-product col-12" data-sortable-update-url="<%= selection_path(selection) %>" >
       <div class="card-product-infos-important">
