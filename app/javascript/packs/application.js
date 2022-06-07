@@ -325,7 +325,7 @@ class CircleCarousel {
   }
 }
 
-const carouselPlayers = window.addEventListener('load', (event) => {
+const carouselPlayers = (event) => {
   const { onDrag, onDragEnd } = dragger(window);
   const transition = new Transitioner();
   const leftBtn = document.querySelector(".carousel__controls--left");
@@ -358,9 +358,12 @@ const carouselPlayers = window.addEventListener('load', (event) => {
   onDragEnd(() => {
     carousel.rotate();
   });
-});
+};
 
-export { carouselPlayers }
+
+
+window.addEventListener('turbolinks:load', carouselPlayers);
+// export { carouselPlayers }
 
 // const root = document.documentElement;
 // const marqueeElementsDisplayed = getComputedStyle(root).getPropertyValue("--marquee-elements-displayed");

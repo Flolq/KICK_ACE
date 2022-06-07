@@ -10,6 +10,7 @@ puts "To start, let's destroy the db"
 
 Selection.destroy_all
 Team.destroy_all
+Chatroom.destroy_all
 League.destroy_all
 User.destroy_all
 # ranking = 1
