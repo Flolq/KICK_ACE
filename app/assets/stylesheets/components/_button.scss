@@ -37,6 +37,26 @@
   }
 }
 
+.bouton-plain {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: $orange;
+  font-size: 1.5vh;
+  padding: 1vh 3vh;
+  margin: 2.5vh;
+  border-radius: 2vh;
+  font-weight: bold;
+  border: 0.2vh solid $orange;
+  width: 20vh;
+  cursor: pointer;
+  box-shadow: 0 0 0 5px $orange, inset 0 0 0 1px #fff;
+  &:hover {
+    background-color: white;
+    color: $orange;
+  }
+}
+
 .button-btml {
   margin-top: 9vh;
 }

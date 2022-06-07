@@ -24,6 +24,7 @@ body {
   height: 100vh;
   background-image: url("background-bicolor.png");
   background-size: cover;
+  background-repeat: no-repeat;
 }
 
 .container-fluid {
@@ -32,6 +33,7 @@ body {
   flex-flow: column wrap;
   justify-content: space-between;
   align-items: stretch;
+  margin-bottom: 65px;
 }
 
 .center {

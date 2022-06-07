@@ -1,7 +1,7 @@
 <div class="container-fluid">
   <div class="ranking-card">
-    <div class="ranking-laurier"><%= image_tag 'laurier.png', width: '45vh' %></div>
-    <div class="title">Ranking</div>
+    <div class="ranking-laurier"><%= image_tag 'laurier.png', width: '80vh' %></div>
+    <div class="title"><%= @league.name %></div>
     <div class="text-ranking">
       <% @teams.each_with_index do |team, index| %>
         <div class="team">
@@ -13,7 +13,6 @@
       <% end %>
     </div>
   </div>
-</div>
 
   <div class="box-league">
     <h2><div class="title center"><%= @team.name %></div></h2>
@@ -39,20 +38,20 @@
         <% end %>
       <% end %>
     </div>
+    <div class="row">
+      <div class="col-6 box-league">
+        <div class="bottom-league-show"><%= link_to "MANAGE", [@league, @team], class: "bouton-plain" %></div>
+      </div>
+      <% if !@chatroom.nil? %>
+        <div class="col-6 box-league">
+          <% if !@message.nil? %>
+            <div class="bottom-league-show"><%= link_to "Chatroom", chatroom_path(@chatroom, anchor:"message-#{@message.id}"), class: "bouton-transp" %></div>
+          <% else %>
+            <div class="bottom-league-show"><%= link_to "Chatroom", chatroom_path(@chatroom), class: "bouton-transp" %></div>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
   </div>
 
-  <div class="row>
-    <div class="col-6 box-league">
-      <div class="bottom-league-show"><%= link_to "Manage my team", [@league, @team], class: "bouton-transp" %></div>
-    </div>
-    <% if !@chatroom.nil? %>
-      <div class="col-6 box-league">
-        <% if !@message.nil? %>
-          <div class="bottom-league-show"><%= link_to "Chatroom", chatroom_path(@chatroom, anchor:"message-#{@message.id}"), class: "bouton-transp" %></div>
-        <% else %>
-          <div class="bottom-league-show"><%= link_to "Chatroom", chatroom_path(@chatroom), class: "bouton-transp" %></div>
-        <% end %>
-      </div>
-    <% end %>
-  </div>
 </div>
