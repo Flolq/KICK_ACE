@@ -8,6 +8,28 @@
 
 .players-list {
   color: black;
+  display: flex;
+  justify-content: start ;
+  border-bottom: solid 0.1px;
+  font-size: 12px;
+  padding: 4px;
+  width: 100%;
+}
+
+.title-auctions{
+  font-size: 3vh;
+  margin: 2vh 0;
+  font-weight: bold;
+}
+
+.big-title{
+  font-size: 40px;
+}
+
+.team-list {
+  color: black;
+  display: flex;
+  justify-content: space-between ;
   border-bottom: solid 0.1px;
   font-size: 12px;
   padding: 4px;
