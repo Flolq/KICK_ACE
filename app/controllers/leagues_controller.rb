@@ -25,8 +25,10 @@ class LeaguesController < ApplicationController
   def show
     @league = League.find(params[:id])
     @team = Team.where(["league_id = ? and user_id = ?", params[:id], current_user.id]).first
-    if @league.teams.length < @league.number_of_users
-      redirect_to submitted(@league, @team)
+    if !@team
+      redirect_to edit_league_path(@league)
+    elsif @league.teams.length < @league.number_of_users
+      redirect_to bidding_path(@league, @team)
       return
     else
       @league = League.find(params[:id])

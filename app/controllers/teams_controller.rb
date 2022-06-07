@@ -167,7 +167,7 @@ class TeamsController < ApplicationController
   def defining_remaining_players
     @remaining_players = []
     @players_selected = []
-    @players = Player.all
+    @players = Player.all.slice(0,50)
     selections = @league.selections
     won_selections = []
     selections.each do |selection|
