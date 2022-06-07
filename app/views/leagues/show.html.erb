@@ -1,8 +1,4 @@
 <div class="container-fluid">
-
-  <div class="box-league">
-    <h1><%= @league.name %></h1>
-
     <div class="card-container">
       <div class="ranking-card card-text center mx-5">
         <div class="ranking-laurier"><%= image_tag 'laurier.png', width: '45vh' %></div>
@@ -43,10 +39,14 @@
       <% end %>
     </div>
   </div>
-  <div class="box-league">
-    <div class="bottom-league-show"><%= link_to "Manage my team", [@league, @team], class: "bouton-transp" %></div>
-  </div>
-    <div class="box-league">
-    <div class="bottom-league-show"><%= link_to "Chatroom", chatroom_path(@chatroom), class: "bouton-transp" %></div>
+  <div class="row">
+    <div class="col-6 box-league">
+      <div class="bottom-league-show"><%= link_to "Manage my team", [@league, @team], class: "bouton-transp" %></div>
+    </div>
+      <div class="col-6 box-league">
+      <% if @chatroom != nil %>
+        <div class="bottom-league-show"><%= link_to "Chatroom", chatroom_path(@chatroom), class: "bouton-transp" %></div>
+      <% end %>
+    </div>
   </div>
 </div>
