@@ -5,7 +5,7 @@ Rails.application.routes.draw do
   end
 
   devise_for :users
-  root to: 'users#homepage'
+  root to: 'users#show'
 
   resources :users, only: [:show]
   resources :leagues, only: [:new, :create, :show, :edit, :update, :index] do
