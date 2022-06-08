@@ -1,0 +1,11 @@
+<div class="second-navbar">
+    <div class="items" data-controller="second-navbar">
+      <% leagues.each do |league| %>
+        <%= link_to league_path(league), data: { action: 'click->second-navbar#active', remote: true} do %>
+          <div class="second-navbar-item" data-second-navbar-target="league">
+            <%= league.name %>
+          </div>
+        <% end %>
+      <% end %>
+    </div>
+</div>
