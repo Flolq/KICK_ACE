@@ -22,21 +22,23 @@
 
 
   <div class="container d-flex flex-column" data-search-target = "players">
-    <div class="justify-content-around font-weight-bold budget-box" data-budget-update-target= "recap">
-        <div>Remaining budget: </div>
-        <div data-budget-update-target = "budget" data-enable-button-target = "budget"> <%= @team.budget %> </div> <p data-budget-update-target = "max" class="d-none"><%= @team.budget %> </p>
-        <div> m€ </div>
-    </div>
 
-    <p class="title-auctions">AVAILABLE PLAYERS</p>
+    <p class="title-auctions white">AVAILABLE PLAYERS</p>
 
     <%= render 'list', players: @remaining_players %>
 
   </div>
 
-  <div class="container d-flex flex-column" >
-    <p class="title-auctions">MY TEAM</p>
-    <div class="d-flex justify-content-around font-weight-bold count-box "  data-controller = "create-selection display-warning">
+  <div>
+    <p class="title-auctions orange">MY TEAM</p>
+    <div>
+      <div class="budget-box" data-budget-update-target= "recap">
+        <div class= "text-budget"><h3>Remaining budget: </h3>
+        <div data-budget-update-target = "budget" data-enable-button-target = "budget"> <%= @team.budget %> m€ </div> <h3 data-budget-update-target = "max" class="d-none"> <%= @team.budget %> </h3>
+        </div>
+      </div>
+    </div>
+    <div class="count-box "  data-controller = "create-selection display-warning">
       <div>Number of players to add: </div>
       <div  data-counter-target = "counter" data-disable-add-target = "counter" > <%= 8-@current_user_secured_selections.length %></div><div class="d-none" data-enable-button-target="required"><%= 8-@current_user_secured_selections.length %></div>
     </div>
@@ -46,7 +48,12 @@
 
   </div>
 
+<<<<<<< HEAD
   <div class="submit-box">
     <%= link_to "SUBMIT", submitted_path(@league, @team), class:"btn btn-submit-bids disabled", data: {enable_button_target: "button" } %>
+=======
+  <div class="center">
+    <%= link_to "SUBMIT", submitted_path(@league, @team), class:"bouton-transp-share disabled", data: {enable_button_target: "button" } %>
+>>>>>>> master
   </div>
 </div>

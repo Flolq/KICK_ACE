@@ -1,10 +1,13 @@
-
 <div class="container-fluid">
   <div class="white">
     <h1>Create your league</h1>
     <%= simple_form_for(@league) do |f| %>
     <%= f.input :name %>
     <%= f.input :number_of_users %>
+    <%= f.label "Chose your surface", style: "display: block; margin-bottom: 10px;" %>
+    <%= f.collection_radio_buttons :photo, @photos, :first, :last, { item_wrapper_class: "league-selector" } do |b| %>
+      <%= b.label { b.radio_button + image_tag(b.text) } %>
+    <% end %>
     <%= f.button :submit, class: 'bouton-transp-submit'%>
     <% end %>
   </div>

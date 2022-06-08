@@ -1,3 +1,5 @@
+require 'open-uri'
+
 class TeamsController < ApplicationController
   before_action :secured_selections, only: [:submitted, :results, :final]
   before_action :defining_remaining_players, only: [:submitted, :results, :final]
@@ -18,7 +20,9 @@ class TeamsController < ApplicationController
     pos3: 6,
     pos4: 4,
     pos5: 2,
-    pos6: 1
+    pos6: 1,
+    pos7: 1,
+    pos8: 1
   }
 
   ATP_1000_ROUND_POINTS = {
@@ -29,14 +33,33 @@ class TeamsController < ApplicationController
     final: 1000
   }
 
+  default_team_photo = "https://res.cloudinary.com/dx5ha1ecm/image/upload/v1654592216/m5mgvwp8xxgk5tnuxxnh.png"
+  sheep_team_photo = "https://res.cloudinary.com/dx5ha1ecm/image/upload/v1654673483/qhy1nedxjpxku4n923jp.jpg"
+  tiger_team_photo = "https://res.cloudinary.com/dx5ha1ecm/image/upload/v1654673549/zbqzzyuagbgrkwwxw1qy.jpg"
+  unicorn_team_photo = "https://res.cloudinary.com/dx5ha1ecm/image/upload/v1654673566/a7lwqa6tdcnzpsrearub.jpg"
+  bear_team_photo = "https://res.cloudinary.com/dx5ha1ecm/image/upload/v1654673581/e1a1of847zzg1lbwycgg.jpg"
+  croco_team_photo = "https://res.cloudinary.com/dx5ha1ecm/image/upload/v1654673605/zj1pydk3lu6wdy1yxodm.jpg"
+
+  TEAM_PICS = [
+    [default_team_photo, default_team_photo],
+    [sheep_team_photo, sheep_team_photo],
+    [tiger_team_photo, tiger_team_photo],
+    [unicorn_team_photo, unicorn_team_photo],
+    [bear_team_photo, bear_team_photo],
+    [croco_team_photo, croco_team_photo]
+  ]
+
   def new
     @league = League.find(params[:league_id])
     @team = Team.new
+    @photos = TEAM_PICS
   end
 
   def create
+    file = URI.open(params[:team][:photo])
     @league = League.find(params[:league_id])
     @team = Team.new(team_params)
+    @team.photo.attach(io: file, filename: 'team.jpg', content_type: 'image/jpg')
     @team.league = @league
     @team.user = current_user
     @team.progress = "starting"
@@ -104,15 +127,9 @@ class TeamsController < ApplicationController
     @selections.each do |selection|
       player = selection.player
       matches = Match.where(player1: player).or(Match.where(player2: player)).order(date: :desc)
-      if selection.player_points == 0
-        points = player_points(matches, player)
-        selection.player_points = points * BONUS_MULTIPLICATOR["pos#{selection.position}".to_sym]
-        selection.save!
-      elsif selection.updated_at < matches.first.date
-        points = add_player_points(match.first.date, player)
-        selection.player_points = points * BONUS_MULTIPLICATOR["pos#{selection.position}".to_sym]
-        selection.save!
-      end
+      points = matches.nil? ? 0 : player_points(matches, player)
+      selection.player_points = points * BONUS_MULTIPLICATOR["pos#{selection.position}".to_sym]
+      selection.save!
     end
   end
 
@@ -121,7 +138,11 @@ class TeamsController < ApplicationController
   def team_params
     params
       .require(:team)
+<<<<<<< HEAD
       .permit(:name, :photo, selections_attributes: [:player_id, :price, :round_number])
+=======
+      .permit(:name, selections_attributes: [:player_id, :price])
+>>>>>>> master
   end
 
   def secured_selections

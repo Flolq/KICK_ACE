@@ -109,6 +109,36 @@
   }
 }
 
+.bouton-plain-share {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: $orange;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  font-size: 15px;
+  border-radius: 10px;
+  font-weight: lighter;
+  width: 70vw;
+  cursor: pointer;
+  color: $orange;
+  margin-bottom: 10vw;
+  border: 1px solid $orange;
+  color: white;
+  a{
+    color: $white;
+  }
+  &:hover {
+    background-color: white;
+    color: white;
+    border: 1px solid $orange;
+    color: $orange;
+    a{
+      color:$orange;
+    }
+  }
+}
+
 .bouton-plain {
   display: flex;
   justify-content: center;

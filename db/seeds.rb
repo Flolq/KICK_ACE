@@ -15,7 +15,6 @@ League.destroy_all
 User.destroy_all
 # ranking = 1
 i = 0
-player = 0
 
 puts 'We want the players'
 
@@ -204,29 +203,66 @@ end
 
 puts 'Yeaaaaahhh, 6 great men ready to play'
 
-puts 'Let\'s have fun, with a new league'
+puts 'Let\'s have fun, with a new league with its chatroom'
 
-League.create!(
+clay_league_photo = URI.open("https://res.cloudinary.com/dx5ha1ecm/image/upload/v1654674085/pehup7q6ixsfs5leccrn.jpg")
+grass_league_photo = URI.open("https://res.cloudinary.com/dx5ha1ecm/image/upload/v1654674147/qfssc7nahaqlquit1czh.jpg")
+grey_league_photo = URI.open("https://res.cloudinary.com/dx5ha1ecm/image/upload/v1654674169/nab6cjh0c1lysyue1iho.jpg")
+hard_league_photo = URI.open("https://res.cloudinary.com/dx5ha1ecm/image/upload/v1654674192/qug44xflwqxgmvwazvir.jpg")
+hard_blue_league_photo = URI.open("https://res.cloudinary.com/dx5ha1ecm/image/upload/v1654674207/yixcppbqr6tz0qwl2e1z.jpg")
+
+LEAGUE_PICS = [
+  clay_league_photo,
+  grass_league_photo,
+  grey_league_photo,
+  hard_league_photo,
+  hard_blue_league_photo
+]
+
+league = League.new(
   name: 'The champions League',
   number_of_users: 6,
-  user_id: User.first.id,
+  user_id: User.first.id
 )
+
+league_photo = LEAGUE_PICS.sample
+league.photo.attach(io: league_photo, filename: 'team_logo.jpg', content_type: 'image/jpg')
+league.save!
+
+chatroom = Chatroom.new
+chatroom.league = league
+chatroom.save
 
 puts 'Your league is created, congrats guys'
 
 puts 'Now, build up your team !!!!'
 
-
 6.times do
-  team_photo = URI.open("https://res.cloudinary.com/dx5ha1ecm/image/upload/v1654592216/m5mgvwp8xxgk5tnuxxnh.png")
+  default_team_photo = URI.open("https://res.cloudinary.com/dx5ha1ecm/image/upload/v1654592216/m5mgvwp8xxgk5tnuxxnh.png")
+  sheep_team_photo = URI.open("https://res.cloudinary.com/dx5ha1ecm/image/upload/v1654673483/qhy1nedxjpxku4n923jp.jpg")
+  tiger_team_photo = URI.open("https://res.cloudinary.com/dx5ha1ecm/image/upload/v1654673549/zbqzzyuagbgrkwwxw1qy.jpg")
+  unicorn_team_photo = URI.open("https://res.cloudinary.com/dx5ha1ecm/image/upload/v1654673566/a7lwqa6tdcnzpsrearub.jpg")
+  bear_team_photo = URI.open("https://res.cloudinary.com/dx5ha1ecm/image/upload/v1654673581/e1a1of847zzg1lbwycgg.jpg")
+  croco_team_photo = URI.open("https://res.cloudinary.com/dx5ha1ecm/image/upload/v1654673605/zj1pydk3lu6wdy1yxodm.jpg")
 
-  team = Team.create!(
+  team_pics = [
+    default_team_photo,
+    sheep_team_photo,
+    tiger_team_photo,
+    unicorn_team_photo,
+    bear_team_photo,
+    croco_team_photo
+  ]
+
+  team = Team.new(
     name: Faker::Sports::Football.team,
     user_id: User.first.id + i,
     points: rand(100..300),
-    league: League.first,
+    league: League.first
   )
-  team.photo.attach(io: team_photo, filename: 'team_logo.png', content_type: 'image/png')
+  team_photo = team_pics.sample
+  team.photo.attach(io: team_photo, filename: 'team_logo.jpg', content_type: 'image/jpg')
+  team.save!
   i += 1
 end
 
@@ -240,10 +276,9 @@ i = 0
     Selection.create!(
       price: rand(1..30),
       team_id: Team.first.id + i,
-      player_id: Player.first.id + player,
-      position: position,
+      player_id: Player.first(50).sample.id,
+      position: position
     )
-    player += 1
     position += 1
   end
   i += 1
