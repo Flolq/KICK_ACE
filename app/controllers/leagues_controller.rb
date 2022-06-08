@@ -16,6 +16,8 @@ LEAGUE_PICS = [
 
 class LeaguesController < ApplicationController
 
+  before_action :secured_selections, only: [:show]
+
   def index
     @leagues = League.all
   end
@@ -58,7 +60,7 @@ class LeaguesController < ApplicationController
       @league = League.find(params[:id])
       @teams = @league.teams.order(points: :desc)
       @team = Team.where(["league_id = ? and user_id = ?", params[:id], current_user.id]).first
-      @selections = @team.selections.order(:position).first(50)
+      @selections = @current_user_secured_selections.sort_by{ |selection| selection.position }
       @chatroom = Chatroom.where("league_id = ?", params[:id]).first
       if !@chatroom.nil?
         @message = @chatroom.messages.last
@@ -89,5 +91,21 @@ class LeaguesController < ApplicationController
 
   def league_params
     params.require(:league).permit(:name, :number_of_users)
+  end
+
+  def secured_selections
+    @team = Team.where(["league_id = ? and user_id = ?", params[:id], current_user.id]).first
+    @league = League.find(params[:id])
+    @current_user_secured_selections = []
+    @opponents_secured_selections = []
+    @league.selections.each do |selection|
+      if selection.progress == "bid_won"
+        if current_user == User.joins(:teams).where("user_id = ?", selection.team.user_id)[0]
+          @current_user_secured_selections << selection
+        else
+          @opponents_secured_selections << selection
+        end
+      end
+    end
   end
 end
