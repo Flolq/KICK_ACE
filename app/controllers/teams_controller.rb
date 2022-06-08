@@ -1,7 +1,7 @@
 require 'open-uri'
 
 class TeamsController < ApplicationController
-  before_action :secured_selections, only: [:submitted, :results, :final]
+  before_action :secured_selections, only: [:submitted, :results, :show, :final]
   before_action :defining_remaining_players, only: [:submitted, :results, :final]
 
   GRAND_SLAM_ROUND_POINTS = {
@@ -121,13 +121,19 @@ class TeamsController < ApplicationController
 
   def final
     @team.progress = "finalized"
+    @current_user_secured_selections.sort_by!{ |selection| selection.player.min_price}.reverse
+    for i in 1..8
+      @current_user_secured_selections[i - 1].position =i
+      @current_user_secured_selections[i - 1].save
+    end
     @team.save
   end
 
 
   def show
     @team = Team.find(params[:id])
-    @selections = @team.selections.order(:position)
+    @selections = @current_user_secured_selections.sort_by { |player| player.position }
+
     @selections.each do |selection|
       player = selection.player
       matches = Match.where(player1: player).or(Match.where(player2: player)).order(date: :desc)
