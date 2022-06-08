@@ -1,9 +1,47 @@
 <div class="footer">
-  <%= link_to root_path do %>
-    <i class="fa-solid fa-comments"></i>
-  <% end %>
+  <% user = current_user %>
+  <% if user != nil %>
 
-  <%= link_to root_path do %>
-    <i class="fa-solid fa-house"></i>
+    <% chatroom = Chatroom.joins(:messages).where(["messages.user_id = ?", current_user.id]).first %>
+    <% league = current_user.leagues.first %>
+
+    <% if league != nil %>
+      <%= link_to league_path(league) do %>
+        <i class="fa-solid fa-medal"></i>
+      <% end %>
+    <% else %>
+      <%= link_to root_path do %>
+        <i class="fa-solid fa-medal"></i>
+      <% end %>
+    <% end %>
+
+    <%= link_to root_path do %>
+      <i class="fa-solid fa-house"></i>
+    <% end %>
+
+    <% if chatroom != nil && @league != nil %>
+      <%= link_to chatroom_path(Chatroom.where("league_id = ?", @league.id).first) do %>
+        <i class="fa-solid fa-comments"></i>
+      <% end %>
+    <% elsif chatroom != nil %>
+      <%= link_to chatroom_path(chatroom) do %>
+        <i class="fa-solid fa-comments"></i>
+      <% end %>
+    <% else %>
+      <%= link_to root_path do %>
+        <i class="fa-solid fa-comments"></i>
+      <% end %>
+    <% end %>
+
+  <% else %>
+      <%= link_to root_path do %>
+        <i class="fa-solid fa-medal"></i>
+      <% end %>
+      <%= link_to root_path do %>
+        <i class="fa-solid fa-house"></i>
+      <% end %>
+      <%= link_to root_path do %>
+        <i class="fa-solid fa-comments"></i>
+      <% end %>
   <% end %>
 </div>

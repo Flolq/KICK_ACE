@@ -203,7 +203,7 @@ end
 
 puts 'Yeaaaaahhh, 6 great men ready to play'
 
-puts 'Let\'s have fun, with a new league'
+puts 'Let\'s have fun, with a new league with its chatroom'
 
 clay_league_photo = URI.open("https://res.cloudinary.com/dx5ha1ecm/image/upload/v1654674085/pehup7q6ixsfs5leccrn.jpg")
 grass_league_photo = URI.open("https://res.cloudinary.com/dx5ha1ecm/image/upload/v1654674147/qfssc7nahaqlquit1czh.jpg")
@@ -224,6 +224,10 @@ league = League.create!(
   number_of_users: 6,
   user_id: User.first.id
 )
+
+chatroom = Chatroom.new
+chatroom.league = league
+chatroom.save
 
 league_photo = LEAGUE_PICS.sample
 league.photo.attach(io: league_photo, filename: 'team_logo.jpg', content_type: 'image/jpg')
