@@ -4,8 +4,13 @@
 
     <% chatroom = Chatroom.joins(:messages).where(["messages.user_id = ?", current_user.id]).first %>
     <% league = current_user.leagues.first %>
+    <% current_chatroom = @chatroom %>
 
-    <% if league != nil && params[:league_id] != nil %>
+    <% if @chatroom != nil %>
+      <%= link_to league_path(@chatroom.league) do %>
+        <i class="fa-solid fa-medal"></i>
+      <% end %>
+    <% elsif league != nil && params[:league_id] != nil %>
       <%= link_to league_path(params[:league_id]) do %>
         <i class="fa-solid fa-medal"></i>
       <% end %>
