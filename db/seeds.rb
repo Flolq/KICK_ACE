@@ -16,171 +16,176 @@ User.destroy_all
 # ranking = 1
 i = 0
 
-puts 'We want the players'
 
 API_KEY = ENV['SPORTS_RADAR_API_KEY']
 URL = "https://api.sportradar.com/tennis/trial/v3/en"
 ENDPOINT = ".json?api_key=#{API_KEY}"
 
-def search_for_data(url)
-  url = URI(url)
-  http = Net::HTTP.new(url.host, url.port)
-  http.use_ssl = true
-  http.verify_mode = OpenSSL::SSL::VERIFY_NONE
+if Player.count.zero?
+  puts 'We want the players'
 
-  request = Net::HTTP::Get.new(url)
+  def search_for_data(url)
+    url = URI(url)
+    http = Net::HTTP.new(url.host, url.port)
+    http.use_ssl = true
+    http.verify_mode = OpenSSL::SSL::VERIFY_NONE
 
-  response = http.request(request)
-  return JSON.parse(response.read_body)
-end
+    request = Net::HTTP::Get.new(url)
 
-def create_players(players)
-  players.each do |player|
-    points = player["points"]
-    name = player["competitor"]["name"].split(", ")
+    response = http.request(request)
+    return JSON.parse(response.read_body)
+  end
+
+  def create_players(players)
+    players.each do |player|
+      points = player["points"]
+      name = player["competitor"]["name"].split(", ")
+
+      Player.create!(
+        first_name: name.last,
+        last_name: name.first,
+        ranking: player["rank"],
+        atp_points: points,
+        min_price: points * 5000,
+        nationality: player["competitor"]["country"],
+        atpid: player["competitor"]["id"]
+      )
+    end
 
     Player.create!(
-      first_name: name.last,
-      last_name: name.first,
-      ranking: player["rank"],
-      atp_points: points,
-      min_price: points * 5000,
-      nationality: player["competitor"]["country"],
-      atpid: player["competitor"]["id"]
+      first_name: "Ranked",
+      last_name: "Non",
+      ranking: 501,
+      atp_points: 0,
+      min_price: 0,
+      nationality: "Unknown",
+      atpid: "unknown"
     )
   end
 
-  Player.create!(
-    first_name: "Ranked",
-    last_name: "Non",
-    ranking: 501,
-    atp_points: 0,
-    min_price: 0,
-    nationality: "Unknown",
-    atpid: "unknown"
-  )
-end
+  def update_players(players)
+    players.each do |player|
+      points = player["points"]
 
-def update_players(players)
-  players.each do |player|
-    points = player["points"]
+      target_player = Player.find_by(atpid: player["competitor"]["id"])
 
-    target_player = Player.find_by(atpid: player["competitor"]["id"])
-
-    target_player.update!(
-      ranking: player["rank"],
-      atp_points: points,
-      min_price: points * 5000
-    )
+      target_player.update!(
+        ranking: player["rank"],
+        atp_points: points,
+        min_price: points * 5000
+      )
+    end
   end
-end
 
-def add_infos_to_player(player_id, player_atpid)
-  player_detail_url = "#{URL}/competitors/#{player_atpid}/profile#{ENDPOINT}"
-  data = search_for_data(player_detail_url)
+  def add_infos_to_player(player_id, player_atpid)
+    player_detail_url = "#{URL}/competitors/#{player_atpid}/profile#{ENDPOINT}"
+    data = search_for_data(player_detail_url)
+    sleep 1
+
+    date_array = data["info"]["date_of_birth"].split("-")
+    birthdate = Date.new(date_array[0].to_i, date_array[1].to_i, date_array[2].to_i)
+
+    player = Player.find(player_id)
+    player.date_of_birth = birthdate
+    player.competitions_played = data["periods"].first["statistics"]["competitions_played"]
+    player.competitions_won = data["periods"].first["statistics"]["competitions_won"]
+    player.matches_played = data["periods"].first["statistics"]["matches_played"]
+    player.matches_won = data["periods"].first["statistics"]["matches_won"]
+
+    player.save!
+  end
+
+  player_rankings_url = "#{URL}/rankings#{ENDPOINT}"
+  data = search_for_data(player_rankings_url)
   sleep 1
+  players = data["rankings"][0]["competitor_rankings"]
 
-  date_array = data["info"]["date_of_birth"].split("-")
-  birthdate = Date.new(date_array[0].to_i, date_array[1].to_i, date_array[2].to_i)
+  create_players(players)
 
-  player = Player.find(player_id)
-  player.date_of_birth = birthdate
-  player.competitions_played = data["periods"].first["statistics"]["competitions_played"]
-  player.competitions_won = data["periods"].first["statistics"]["competitions_won"]
-  player.matches_played = data["periods"].first["statistics"]["matches_played"]
-  player.matches_won = data["periods"].first["statistics"]["matches_won"]
+  Player.all.first(100).each do |tennisplayer|
+    add_infos_to_player(tennisplayer.id, tennisplayer.atpid)
+  end
 
-  player.save!
-end
+  puts 'We have our players !!!!'
 
-player_rankings_url = "#{URL}/rankings#{ENDPOINT}"
-data = search_for_data(player_rankings_url)
-sleep 1
-players = data["rankings"][0]["competitor_rankings"]
+  if Tournament.count.zero?
+    puts 'Has someone said tournaments? Ok ok, do not move ...'
 
-create_players(players)
-
-Player.all.first(100).each do |tennisplayer|
-  add_infos_to_player(tennisplayer.id, tennisplayer.atpid)
-end
-
-puts 'We have our players !!!!'
-
-if Tournament.count.zero?
-  puts 'Has someone said tournaments? Ok ok, do not move ...'
-
-  def create_tournaments(tournaments)
-    tournaments.each do |tournament|
-      if tournament["level"]
-        Tournament.create(
-          name: tournament["name"],
-          level: tournament["level"]
-        )
+    def create_tournaments(tournaments)
+      tournaments.each do |tournament|
+        if tournament["level"]
+          Tournament.create(
+            name: tournament["name"],
+            level: tournament["level"]
+          )
+        end
       end
     end
+
+    tournaments_url = "#{URL}/competitions#{ENDPOINT}"
+    data = search_for_data(tournaments_url)
+    sleep 1
+    create_tournaments(data["competitions"])
+
+    puts 'Done ;)'
   end
 
-  tournaments_url = "#{URL}/competitions#{ENDPOINT}"
-  data = search_for_data(tournaments_url)
-  sleep 1
-  create_tournaments(data["competitions"])
 
-  puts 'Done ;)'
-end
+  if Match.count.zero?
+    puts "The first round of matches ..."
 
-
-if Match.count.zero?
-  puts "The first round of matches ..."
-
-  def create_matches(matches)
-    matches.each do |match|
-      level = match["sport_event"]["sport_event_context"]["competition"]["level"]
-      name = match["sport_event"]["sport_event_context"]["competition"]["name"]
-      if name == "French Open Men Singles" || level == "atp_1000"
-        Match.create!(
-          date: match["sport_event"]["start_time"],
-          round: match["sport_event"]["sport_event_context"]["round"],
-          player1: Player.find_by(atpid: match["sport_event"]["competitors"].first["id"]) || Player.find_by(atpid: "unknown"),
-          player2: Player.find_by(atpid: match["sport_event"]["competitors"].last["id"]) || Player.find_by(atpid: "unknown"),
-          tournament: Tournament.find_by(name: match["sport_event"]["sport_event_context"]["competition"]["name"]),
-          winner: Player.find_by(atpid: match["sport_event_status"]["winner_id"]) || Player.find_by(atpid: "unknown"),
-          done: true
-        )
+    def create_matches(matches)
+      matches.each do |match|
+        level = match["sport_event"]["sport_event_context"]["competition"]["level"]
+        name = match["sport_event"]["sport_event_context"]["competition"]["name"]
+        if name == "French Open Men Singles" || level == "atp_1000"
+          Match.create!(
+            date: match["sport_event"]["start_time"],
+            round: match["sport_event"]["sport_event_context"]["round"],
+            player1: Player.find_by(atpid: match["sport_event"]["competitors"].first["id"]) || Player.find_by(atpid: "unknown"),
+            player2: Player.find_by(atpid: match["sport_event"]["competitors"].last["id"]) || Player.find_by(atpid: "unknown"),
+            tournament: Tournament.find_by(name: match["sport_event"]["sport_event_context"]["competition"]["name"]),
+            winner: Player.find_by(atpid: match["sport_event_status"]["winner_id"]) || Player.find_by(atpid: "unknown"),
+            done: true
+          )
+        end
       end
     end
-  end
 
 
-  dates = []
-  (4..5).to_a.each do |month|
-    (1..30).to_a.each do |day|
-      dates << "2022-#{'0' + month.to_s}-#{day.to_s.chars.size == 1 ? '0' + day.to_s : day}"
+    dates = []
+    (4..5).to_a.each do |month|
+      (1..30).to_a.each do |day|
+        dates << "2022-#{'0' + month.to_s}-#{day.to_s.chars.size == 1 ? '0' + day.to_s : day}"
+      end
     end
+    dates << "2022-05-31"
+    dates << "2022-06-01"
+
+    dates.each do |date|
+      matches_url = "#{URL}/schedules/#{date}/summaries#{ENDPOINT}"
+      data = search_for_data(matches_url)
+      create_matches(data["summaries"])
+      sleep 1
+
+      matches_url = "#{URL}/schedules/#{date}/summaries#{ENDPOINT}&start=200"
+      data = search_for_data(matches_url)
+      create_matches(data["summaries"])
+      sleep 1
+
+      matches_url = "#{URL}/schedules/#{date}/summaries#{ENDPOINT}&start=400"
+      data = search_for_data(matches_url)
+      create_matches(data["summaries"])
+      sleep 1
+    end
+
+    puts "Aaaaaand it's done"
   end
-  dates << "2022-05-31"
-  dates << "2022-06-01"
-
-  dates.each do |date|
-    matches_url = "#{URL}/schedules/#{date}/summaries#{ENDPOINT}"
-    data = search_for_data(matches_url)
-    create_matches(data["summaries"])
-    sleep 1
-
-    matches_url = "#{URL}/schedules/#{date}/summaries#{ENDPOINT}&start=200"
-    data = search_for_data(matches_url)
-    create_matches(data["summaries"])
-    sleep 1
-
-    matches_url = "#{URL}/schedules/#{date}/summaries#{ENDPOINT}&start=400"
-    data = search_for_data(matches_url)
-    create_matches(data["summaries"])
-    sleep 1
-  end
-
-  puts "Aaaaaand it's done"
-end
 
 puts 'We want the users ...'
+
+end
+
 
 User.create!(
   email: "zizou@kick.ace",
