@@ -52,7 +52,7 @@ class LeaguesController < ApplicationController
       @league = League.find(params[:id])
       @teams = @league.teams.order(points: :desc)
       @team = Team.where(["league_id = ? and user_id = ?", params[:id], current_user.id]).first
-      @selections = @team.selections.sort_by { |player| player[:position] }
+      @selections = @team.selections.order(:position).first(50)
       @chatroom = Chatroom.where("league_id = ?", params[:id]).first
       if !@chatroom.nil?
         @message = @chatroom.messages.last
