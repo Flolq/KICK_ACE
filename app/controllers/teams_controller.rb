@@ -20,7 +20,9 @@ class TeamsController < ApplicationController
     pos3: 6,
     pos4: 4,
     pos5: 2,
-    pos6: 1
+    pos6: 1,
+    pos7: 1,
+    pos8: 1
   }
 
   ATP_1000_ROUND_POINTS = {
@@ -149,15 +151,9 @@ class TeamsController < ApplicationController
     @selections.each do |selection|
       player = selection.player
       matches = Match.where(player1: player).or(Match.where(player2: player)).order(date: :desc)
-      if selection.player_points == 0
-        points = player_points(matches, player)
-        selection.player_points = points * BONUS_MULTIPLICATOR["pos#{selection.position}".to_sym]
-        selection.save!
-      elsif selection.updated_at < matches.first.date
-        points = add_player_points(match.first.date, player)
-        selection.player_points = points * BONUS_MULTIPLICATOR["pos#{selection.position}".to_sym]
-        selection.save!
-      end
+      points = matches.nil? ? 0 : player_points(matches, player)
+      selection.player_points = points * BONUS_MULTIPLICATOR["pos#{selection.position}".to_sym]
+      selection.save!
     end
   end
 

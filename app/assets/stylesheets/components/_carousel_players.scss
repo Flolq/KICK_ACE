@@ -26,19 +26,14 @@
 
 .carousel__item {
   position: fixed;
-  left: 31vw;
+  left: 30vw;
   max-width: 190px;
   max-height: 280px;
-  min-height: 250px;
-  min-width: 140px;
-  top: 122vw;
+  min-height: 145px;
+  min-width: 150px;
+  top: 117vw;
   margin: auto;
   list-style-type: none;
-  z-index: 0;
-  display: block;
-  overflow: hidden;
-  border-radius: 1.5vmax;
-  opacity: 0;
   p{
     color: black;
     bottom: -10px;
@@ -62,12 +57,12 @@
   align-items: flex-end;
   z-index: 1;
   background: black;
-  height: 50%;
+  height: 100%;
   width: 100%;
   p {
     color: white;
     font-size: 16px;
-    font-weight: bold;
+    font-weight: lighter;
   }
 
 }

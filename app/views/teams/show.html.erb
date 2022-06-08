@@ -44,8 +44,8 @@
     <ul class="carousel">
       <% @selections.each do |selection| %>
         <% player = selection.player %>
-          <li class="carousel__item center" data-action="click->statistics#revealContent" data-statistics-player-id-param="<%= player.id %>">
-            <div class="carousel__item-wrapper" style="background: url(<%= image_path "players/#{player.last_name.downcase}.png" %>);"><p><%= player.last_name %></p></div>
+          <li class="carousel__item" data-action="click->statistics#revealContent" data-statistics-player-id-param="<%= player.id %>">
+            <div class="carousel__item-wrapper" style="background: url(<%= cl_image_path player.photo.key %>);"><p><%= player.last_name %></p></div>
           </li>
           <div class="card-statistics d-none"
             data-statistics-target="content"
