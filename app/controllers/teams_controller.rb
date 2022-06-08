@@ -20,7 +20,9 @@ class TeamsController < ApplicationController
     pos3: 6,
     pos4: 4,
     pos5: 2,
-    pos6: 1
+    pos6: 1,
+    pos7: 1,
+    pos8: 1
   }
 
   ATP_1000_ROUND_POINTS = {
