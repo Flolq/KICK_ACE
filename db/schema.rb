@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_06_07_084931) do
+ActiveRecord::Schema.define(version: 2022_06_08_091935) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -113,6 +113,7 @@ ActiveRecord::Schema.define(version: 2022_06_07_084931) do
     t.datetime "updated_at", precision: 6, null: false
     t.integer "position"
     t.integer "player_points"
+    t.integer "round_number"
     t.index ["player_id"], name: "index_selections_on_player_id"
     t.index ["team_id"], name: "index_selections_on_team_id"
   end
@@ -126,6 +127,7 @@ ActiveRecord::Schema.define(version: 2022_06_07_084931) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.integer "budget"
+    t.integer "round_number", default: 0
     t.index ["league_id"], name: "index_teams_on_league_id"
     t.index ["user_id"], name: "index_teams_on_user_id"
   end

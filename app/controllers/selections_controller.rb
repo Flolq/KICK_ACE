@@ -34,6 +34,6 @@ class SelectionsController < ApplicationController
   private
 
   def selection_params
-    params.require(:selection).permit(:position, :player_id, :price, :team_id)
+    params.require(:selection).permit(:position, :player_id, :price, :team_id, :round_number)
   end
 end

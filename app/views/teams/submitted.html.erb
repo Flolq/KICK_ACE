@@ -1,5 +1,36 @@
+<<<<<<< HEAD:app/views/teams/submitted.html.erb
+<br>
+<br>
+<br>
+
+<p class="white">Progress: <%= @team.progress %></p>
+<p class="white">Round #: <%= @team.round_number %></p>
+
+=======
+>>>>>>> master:app/views/teams/recap.html.erb
 <div class="container text-center w-75">
 
+<<<<<<< HEAD:app/views/teams/submitted.html.erb
+
+  <br>
+  <% if @league.all_ready?(@team.round_number)%>
+     <h3>All teams have placed their bids </h3>
+      <%= link_to "See results & next round", bidding_path(@league, @team), class: "btn btn-success" %>
+
+  <% else %>
+
+    <h3>Teams that have placed their bids</h3>
+    <ul class="list-group"><% @league.teams_submitted_waiting(@team.round_number).each do |team| %></ul>
+      <li class="list-group-item"><%= team.name %> || Player: <%= team.user.nickname %> </li>
+    <% end %>
+
+    <h3>Waiting for the other players to bid...</h3>
+
+    <%= link_to "Refresh", submitted_path(@league, @team), class: "btn btn-success" %>
+
+  <% end %>
+
+=======
   <div class="chatroom-title"><h1>Thanks for your bids</h1></div>
   <div class="back-shadow">
     <% if @teams_submitted.length == @league.number_of_users || @league.round_progress == "bidding_submitted" %>
@@ -40,4 +71,5 @@
   </div>
 
   <%= link_to "Refresh", submitted_path(@league, @team), class: "btn btn-success" %>
+>>>>>>> master:app/views/teams/recap.html.erb
 </div>

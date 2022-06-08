@@ -7,5 +7,6 @@
       <%= f.input :price, label: false, placeholder: "#{selection.player.min_price / 1000000}",  input_html: { min: selection.player.min_price / 1000000 , class: "bid-box", data: {action: 'blur->budget-update#update blur->enable-button#enable blur->create-selection#create', budget_update_target: "price", enable_button_target: "player"} } %>
       <%= f.input :player_id, as: :hidden, input_html: { value: params[:player_id] } %>
       <%= f.input :team_id, as: :hidden, input_html: { value: params[:team_id] } %>
+      <%= f.input :round_number, as: :hidden, input_html: { value: (Team.find(params[:team_id]).round_number) } %>
     <% end%>
 </div>
