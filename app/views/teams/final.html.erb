@@ -50,12 +50,12 @@
    <% if @league.all_finalized? %>
       <h2>All teams of the leagues are now finalized!</h2>
       <h2>Let's get ready to ruuuuuuuuuumble</h2>
-      <a href="#" class = "btn btn-success">GO MANAGE YOUR TEAM</a>
+      <div><%= link_to "LET'S START THE LEAGUE", league_path(@league), class: "btn btn-success" %></div>
     <% else %>
       <h3>We're still waiting for your fellow opponents to finalize their teams...</h2>
 
       </div>
-      <div><%= link_to "Refresh", submitted_path(@league, @team), class: "btn btn-success" %></div>
+      <div><%= link_to "Refresh", final_path(@league, @team), class: "btn btn-success" %></div>
     <% end %>
   </div>
 >>>>>>> master
