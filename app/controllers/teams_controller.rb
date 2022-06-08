@@ -1,3 +1,5 @@
+require 'open-uri'
+
 class TeamsController < ApplicationController
   before_action :secured_selections, only: [:submitted, :results, :final]
   before_action :defining_remaining_players, only: [:submitted, :results, :final]
@@ -29,14 +31,33 @@ class TeamsController < ApplicationController
     final: 1000
   }
 
+  default_team_photo = "https://res.cloudinary.com/dx5ha1ecm/image/upload/v1654592216/m5mgvwp8xxgk5tnuxxnh.png"
+  sheep_team_photo = "https://res.cloudinary.com/dx5ha1ecm/image/upload/v1654673483/qhy1nedxjpxku4n923jp.jpg"
+  tiger_team_photo = "https://res.cloudinary.com/dx5ha1ecm/image/upload/v1654673549/zbqzzyuagbgrkwwxw1qy.jpg"
+  unicorn_team_photo = "https://res.cloudinary.com/dx5ha1ecm/image/upload/v1654673566/a7lwqa6tdcnzpsrearub.jpg"
+  bear_team_photo = "https://res.cloudinary.com/dx5ha1ecm/image/upload/v1654673581/e1a1of847zzg1lbwycgg.jpg"
+  croco_team_photo = "https://res.cloudinary.com/dx5ha1ecm/image/upload/v1654673605/zj1pydk3lu6wdy1yxodm.jpg"
+
+  TEAM_PICS = [
+    [default_team_photo, default_team_photo],
+    [sheep_team_photo, sheep_team_photo],
+    [tiger_team_photo, tiger_team_photo],
+    [unicorn_team_photo, unicorn_team_photo],
+    [bear_team_photo, bear_team_photo],
+    [croco_team_photo, croco_team_photo]
+  ]
+
   def new
     @league = League.find(params[:league_id])
     @team = Team.new
+    @photos = TEAM_PICS
   end
 
   def create
+    file = URI.open(params[:team][:photo])
     @league = League.find(params[:league_id])
     @team = Team.new(team_params)
+    @team.photo.attach(io: file, filename: 'team.jpg', content_type: 'image/jpg')
     @team.league = @league
     @team.user = current_user
     @team.progress = "starting"
@@ -139,7 +160,7 @@ class TeamsController < ApplicationController
   def team_params
     params
       .require(:team)
-      .permit(:name, :photo, selections_attributes: [:player_id, :price])
+      .permit(:name, selections_attributes: [:player_id, :price])
   end
 
   def secured_selections
