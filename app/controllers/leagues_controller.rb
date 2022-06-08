@@ -81,7 +81,6 @@ class LeaguesController < ApplicationController
     redirect_to edit_league_path(league)
   end
 
-
   private
 
   def league_params
