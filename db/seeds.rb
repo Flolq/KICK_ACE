@@ -204,13 +204,17 @@ end
 
 puts 'Yeaaaaahhh, 6 great men ready to play'
 
-puts 'Let\'s have fun, with a new league'
+puts 'Let\'s have fun, with a new league with its chatroom'
 
-League.create!(
-  name: 'The champions League',
+league = League.create!(
+  name: 'The test league',
   number_of_users: 6,
   user_id: User.first.id,
 )
+
+chatroom = Chatroom.new
+chatroom.league = league
+chatroom.save
 
 puts 'Your league is created, congrats guys'
 
