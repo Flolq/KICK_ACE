@@ -128,15 +128,9 @@ class TeamsController < ApplicationController
     @selections.each do |selection|
       player = selection.player
       matches = Match.where(player1: player).or(Match.where(player2: player)).order(date: :desc)
-      if selection.player_points == 0
-        points = player_points(matches, player)
-        selection.player_points = points * BONUS_MULTIPLICATOR["pos#{selection.position}".to_sym]
-        selection.save!
-      elsif selection.updated_at < matches.first.date
-        points = add_player_points(match.first.date, player)
-        selection.player_points = points * BONUS_MULTIPLICATOR["pos#{selection.position}".to_sym]
-        selection.save!
-      end
+      points = matches.nil? ? 0 : player_points(matches, player)
+      selection.player_points = points * BONUS_MULTIPLICATOR["pos#{selection.position}".to_sym]
+      selection.save!
     end
   end
 
