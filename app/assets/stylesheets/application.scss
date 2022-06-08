@@ -69,6 +69,14 @@ p {
   text-shadow: $orange 0 0.3vh;
 }
 
+.orange {
+  color: $orange;
+  text-shadow: white 0 0.3vh;
+  a {
+    color: $orange;
+  }
+}
+
 .text-shadow{
   text-shadow: 0px 0px 1px $orange;
 }

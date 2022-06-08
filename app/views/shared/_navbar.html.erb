@@ -11,8 +11,8 @@
     </div>
     <div class="d-none" data-toggle-navbar-target="link">
       <div class="link-navbar">
-        <a href="#">Account</a>
-        <a href="#">Log Out</a>
+        <%= link_to "Account", root_path %>
+        <%= link_to "Logout", destroy_user_session_path, method: :delete %>
       </div>
     </div>
 </div>
