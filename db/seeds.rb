@@ -219,18 +219,19 @@ LEAGUE_PICS = [
   hard_blue_league_photo
 ]
 
-league = League.create!(
+league = League.new(
   name: 'The champions League',
   number_of_users: 6,
   user_id: User.first.id
 )
 
+league_photo = LEAGUE_PICS.sample
+league.photo.attach(io: league_photo, filename: 'team_logo.jpg', content_type: 'image/jpg')
+league.save!
+
 chatroom = Chatroom.new
 chatroom.league = league
 chatroom.save
-
-league_photo = LEAGUE_PICS.sample
-league.photo.attach(io: league_photo, filename: 'team_logo.jpg', content_type: 'image/jpg')
 
 puts 'Your league is created, congrats guys'
 
@@ -253,7 +254,7 @@ puts 'Now, build up your team !!!!'
     croco_team_photo
   ]
 
-  team = Team.create!(
+  team = Team.new(
     name: Faker::Sports::Football.team,
     user_id: User.first.id + i,
     points: rand(100..300),
@@ -261,6 +262,7 @@ puts 'Now, build up your team !!!!'
   )
   team_photo = team_pics.sample
   team.photo.attach(io: team_photo, filename: 'team_logo.jpg', content_type: 'image/jpg')
+  team.save!
   i += 1
 end
 
