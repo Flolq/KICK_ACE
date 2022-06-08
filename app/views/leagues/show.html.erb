@@ -21,7 +21,7 @@
       <% @selections.each_with_index do |selection, index| %>
         <% if index <= 1 %>
           <div class="player-card-important" style="background-image: linear-gradient(rgba(255,255,255,0.1),rgba(255,255,255,0.1)), asset-url(<%= image_path "background.jpg" %>);">
-            <div class="player-card-image-important" style="background-image: asset-url('<%= cl_image_path selection.player.photo.key %>')">
+            <div class="player-card-image-important" style="background-image: url('<%= cl_image_path selection.player.photo.key %>')">
               <div class="team-player-name">
                 <div><%= selection.position %></div>
                 <div><%= selection.player.last_name %></div>
@@ -35,7 +35,7 @@
       <% @selections.each_with_index do |selection, index| %>
         <% if index > 1 && index < 6 %>
           <div class="player-card" style="background-image: linear-gradient(rgba(255,255,255,0.1),rgba(255,255,255,0.1)), url(<%= image_path "background.jpg" %>);">
-            <div class="player-card-image" style="background-image: asset-url('<%= cl_image_path selection.player.photo.key %>')">
+            <div class="player-card-image" style="background-image: url('<%= cl_image_path selection.player.photo.key %>')">
               <div class="team-player-name">
                 <div><%= selection.position %></div>
                 <div><%= selection.player.last_name %></div>
