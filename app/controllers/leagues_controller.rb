@@ -1,3 +1,19 @@
+require 'open-uri'
+
+clay_league_photo = URI.open("https://res.cloudinary.com/dx5ha1ecm/image/upload/v1654674085/pehup7q6ixsfs5leccrn.jpg").read
+grass_league_photo = URI.open("https://res.cloudinary.com/dx5ha1ecm/image/upload/v1654674147/qfssc7nahaqlquit1czh.jpg").read
+grey_league_photo = URI.open("https://res.cloudinary.com/dx5ha1ecm/image/upload/v1654674169/nab6cjh0c1lysyue1iho.jpg").read
+hard_league_photo = URI.open("https://res.cloudinary.com/dx5ha1ecm/image/upload/v1654674192/qug44xflwqxgmvwazvir.jpg").read
+hard_blue_league_photo = URI.open("https://res.cloudinary.com/dx5ha1ecm/image/upload/v1654674207/yixcppbqr6tz0qwl2e1z.jpg").read
+
+LEAGUE_PICS = [
+  clay_league_photo,
+  grass_league_photo,
+  grey_league_photo,
+  hard_league_photo,
+  hard_blue_league_photo
+]
+
 class LeaguesController < ApplicationController
 
   def index
@@ -6,6 +22,7 @@ class LeaguesController < ApplicationController
 
   def new
     @league = League.new
+    @photos = LEAGUE_PICS
   end
 
   def create
@@ -23,6 +40,7 @@ class LeaguesController < ApplicationController
   end
 
   def show
+    @leagues = League.where(user_id: current_user)
     @league = League.find(params[:id])
     @team = Team.where(["league_id = ? and user_id = ?", params[:id], current_user.id]).first
     if !@team

@@ -1,3 +1,4 @@
+<%= render 'shared/league_navbar', leagues: @leagues %>
 <div class="container-fluid">
   <div class="ranking-card">
     <div class="ranking-laurier"><%= image_tag 'laurier.png', width: '80vh' %></div>
@@ -20,8 +21,8 @@
       <% @selections.each_with_index do |selection, index| %>
         <% if index <= 1 %>
           <div class="player-card-important" style="background-image: linear-gradient(rgba(0,0,0,0.4),rgba(0,0,0,0.4)), url(<%= image_path "background" %>);">
-            <div class="player-card-image-important" style="background-image: url(<%= image_path "players/#{selection.player.last_name.downcase}" %>)">
-              <div class="player-name">
+            <div class="player-card-image-important" style="background-image: url('<%= cl_image_path selection.player.photo.key %>')">
+              <div class="team-player-name">
                 <div><%= selection.position %></div>
                 <div><%= selection.player.last_name %></div>
               </div>
@@ -34,8 +35,8 @@
       <% @selections.each_with_index do |selection, index| %>
         <% if index > 1 && index < 6 %>
           <div class="player-card" style="background-image: linear-gradient(rgba(0,0,0,0.4),rgba(0,0,0,0.4)), url(<%= image_path "background" %>);">
-            <div class="player-card-image" style="background-image: url(<%= image_path "players/#{selection.player.last_name.downcase}" %>)">
-              <div class="player-name">
+            <div class="player-card-image" style="background-image: url('<%= cl_image_path selection.player.photo.key %>')">
+              <div class="team-player-name">
                 <div><%= selection.position %></div>
                 <div><%= selection.player.last_name %></div>
               </div>
@@ -44,11 +45,10 @@
         <% end %>
       <% end %>
     </div>
-
+    <div class="center-div"><%= link_to "MANAGE", [@league, @team], class: "bouton-plain" %></div>
   </div>
 
 
-    <div class="center-div"><%= link_to "MANAGE", [@league, @team], class: "bouton-plain" %></div>
     <% if !@chatroom.nil? %>
       <div class="col-6">
         <% if !@message.nil? %>
