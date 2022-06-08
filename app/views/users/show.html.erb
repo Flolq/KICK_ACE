@@ -18,9 +18,9 @@
           <% end %>
         <% end %>
     </div>
-    <div class="card-league-add">
-      <%= link_to "+", new_league_path %>
-    </div>
+    <%= link_to new_league_path do %>
+      <div class="card-league-add">+</div>
+    <% end %>
   </div>
   <div class="box-home">
     <div class="center"><h2>News</h2></div>

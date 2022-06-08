@@ -6,3 +6,45 @@
   margin-top: 5vw;
   margin-bottom: 5vw;
 }
+
+.league-selector {
+  input {
+    position: absolute;
+    transform: scale(0);
+  }
+
+  input + img {
+    cursor: pointer;
+    display: inline-block;
+    width: 25vw;
+    height: 15vw;
+    border-radius: 2vw;
+    margin-bottom: 2vw;
+    object-fit: cover;
+  }
+
+  input:checked + img {
+    border: 2px solid lightseagreen;
+  }
+}
+
+.team-selector {
+  input {
+    position: absolute;
+    transform: scale(0);
+  }
+
+  input + img {
+    cursor: pointer;
+    display: inline-block;
+    width: 15vw;
+    height: 15vw;
+    border-radius: 50%;
+    margin-bottom: 2vw;
+    object-fit: cover;
+  }
+
+  input:checked + img {
+    border: 2px solid lightseagreen;
+  }
+}

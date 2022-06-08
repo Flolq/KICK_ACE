@@ -6,7 +6,8 @@
     <div class="form-new-team">
       <%= simple_form_for [@league, @team] do |f| %>
         <%= f.input :name, label: "Name of your team" %>
-        <%= f.collection_radio_buttons(:photo, @photos, :first, :last) do |b| %>
+        <%= f.label "Chose your team avatar", style: "display: block; margin-bottom: 10px;" %>
+        <%= f.collection_radio_buttons:photo, @photos, :first, :last, { item_wrapper_class: "team-selector" } do |b| %>
           <%= b.label { b.radio_button + image_tag(b.text) } %>
         <% end %>
         <%= f.button :submit, class: 'bouton-transp-submit' %>
