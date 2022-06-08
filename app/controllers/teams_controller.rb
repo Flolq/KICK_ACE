@@ -44,7 +44,7 @@ class TeamsController < ApplicationController
     @league.save
 
     if @team.save
-      redirect_to bidding_path(@league, @team)
+      redirect_to bidding_path(@league.id, @team.id)
     else
       render :new
     end
@@ -52,31 +52,22 @@ class TeamsController < ApplicationController
 
   def bidding
     @team = Team.find(params[:id])
+
     @league = @team.league
 
     search_players
 
-    if @team.progress == "bids_submitted"
-      if @league.round_progress != "auctions_closed"
-        auctions
-        @league.round_progress = "auctions_closed"
-      end
+    if @team.progress == "submitted_ready"
+      @team.increment_round
+      @team.save
+      auctions
       updating_budget
     end
 
     secured_selections
     defining_remaining_players
 
-    if @current_user_secured_selections.length >= 8
-      @team.progress = "finalized"
-      @team.save
-
-      defining_finalized_teams
-
-      defining_submitted_teams
-
-      progressing_league_round_progress
-
+    if @current_user_secured_selections.length == 8
       redirect_to final_path(@league, @team)
       return
     end
@@ -85,40 +76,25 @@ class TeamsController < ApplicationController
     @team.save
   end
 
-  def recap
-
-  end
-
   def submitted
     @team = Team.find(params[:id])
     @league = @team.league
 
-    @team.progress = "bids_submitted"
+    @team.progress = "submitted_waiting"
 
     filtering_selections
 
     @team.save
 
-    defining_submitted_teams
-
-    defining_finalized_teams
-
-    progressing_league_round_progress
-
+    if @league.all_waiting_and_same_round?(@team.round_number)
+      @league.make_all_teams_ready(@team.round_number)
+    end
     @league.save
-
-    render :recap
-
-
   end
 
   def final
     @team.progress = "finalized"
     @team.save
-    defining_finalized_teams
-
-    defining_submitted_teams
-
   end
 
 
@@ -145,7 +121,7 @@ class TeamsController < ApplicationController
   def team_params
     params
       .require(:team)
-      .permit(:name, :photo, selections_attributes: [:player_id, :price])
+      .permit(:name, :photo, selections_attributes: [:player_id, :price, :round_number])
   end
 
   def secured_selections
@@ -167,7 +143,7 @@ class TeamsController < ApplicationController
   def defining_remaining_players
     @remaining_players = []
     @players_selected = []
-    @players = Player.all.slice(0,50)
+    @players = Player.all.sort_by{ |player| player.min_price }.reverse.slice(0, 50)
     selections = @league.selections
     won_selections = []
     selections.each do |selection|
@@ -228,10 +204,11 @@ class TeamsController < ApplicationController
   end
 
   def auctions
+    team = Team.find(params[:id])
     league_selections = @league.selections
     submitted_selections = []
     league_selections.each do |selection|
-      submitted_selections << selection if selection.progress == "bid_submitted"
+      submitted_selections << selection if ((selection.progress == "bid_submitted") && (selection.round_number == team.round_number - 1))
     end
     selections = submitted_selections.group_by { |selection| selection.player_id }
 
@@ -292,7 +269,7 @@ class TeamsController < ApplicationController
     starting_budget = @team.budget
     budget_spent = 0
     @team.selections.each do |selection|
-      if selection.progress == "bid_won"
+      if selection.progress == "bid_won" && selection.round_number == @team.round_number - 1
         budget_spent += selection.price
       end
     end
@@ -300,36 +277,21 @@ class TeamsController < ApplicationController
     @team.save
   end
 
-  def defining_finalized_teams
-    @teams_non_finalized = @league.teams.select{ |team| team.progress != "finalized" }
-    @teams_finalized = @league.teams.select{ |team| team.progress == "finalized" }
-  end
 
-  def defining_submitted_teams
-    @teams_submitted = @league.teams.select{ |team| team.progress == "bids_submitted" }
-    @teams_non_submitted = @league.teams.select{ |team|  team.progress != "bids_submitted" }
-  end
-
-  def progressing_league_round_progress
-    @league.round_progress = "bidding_submitted" if @teams_submitted.length == @league.number_of_users
-    @league.round_progress = "finalized" if @teams_finalized.length == @league.number_of_users
-    @league.save
-  end
+  # def progressing_league_round_progress
+  #   @league.round_progress = "bidding_submitted" if @teams_submitted.length == @league.number_of_users
+  #   @league.round_progress = "finalized" if @teams_finalized.length == @league.number_of_users
+  #   @league.save
+  # end
 
   def filtering_selections
     filtered_selections = []
     @kept_selections = []
+    team = Team.find(params[:id])
 
     all_selections = @team.selections
-
-    if @league.round_progress == "bidding_submitted"
-      filtered_selections = all_selections
-    else
-      all_selections.each do |selection|
-        unless selection.progress == "bid_won" || selection.progress == "bid_lost"
-          filtered_selections << selection
-        end
-      end
+    all_selections.each do |selection|
+      filtered_selections << selection if selection.round_number == team.round_number
     end
 
     grouped_selections = filtered_selections.group_by { |selection| selection.player_id }

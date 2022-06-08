@@ -1,9 +1,7 @@
 <div class="container text-center w-75">
   <br>
   <div class="green"><h1>League: <%= @team.league.name %></h1></div>
-  <div class="green"><h2>The bidding round is now over!</h2></div>
   <div class="green"><h2>Your team: <%= @team.name %></h2></div>
-  <div class="green"><h2><%= @team.progress %></h2></div>
   <br>
   <div class="green"><h3>Congratulations! You have finalised your team with 8 champions!</h3></div>
 
@@ -51,20 +49,18 @@
     </tbody>
   </table>
 
-  <% if @teams_non_finalized.empty? %>
+  <% if @league.all_finalized? %>
 
     <h2>All teams of the leagues are now finalized!</h2>
     <h2>Let's get ready to ruuuuuuuuuumble</h2>
-    <a href="#" class = "btn btn-success">GO MANAGE YOUR TEAM</a>
+    <%= link_to "Let's start the league!", league_path(@league), class: "btn btn-success" %>
+
 
   <% else %>
 
     <h3>We're still waiting for your fellow opponents to finalize their teams...</h2>
-    <ul class="list-group"><% @teams_non_finalized.each do |team| %></ul>
-      <li class="list-group-item"><%= team.name %> || Player: <%= team.user.nickname %> ||  <%= team.progress%> </li>
-    <% end %>
 
-    <%= link_to "Refresh", submitted_path(@league, @team), class: "btn btn-success" %>
+    <%= link_to "Refresh", final_path(@league, @team), class: "btn btn-success" %>
 
 
   <% end %>

@@ -1,3 +1,5 @@
+<p class="white">Progress: <%= @team.progress %></p>
+<p class="white">Round #: <%= @team.round_number %></p>
 
 <div class="container" data-controller = "budget-update enable-button search disable-add players-selection counter"">
   <h1 class = "white font-weight-bold big-title">Place your bids!</h1>
@@ -45,6 +47,6 @@
   </div>
 
   <div class="submit-box">
-    <%= link_to "SUBMIT", submitted_path(@league, @team), class:"btn-submit-bids disabled", data: {enable_button_target: "button" } %>
+    <%= link_to "SUBMIT", submitted_path(@league, @team), class:"btn btn-submit-bids disabled", data: {enable_button_target: "button" } %>
   </div>
 </div>
