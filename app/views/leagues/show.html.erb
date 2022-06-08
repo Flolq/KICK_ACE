@@ -47,17 +47,4 @@
     </div>
     <div class="center-div"><%= link_to "MANAGE", [@league, @team], class: "bouton-plain" %></div>
   </div>
-
-
-    <% if !@chatroom.nil? %>
-      <div class="col-6">
-        <% if !@message.nil? %>
-          <div class="bottom-league-show"><%= link_to "Chatroom", chatroom_path(@chatroom, anchor:"message-#{@message.id}"), class: "bouton-transp" %></div>
-        <% else %>
-          <div class="bottom-league-show"><%= link_to "Chatroom", chatroom_path(@chatroom), class: "bouton-transp" %></div>
-        <% end %>
-      </div>
-    <% end %>
-  </div>
-
 </div>
