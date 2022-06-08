@@ -265,9 +265,6 @@ h1 {
 }
 
 .card-league {
-  background: linear-gradient(rgba(255, 255, 255, 0.1),rgba(255, 255, 255, 0.1)), url("https://images.unsplash.com/photo-1594642846940-04aa08884b24?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=764&q=80");
-  background-position: center;
-  background-size: cover;
   border-radius: 2vh;
   height: 30vh;
   width: 50vh;
@@ -280,6 +277,9 @@ h1 {
   align-items: center;
   box-shadow: 1vh 1vh 1vh rgba(0, 0, 0, 0.5);
   color: white;
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
   // .racket {
   //   margin-right: 4vh;
   //   transform: rotate(-140deg);
