@@ -1,17 +1,17 @@
 require 'open-uri'
 
-clay_league_photo = URI.open("https://res.cloudinary.com/dx5ha1ecm/image/upload/v1654674085/pehup7q6ixsfs5leccrn.jpg").read
-grass_league_photo = URI.open("https://res.cloudinary.com/dx5ha1ecm/image/upload/v1654674147/qfssc7nahaqlquit1czh.jpg").read
-grey_league_photo = URI.open("https://res.cloudinary.com/dx5ha1ecm/image/upload/v1654674169/nab6cjh0c1lysyue1iho.jpg").read
-hard_league_photo = URI.open("https://res.cloudinary.com/dx5ha1ecm/image/upload/v1654674192/qug44xflwqxgmvwazvir.jpg").read
-hard_blue_league_photo = URI.open("https://res.cloudinary.com/dx5ha1ecm/image/upload/v1654674207/yixcppbqr6tz0qwl2e1z.jpg").read
+clay_league_photo = "https://res.cloudinary.com/dx5ha1ecm/image/upload/v1654674085/pehup7q6ixsfs5leccrn.jpg"
+grass_league_photo = "https://res.cloudinary.com/dx5ha1ecm/image/upload/v1654674147/qfssc7nahaqlquit1czh.jpg"
+grey_league_photo = "https://res.cloudinary.com/dx5ha1ecm/image/upload/v1654674169/nab6cjh0c1lysyue1iho.jpg"
+hard_league_photo = "https://res.cloudinary.com/dx5ha1ecm/image/upload/v1654674192/qug44xflwqxgmvwazvir.jpg"
+hard_blue_league_photo = "https://res.cloudinary.com/dx5ha1ecm/image/upload/v1654674207/yixcppbqr6tz0qwl2e1z.jpg"
 
 LEAGUE_PICS = [
-  clay_league_photo,
-  grass_league_photo,
-  grey_league_photo,
-  hard_league_photo,
-  hard_blue_league_photo
+  [clay_league_photo, clay_league_photo],
+  [grass_league_photo, grass_league_photo],
+  [grey_league_photo, grey_league_photo],
+  [hard_league_photo, hard_league_photo],
+  [hard_blue_league_photo, hard_blue_league_photo]
 ]
 
 class LeaguesController < ApplicationController
@@ -26,7 +26,9 @@ class LeaguesController < ApplicationController
   end
 
   def create
+    file = URI.open(params[:league][:photo])
     @league = League.new(league_params)
+    @league.photo.attach(io: file, filename: 'league.jpg', content_type: 'image/jpg')
     @league.owner = current_user
     @league.round_progress = "starting"
     if @league.save
@@ -52,7 +54,7 @@ class LeaguesController < ApplicationController
       @league = League.find(params[:id])
       @teams = @league.teams.order(points: :desc)
       @team = Team.where(["league_id = ? and user_id = ?", params[:id], current_user.id]).first
-      @selections = @team.selections.sort_by { |player| player[:position] }
+      @selections = @team.selections.order(:position).first(50)
       @chatroom = Chatroom.where("league_id = ?", params[:id]).first
       if !@chatroom.nil?
         @message = @chatroom.messages.last
