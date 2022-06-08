@@ -6,5 +6,6 @@ class Team < ApplicationRecord
   has_one_attached :photo
   accepts_nested_attributes_for :selections
 
+  validates :photo, presence: true
   validates :name, presence: true
 end
