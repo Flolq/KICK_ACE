@@ -57,18 +57,21 @@ class TeamsController < ApplicationController
   end
 
   def create
-    file = URI.open(params[:team][:photo])
+    @photos = TEAM_PICS
     @league = League.find(params[:league_id])
     @team = Team.new(team_params)
-    @team.photo.attach(io: file, filename: 'team.jpg', content_type: 'image/jpg')
-    @team.league = @league
-    @team.user = current_user
-    @team.progress = "starting"
-    @team.budget = 500
-    @league.save
 
-    if @team.save
-      redirect_to bidding_path(@league.id, @team.id)
+    if params[:team][:photo] != ""
+      file = URI.open(params[:team][:photo])
+      @team.photo.attach(io: file, filename: 'team.jpg', content_type: 'image/jpg')
+      @team.league = @league
+      @team.user = current_user
+      @team.progress = "starting"
+      @team.budget = 500
+      @league.save
+      if @team.save
+        redirect_to bidding_path(@league.id, @team.id)
+      end
     else
       render :new
     end

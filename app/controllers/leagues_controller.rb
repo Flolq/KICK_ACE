@@ -26,16 +26,20 @@ class LeaguesController < ApplicationController
   end
 
   def create
-    file = URI.open(params[:league][:photo])
+    @photos = LEAGUE_PICS
     @league = League.new(league_params)
-    @league.photo.attach(io: file, filename: 'league.jpg', content_type: 'image/jpg')
-    @league.owner = current_user
-    @league.round_progress = "starting"
-    if @league.save
-      @chatroom = Chatroom.new
-      @chatroom.league = @league
-      @chatroom.save
-      redirect_to edit_league_path(@league)
+
+    if params[:league][:photo] != ""
+      file = URI.open(params[:league][:photo])
+      @league.photo.attach(io: file, filename: 'league.jpg', content_type: 'image/jpg')
+      @league.owner = current_user
+      @league.round_progress = "starting"
+      if @league.save
+        @chatroom = Chatroom.new
+        @chatroom.league = @league
+        @chatroom.save
+        redirect_to edit_league_path(@league)
+      end
     else
       render :new
     end
