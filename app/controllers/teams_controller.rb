@@ -138,11 +138,7 @@ class TeamsController < ApplicationController
   def team_params
     params
       .require(:team)
-<<<<<<< HEAD
-      .permit(:name, :photo, selections_attributes: [:player_id, :price, :round_number])
-=======
-      .permit(:name, selections_attributes: [:player_id, :price])
->>>>>>> master
+      .permit(:name, selections_attributes: [:player_id, :price, :round_number])
   end
 
   def secured_selections
