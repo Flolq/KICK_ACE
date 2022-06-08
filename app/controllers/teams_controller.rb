@@ -26,6 +26,7 @@ class TeamsController < ApplicationController
   }
 
   ATP_1000_ROUND_POINTS = {
+    round_of_64: 20,
     round_of_32: 60,
     round_of_16: 80,
     quarterfinal: 250,
