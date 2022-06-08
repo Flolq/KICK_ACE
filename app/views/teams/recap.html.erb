@@ -1,50 +1,43 @@
-
 <div class="container text-center w-75">
-  <br>
-  <h1>League: <%= @team.league.name %></h1>
-  <h2>Thanks for submitting your bids!</h2>
-  <h2>Your team: <%= @team.name %></h2>
-  <br>
-  <h3>Here is a recap of your bids</h3>
 
-
-  <table class="table">
-    <thead>
-      <tr>
-        <th scope="col">Player</th>
-        <th scope="col">Your bid</th>
-      </tr>
-    </thead>
-    <tbody>
-    <% @kept_selections.each do |selection| %></ul>
-      <tr>
-        <td><%=selection.player.first_name%> <%=selection.player.last_name%></td>
-        <td><%=selection.price%> m€ </td>
-      </tr>
-    <% end %>
-    </tbody>
-  </table>
-
-
-  <br>
-  <% if @teams_submitted.length == @league.number_of_users || @league.round_progress == "bidding_submitted" %>
-     <h3>All teams have placed their bids </h3>
+  <div class="chatroom-title"><h1>Thanks for your bids</h1></div>
+  <div class="back-shadow">
+    <% if @teams_submitted.length == @league.number_of_users || @league.round_progress == "bidding_submitted" %>
+      <h3>All teams have placed their bids </h3>
       <%= link_to "See results & next round", bidding_path(@league, @team), class: "btn btn-success" %>
+    <% else %>
+      <h3>Teams that have placed their bids</h3>
+      <ul class="list-group"><% @teams_submitted.each do |team| %>
+        <li class="list-group-item"><%= team.name %> || Player: <%= team.user.nickname %> </li>
+      <% end %>
+      </ul>
+      <h3>Waiting for the other players to bid...</h3>
+        <ul class="list-group"><% @teams_non_submitted.each do |team| %>
+          <li class="list-group-item"><%= team.name %> || Player: <%= team.user.nickname %></li>
+        <% end %>
+        </ul>
+      <% end %>
+  </div>
 
-  <% else %>
+  <div class="back-shadow">
+    <h3>Here is a recap of your bids</h3>
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">Player</th>
+          <th scope="col">Your bid</th>
+        </tr>
+      </thead>
+      <tbody>
+      <% @kept_selections.each do |selection| %></ul>
+        <tr>
+          <td><%=selection.player.first_name%> <%=selection.player.last_name%></td>
+          <td><%=selection.price%> m€ </td>
+        </tr>
+      <% end %>
+      </tbody>
+    </table>
+  </div>
 
-    <h3>Teams that have placed their bids</h3>
-    <ul class="list-group"><% @teams_submitted.each do |team| %></ul>
-      <li class="list-group-item"><%= team.name %> || Player: <%= team.user.nickname %> </li>
-    <% end %>
-
-    <h3>Waiting for the other players to bid...</h3>
-    <ul class="list-group"><% @teams_non_submitted.each do |team| %></ul>
-      <li class="list-group-item"><%= team.name %> || Player: <%= team.user.nickname %> </li>
-    <% end %>
-
-    <%= link_to "Refresh", submitted_path(@league, @team), class: "btn btn-success" %>
-
-  <% end %>
-
+  <%= link_to "Refresh", submitted_path(@league, @team), class: "btn btn-success" %>
 </div>
