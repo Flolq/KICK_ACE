@@ -113,7 +113,7 @@ ActiveRecord::Schema.define(version: 2022_06_08_091935) do
     t.datetime "updated_at", precision: 6, null: false
     t.integer "position"
     t.integer "player_points"
-    t.integer "round_number"
+    t.integer "round_number", default: 0
     t.index ["player_id"], name: "index_selections_on_player_id"
     t.index ["team_id"], name: "index_selections_on_team_id"
   end
