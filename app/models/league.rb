@@ -16,7 +16,7 @@ class League < ApplicationRecord
 
   def all_waiting_and_same_round?(round_number)
     teams = self.teams
-    return teams.all? { |team| ((team.progress == "submitted_waiting" || team.progress == "submitted_ready") && team.round_number == round_number) || team.round_number > round_number}
+    return teams.all? { |team| ((team.progress == "submitted_waiting" || team.progress == "submitted_ready") && team.round_number == round_number) || team.round_number > round_number || team.progress == "finalized"}
   end
 
   def make_all_teams_ready(round_number)
@@ -29,7 +29,7 @@ class League < ApplicationRecord
 
   def all_ready?(round_number)
     teams = self.teams
-    return teams.all? { |team| ((team.progress == "submitted_ready") && (team.round_number == round_number)) || team.round_number > round_number}
+    return teams.all? { |team| ((team.progress == "submitted_ready") && (team.round_number == round_number)) || team.round_number > round_number || team.progress == "finalized"}
   end
 
   def all_finalized?
@@ -39,7 +39,7 @@ class League < ApplicationRecord
 
   def teams_submitted_waiting(round_number)
     teams = self.teams
-    return teams.select { |team| ((team.progress == "submitted_waiting") && (team.round_number == round_number)) || team.round_number > round_number}
+    return teams.select { |team| ((team.progress == "submitted_waiting") && (team.round_number == round_number)) || team.round_number > round_number || team.progress == "finalized"}
   end
 
   def teams_finalized(round_number)
