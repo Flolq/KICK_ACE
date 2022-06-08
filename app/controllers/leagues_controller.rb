@@ -60,7 +60,6 @@ class LeaguesController < ApplicationController
         @message = @chatroom.messages.last
       end
     end
-    raise
   end
 
   def edit
