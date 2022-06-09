@@ -10,7 +10,7 @@
         </div>
         <div>
           <%= link_to new_selection_path(player_id: player.id, team_id: @team.id), data: {action: "click->enable-button#enable ajax:success->players-selection#update click->players-selection#disable click->disable-add#disable click->counter#reduce", disable_add_target: "players"}, remote: true do %>
-            <i class="plus-icon fa-solid fa-circle-plus align-items-right"></i>
+            <i class="plus-icon fa-solid fa-circle-plus"></i>
           <% end %>
         </div>
       </div>

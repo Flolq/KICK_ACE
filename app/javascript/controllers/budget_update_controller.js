@@ -13,7 +13,7 @@ export default class extends Controller {
     console.log(max_budget)
     let sum = 0
      this.priceTargets.forEach(element => sum = sum +(element.value == "" ? 0 : parseInt(element.value, 10)))
-    this.budgetTarget.innerHTML = `${max_budget-sum}`
+    this.budgetTarget.innerHTML = `${max_budget-sum} m€`
     if (parseInt(this.budgetTarget.innerHTML, 10) < 0) {
       this.recapTarget.classList.add("text-danger")
     }

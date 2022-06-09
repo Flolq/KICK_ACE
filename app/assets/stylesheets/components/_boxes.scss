@@ -16,20 +16,10 @@
 
 .budget-box {
   color: black;
-  font-size: 20px;
-  padding: 4px;
   width: 100%;
 }
 
-.players-box {
-  height: 150px;
-  padding: 0 10px;
-  border: solid 0.5px black;
-  border-radius: 5px;
-  background-color: rgba(255,255,255,0.6);
-  display: flex;
-  flex-direction: column;
-}
+
 .player-name {
   width: 160px;
   color: black;
@@ -48,32 +38,57 @@
   color: black;
   font-size: 12px;
   padding: 4px;
-  width: 80%;
-  font-weight: bold;
+  margin-bottom: 15vw;
+  width: 100%;
   background-color: $light-orange;
-  margin: 0 auto;
   align-items: center;
+  border: solid 0.5px $orange;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
 }
 
 .bid-box {
-  text-align: right;
   font-size: 14px;
   width: 60px;
+  height: 30px;
+  margin-top: 15px;
   align-items: center;
+}
 
+.players-box {
+  height: 150px;
+  padding: 2px 10px;
+  border: solid 0.5px $orange;
+  border-radius: 5px;
+  background-color: rgba(255,255,255,0.6);
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 5vw;
 }
 
 .count-box {
   display: flex;
+  flex-direction: column;
   color: black;
-  border: solid 1px $orange;
-  font-size: 12px;
-  padding: 4px;
-  width: 80%;
-  font-weight: bold;
+  border: solid 0.5px $orange;
+  font-size: 14px;
+  padding: 0 10px;
+  width: 100%;
   background-color: $light-orange;
   margin: 0 auto;
   align-items: center;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+
+.box-counter{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  padding-right: 20px;
 }
 
 .submit-box{
@@ -88,5 +103,4 @@
   background-color: rgba(255,255,255,0.5);
   color: black;
   padding: 5px 15px;
-
 }
