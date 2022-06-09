@@ -1,16 +1,14 @@
 <div class="container-fluid">
-  <div class="white">
-    <h1>Create your league</h1>
+  <div class="white center margin-bottom"><h2>Create the league 🎾</h2></div>
+  <div class="back-shadow">
     <%= simple_form_for(@league) do |f| %>
-    <%= f.input :name %>
-    <%= f.input :number_of_users %>
-    <div class="back-shadow">
-    <%= f.label "Choose your surface", style: "display: block; margin-bottom: 10px; text-shadow: none; color: #D35229;" %>
-    <%= f.collection_radio_buttons :photo, @photos, :first, :last, { item_wrapper_class: "league-selector" } do |b| %>
-      <%= b.label { b.radio_button + image_tag(b.text) } %>
-    <% end %>
-    </div>
-    <div class="center"><%= f.button :submit, class: 'bouton-transp-submit'%></div>
+      <%= f.input :name %>
+      <%= f.input :number_of_users, label: "How many kickacers? *" %>
+      <%= f.label "Choose your surface *", style: "display: block; margin-bottom: 10px; text-shadow: none; color: #D35229;" %>
+      <%= f.collection_radio_buttons :photo, @photos, :first, :last, { item_wrapper_class: "league-selector" } do |b| %>
+        <%= b.label { b.radio_button + image_tag(b.text) } %>
+      <% end %>
+      <div class="center-div margin-top"><%= f.submit "Create", class: 'bouton-plain-share' %></div>
     <% end %>
   </div>
 </div>
