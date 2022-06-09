@@ -4,6 +4,7 @@ class League < ApplicationRecord
   has_many :users, through: :teams
   has_many :selections, through: :teams
   has_one_attached :photo
+  has_one :chatroom, dependent: :destroy
 
   validates :name, presence: true, uniqueness: true
   validates :photo, presence: true

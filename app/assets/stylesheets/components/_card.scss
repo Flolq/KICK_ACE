@@ -239,7 +239,7 @@ h1 {
 .card-statistics {
   background: $light-orange;
   border-radius: 10px;
-  height: 70vw;
+  height: 60vw;
   width: 70vw;
   margin-left: 3vw;
   color: black;
@@ -248,7 +248,7 @@ h1 {
   flex-direction: column;
   justify-content: center;
   align-items: flex-start;
-  padding-top: 10vw;
+  padding-top: 13vw;
   padding-bottom: 10vw;
   h2 {
     color: $orange;
@@ -257,11 +257,34 @@ h1 {
     font-size: 12px;
     line-height: 1.2;
   }
+  position: relative
+}
+.stats-icon {
+    position: absolute;
+    top: -19vw;
+    left: 105px;
+}
+
+.stats {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  font-size: 14px;
+  width: 100%;
+}
+
+.update-stats {
+  justify-content: flex-end;
+  font-weight: bolder;
 }
 
 .statistics-text {
+  display: flex;
+  flex-direction: column;
+  justify-content:flex-start;
   margin-left: 7vw;
   margin-right: 2vw;
+  width: 80%;
 }
 
 .statistics-title {

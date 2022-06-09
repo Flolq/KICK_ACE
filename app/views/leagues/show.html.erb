@@ -9,7 +9,7 @@
           <div class="team-position"><%= index + 1 %></div>
           <%= cl_image_tag team.photo.key, height: 40, width: 40, crop: :fill, radius: "max" %>
           <div class="team-name"><%= team.name.capitalize %></div>
-          <div class="team-points"><%= "#{team.points} pts" %></div>
+          <div class="team-points"><%= "#{team.points / 100} pts" %></div>
         </div>
       <% end %>
     </div>
@@ -48,4 +48,9 @@
     <div class="center-div"><%= link_to "Manage", [@league, @team], class: "bouton-plain-share" %></div>
     <div class="center-div"><%= link_to "chatroom", chatroom_path(Chatroom.where("league_id = ?", @league.id).first), class: "bouton-plain-share" %></div>
   </div>
+  <%= link_to "Delete #{@league.name}",
+            league_path(@league),
+            method: :delete,
+            data: { confirm: "Are you sure?" },
+            class: "bouton-plain-share" %>
 </div>
