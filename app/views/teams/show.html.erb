@@ -50,14 +50,34 @@
           <div class="card-statistics d-none"
             data-statistics-target="content"
             data-statistics-player-id="<%= player.id %>">
+            <div class="stats-icon center">
+              <creattie-embed
+                src="https://d1k5j68ob7clqb.cloudfront.net/saved_colors/423/B7HnrPoOzkZBHA0G.json"
+                delay="1"
+                speed="100"
+                frame_rate="24"
+                stroke_width="25"
+                trigger="loop"
+                style="width:80px;background-color: transparent">
+              </creattie-embed>
+              <script src="https://creattie.com/js/embed.js?id=7a8cd14651e2110f0e7d" defer></script>
+            </div>
             <div class="statistics-title"><h2>Statistics this year</h2></div>
             <div class="statistics-text">
-              <p>Date of birth: <%= player.date_of_birth %></p>
-              <p>Competitions played: <%= player.competitions_played %></p>
-              <p>Competitions won: <%= player.competitions_won %></p>
-              <p>Matches played: <%= player.matches_played %></p>
-              <p>Matches won: <%= player.matches_won %></p>
-              <p>Points earned: <%= selection.player_points %> points</p>
+              <div class="stats"><div class="text-stats">Date of birth: </div><div class="update-stats"><%= player.date_of_birth %></div></div>
+              <div class="stats"><div class="text-stats">Slams played: </div><div class="update-stats"><%= player.competitions_played %></div></div>
+              <div class="stats"><div class="text-stats">Slams won: </div><div class="update-stats"><%= player.competitions_won %></div></div>
+              <div class="stats"><div class="text-stats">Matches played: </div><div class="update-stats"><%= player.matches_played %></div></div>
+              <div class="stats"><div class="text-stats">Matches won: </div><div class="update-stats"><%= player.matches_won %></div></div>
+              <div class="stats"><div class="text-stats">Points earned: </div><div class="update-stats"><%= selection.player_points %> pts</div></div>
+            </div>
+          </div>
+      <% end %>
+
+
+
+
+
             </div>
           </div>
       <% end %>
