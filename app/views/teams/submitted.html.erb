@@ -13,8 +13,8 @@
           <h3><i class="fa-solid fa-circle-check"></i> Teams ready</h3>
             <ul class="box-list-player">
               <%  @league.teams_submitted_waiting(@team.round_number).each do |team| %>
-                <div class="border-radius"><%= cl_image_tag team.photo.key, height: 40, width: 40, crop: :fill %></div>
                 <div class="list-player-ready">
+                  <div class="border-radius"><%= cl_image_tag team.photo.key, height: 40, width: 40, crop: :fill %></div>
                   <li><%= team.name %></li>
                 </div>
               <% end %>
@@ -45,6 +45,5 @@
       </div>
       <%= link_to "Refresh", submitted_path(@league, @team), class: "bouton-plain-share" %>
     </div>
->>>>>>> master
   </div>
 </div>
