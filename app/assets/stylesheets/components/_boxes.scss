@@ -104,3 +104,41 @@
   color: black;
   padding: 5px 15px;
 }
+
+.box-player-ready {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.box-player-ready {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  background: rgba(255, 255, 255, 0.7);
+  box-shadow: 0vh 2vh 2vh rgba(0, 0, 0, 0.25);
+  padding: 2vh;
+  width: 80%;
+  margin-top: 2vw;
+  margin-bottom: 5vw;
+  border-radius: 10px;
+  ul {
+    list-style: none;
+  }
+}
+
+.border-radius {
+  border-radius: 50%;
+}
+
+.box-list-player {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  img {
+    border-radius: 50%;
+  }
+}
