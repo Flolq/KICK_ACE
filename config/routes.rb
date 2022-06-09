@@ -8,7 +8,7 @@ Rails.application.routes.draw do
   root to: 'users#show'
 
   resources :users, only: [:show]
-  resources :leagues, only: [:new, :create, :show, :edit, :update, :index] do
+  resources :leagues, only: [:new, :create, :show, :edit, :update, :index, :destroy] do
     resources :teams, only: [:new, :create, :edit, :update, :show]
     resources :rounds, only: [:show]
   end

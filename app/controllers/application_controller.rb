@@ -21,7 +21,8 @@ class ApplicationController < ActionController::Base
     pos5: 2,
     pos6: 1,
     pos7: 1,
-    pos8: 1
+    pos8: 1,
+    pos0: 0
   }
 
   ATP_1000_ROUND_POINTS = {
