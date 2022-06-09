@@ -99,6 +99,12 @@ class LeaguesController < ApplicationController
     redirect_to edit_league_path(league)
   end
 
+  def destroy
+    @league = League.find(params[:id])
+    @league.destroy
+    redirect_to root_path
+  end
+
   private
 
   def league_params
@@ -147,7 +153,7 @@ class LeaguesController < ApplicationController
       player = selection.player
       matches = Match.where(player1: player).or(Match.where(player2: player)).order(date: :desc)
       points = matches.nil? ? 0 : player_points(matches, player)
-      selection.player_points = points * BONUS_MULTIPLICATOR["pos#{selection.position}".to_sym]
+      selection.player_points = points * BONUS_MULTIPLICATOR["pos#{selection.position <= 8 ? selection.position : 0}".to_sym]
       selection.save!
     end
 
