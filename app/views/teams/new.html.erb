@@ -1,6 +1,6 @@
 <div class="container-fluid">
   <div>
-    <div class="white center margin-bottom"><h1>Welcome to<br> <%= @league.name %></h1></div>
+    <div class="white center margin-bottom"><h2>Welcome to<br> <%= @league.name %></h2></div>
     <div class="back-shadow">
       <div class="center margin-bottom margin-top"><h2>Make your team 🔥</h2></div>
       <div class="form-new-team">
@@ -10,7 +10,7 @@
           <%= f.collection_radio_buttons:photo, @photos, :first, :last, { item_wrapper_class: "team-selector" } do |b| %>
             <%= b.label { b.radio_button + image_tag(b.text) } %>
           <% end %>
-          <div class="center-div margin-top"><%= f.button :submit, label: "Create", class: 'bouton-plain-share' %></div>
+          <div class="center-div margin-top"><%= f.submit "Create", class: 'bouton-plain-share' %></div>
         <% end%>
       </div>
     </div>
