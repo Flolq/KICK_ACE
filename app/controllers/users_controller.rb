@@ -6,7 +6,7 @@ class UsersController < ApplicationController
 
   def show
     #@leagues = @user.leagues
-    @leagues = League.joins(:teams).where(["teams.user_id = ?", current_user.id])
+    @leagues = League.joins(:teams).where(["teams.user_id = ?", current_user.id]).order(id: :desc)
 
     url = "https://www.tennisactu.net/"
     html_file = URI.open(url).read

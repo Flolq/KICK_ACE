@@ -50,6 +50,7 @@ class TeamsController < ApplicationController
   def bidding
     @team = Team.find(params[:id])
 
+
     @league = @team.league
 
     search_players
@@ -88,19 +89,11 @@ class TeamsController < ApplicationController
     end
     @league.save
 
-    if @league.all_ready?(@team.round_number)
-      LeagueChannel.broadcast_to(
-        @league,
-        render_to_string(partial: "notification")
-      )
-    else
-      render "submitted"
-    end
   end
 
   def final
     @team.progress = "finalized"
-    @current_user_secured_selections.sort_by!{ |selection| selection.player.min_price}.reverse
+    @current_user_secured_selections.sort_by!{ |selection| selection.player.min_price}
     for i in 1..8
       @current_user_secured_selections[i - 1].position =i
       @current_user_secured_selections[i - 1].save
@@ -266,7 +259,7 @@ class TeamsController < ApplicationController
     starting_budget = @team.budget
     budget_spent = 0
     @team.selections.each do |selection|
-      if selection.progress == "bid_won" && selection.round_number == @team.round_number - 1
+      if (selection.progress == "bid_won") && (selection.round_number == @team.round_number - 1)
         budget_spent += selection.price
       end
     end

@@ -1,7 +1,8 @@
 <div class="second-navbar">
     <div class="items" data-controller="second-navbar" data-second-navbar-name-value="<%= league.name %>">
       <% leagues.each do |league| %>
-        <%= link_to league_path(league), data: { action: 'click->second-navbar#active' } do %>
+        <% chatroom = Chatroom.find_by(league: league) %>
+        <%= link_to chatroom_path(chatroom), data: { action: 'click->second-navbar#active' } do %>
           <div class="second-navbar-item" data-second-navbar-target="league">
             <%= league.name %>
           </div>
