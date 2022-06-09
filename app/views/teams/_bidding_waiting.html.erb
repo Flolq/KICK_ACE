@@ -1,30 +1,27 @@
-<div class="container-fluid">
-
-
-  <div class="back-shadow">
-    <div class="center"><h1>Thanks for joining the league!</h1></div>
-    <div>The following people have joined</div>
-    <div class="text-ranking mt-4 mb-4">
-      <% @league.teams.each_with_index do |team, index| %>
-        <div class="team">
-          <div class="team-position"><%= index + 1 %></div>
-          <div class="team-name"><%= team.name %></div>
-        </div>
-      <% end %>
-    </div>
-    <h3>We're now waiting for other people to join</h3>
-    <div class="form-edit-league">
-      <div>Invite friends!</div>
-      <div class="input-group" data-controller="clipboard" data-clipboard-feedback-text-value="Copied!">
-        <input class="form-control" data-clipboard-target="input" type="text" value="http://www.kick-ace.me/leagues/<%= @league.id%>/teams/new" readonly>
-        <div class="input-group-append">
-          <button id="copy-button" class="btn btn-outline-primary" data-action="click->clipboard#copy">Copy link</button>
-        </div>
+<div class="white">
+  <h1><%= @league.name.capitalize %></h1>
+</div>
+<div class="back-shadow">
+  <div class="text-ranking mt-4 mb-4">
+    <% i = 1 %>
+    <% @league.teams.each_with_index do |team, index| %>
+      <div class="team">
+        <div class="team-position"><%= i %>.</div>
+        <div class="team-logo"><%= cl_image_tag team.photo.key, height: 40, width: 40, crop: :fill, radius: "max" %></div>
+        <div class="team-name"><h2><%= team.name.capitalize %></h2></div>
       </div>
+      <% i += 1 %>
+    <% end %>
+  </div>
+  <div class="back-text">We're now waiting for other teams</div>
+</div>
+<div class="form-edit-league">
+  <div class="center-div"><h2>Invite friends!</h2></div>
+  <div class="input-group" data-controller="clipboard" data-clipboard-feedback-text-value="Copied!">
+    <input class="form-control" data-clipboard-target="input" type="text" value="http://www.kick-ace.me/leagues/<%= @league.id%>/teams/new" readonly>
+    <div class="input-group-append">
+      <button id="copy-button" class="btn btn-outline-primary" data-action="click->clipboard#copy">Copy link</button>
     </div>
   </div>
-
-      <%= link_to "Refresh", bidding_path(@league, @team), class: "btn btn-success" %>
-
-
 </div>
+<div class="center-div"><%= link_to "Refresh", bidding_path(@league, @team), class: "bouton-plain-share" %></div>
