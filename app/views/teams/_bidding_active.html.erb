@@ -1,8 +1,5 @@
-<p class="white">Progress: <%= @team.progress %></p>
-<p class="white">Round #: <%= @team.round_number %></p>
-
 <div class="container" data-controller = "budget-update enable-button search disable-add players-selection counter"">
-  <h1 class = "white font-weight-bold big-title">Place your bids!</h1>
+  <h1 class = "white">Place your bids!</h1>
 
   <% unless @current_user_secured_selections.empty? %>
     <%= render 'my_team' %>
@@ -21,7 +18,7 @@
                       <% end %>
 
 
-  <div class="container d-flex flex-column" data-search-target = "players">
+  <div data-search-target = "players">
 
     <p class="title-auctions white">AVAILABLE PLAYERS</p>
 
@@ -29,27 +26,27 @@
 
   </div>
 
-  <div>
-    <p class="title-auctions orange">MY TEAM</p>
-    <div>
-      <div class="budget-box" data-budget-update-target= "recap">
-        <div class= "text-budget"><h3>Remaining budget: </h3>
-        <div data-budget-update-target = "budget" data-enable-button-target = "budget"> <%= @team.budget %> m€ </div> <h3 data-budget-update-target = "max" class="d-none"> <%= @team.budget %> </h3>
-        </div>
+  <p class="title-auctions orange">MY TEAM</p>
+  <div class="budget-box" data-budget-update-target= "recap">
+    <div class= "text-budget">
+      <p>Remaining budget: </p>
+      <div class="global-budget"><div data-budget-update-target = "max" class="d-none"> <%= @team.budget %>  m€ </div><div data-budget-update-target = "budget" data-enable-button-target = "budget"> <%= "#{@team.budget} m€" %></div></div>
+    </div>
+  </div>
+  <div class="count-box"  data-controller = "create-selection display-warning">
+    <div class= "box-counter">
+      <div>Number of players to add: </div>
+      <div  data-counter-target = "counter" data-disable-add-target = "counter" >
+        <%= 8-@current_user_secured_selections.length %>
       </div>
     </div>
-    <div class="count-box "  data-controller = "create-selection display-warning">
-      <div>Number of players to add: </div>
-      <div  data-counter-target = "counter" data-disable-add-target = "counter" > <%= 8-@current_user_secured_selections.length %></div><div class="d-none" data-enable-button-target="required"><%= 8-@current_user_secured_selections.length %></div>
-    </div>
-
-    <div class="team-box" data-players-selection-target="team">
-    </div>
-
+    <div class="d-none" data-enable-button-target="required"> <%= 8-@current_user_secured_selections.length %></div>
   </div>
 
+  <div class="team-box" data-players-selection-target="team">
+  </div>
 
   <div class="center">
-    <%= link_to "SUBMIT", submitted_path(@league, @team), class:"bouton-transp-share btn disabled", data: {enable_button_target: "button" } %>
+    <%= link_to "SUBMIT", submitted_path(@league, @team), class:"bouton-plain-share btn disabled", data: {enable_button_target: "button" } %>
   </div>
 </div>
