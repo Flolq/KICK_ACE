@@ -61,6 +61,18 @@ class LeaguesController < ApplicationController
       @teams = @league.teams.order(points: :desc)
       @team = Team.where(["league_id = ? and user_id = ?", params[:id], current_user.id]).first
       @selections = @current_user_secured_selections.sort_by{ |selection| selection.position }
+
+      # A enlever avant le demo-day
+
+      @teams.each do |team|
+        if team.points.zero?
+          team.points = team_point_calcul(team.selections)
+          team.save!
+        end
+      end
+
+      # Fin du bloc à enlever
+
       @chatroom = Chatroom.where("league_id = ?", params[:id]).first
       if !@chatroom.nil?
         @message = @chatroom.messages.last
@@ -107,5 +119,38 @@ class LeaguesController < ApplicationController
         end
       end
     end
+  end
+
+  def player_points(matches, player)
+    points = 0
+
+    matches.each do |match|
+      if match.winner == player
+        points += ((player.ranking - (player == match.player1 ? match.player2.ranking : match.player1.ranking)) + 100) * 8
+        if match.round.split("\"")[3] == "final" && match.tournament.level == "atp_1000"
+          points += 2000
+        elsif match.round.split("\"")[3] == "final" && match.tournament.level == "grand_slam"
+          points += 5000
+        end
+      elsif match.tournament.level == "atp_1000"
+        points += ATP_1000_ROUND_POINTS[match.round.split("\"")[3].to_sym]
+      else
+        points += GRAND_SLAM_ROUND_POINTS[match.round.split("\"")[3].to_sym]
+      end
+    end
+
+    return points
+  end
+
+  def team_point_calcul(selections)
+    selections.each do |selection|
+      player = selection.player
+      matches = Match.where(player1: player).or(Match.where(player2: player)).order(date: :desc)
+      points = matches.nil? ? 0 : player_points(matches, player)
+      selection.player_points = points * BONUS_MULTIPLICATOR["pos#{selection.position}".to_sym]
+      selection.save!
+    end
+
+    return selections.sum(&:player_points)
   end
 end
