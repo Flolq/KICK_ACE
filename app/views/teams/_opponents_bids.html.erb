@@ -1,5 +1,5 @@
-
-  <h3>Here is a recap of the bids won by your opponents:</h3>
+<div class="back-shadow center">
+  <h3>Last rounds winning bids</h3>
   <table class="table">
     <thead>
       <tr>
@@ -9,12 +9,13 @@
       </tr>
     </thead>
     <tbody>
-    <% @opponents_secured_selections.each do |selection| %></ul>
-      <tr>
-        <td><%=Player.find(selection[:player_id]).first_name%> <%=Player.find(selection[:player_id]).last_name%></td>
-        <td><%=selection.price%> m€ </td>
-        <td><%=selection.team.name%> </td>
-      </tr>
-    <% end %>
+      <% @opponents_secured_selections.each do |selection| %></ul>
+        <tr>
+          <td><%=Player.find(selection[:player_id]).first_name%> <%=Player.find(selection[:player_id]).last_name%></td>
+          <td><%=selection.price%> m€ </td>
+          <td><%=selection.team.name.capitalize%> </td>
+        </tr>
+      <% end %>
     </tbody>
   </table>
+</div>

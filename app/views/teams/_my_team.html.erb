@@ -1,14 +1,20 @@
-<div class="secured-team-box">
-  <p class = "title-auctions">You already secured the below players</p>
-  <% @current_user_secured_selections.each do |selection| %>
-  <div class="secured-player-list">
-    <div class = "player-name">
-      <%=Player.find(selection[:player_id]).first_name%>
-      <%=Player.find(selection[:player_id]).last_name%>
-    </div>
-    <div class = "player-price">
-      <%= selection.price%> m€
-    </div>
+<div class="back-shadow">
+  <div class="center">
+  <table class="table">
+  <div class="center mb-2"><h2>Your first players</h2></div>
+    <thead>
+      <tr>
+        <th scope="col">Player</th>
+        <th scope="col">Price</th>
+      </tr>
+    </thead>
+    <tbody>
+    <% @current_user_secured_selections.each do |selection| %></ul>
+      <tr>
+        <td><%=Player.find(selection[:player_id]).first_name%> <%=Player.find(selection[:player_id]).last_name%></td>
+        <td><%=selection.price%> m€ </td>
+      </tr>
+    <% end %>
+  </table>
   </div>
-  <% end %>
 </div>

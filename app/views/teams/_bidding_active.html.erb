@@ -1,32 +1,20 @@
 <div class="container" data-controller = "budget-update enable-button search disable-add players-selection counter"">
   <h1 class = "white">Place your bids!</h1>
-
   <% unless @current_user_secured_selections.empty? %>
     <%= render 'my_team' %>
   <% end %>
-
-  <% unless @opponents_secured_selections.empty? %>
-    <%= render 'opponents_bids' %>
-  <% end %>
-
-    <%= form_with url: bidding_path(@league,@team), method: :get, html: { data: { search_target: 'form' } } do |f| %>
-      <%= f.text_field :query,
-                      class: "form-control search-box",
-                      placeholder: 'Search players',
-                      value: params[:query],
-                      data: { search_target: 'input', action: 'keyup->search#update' } %>
-                      <% end %>
-
-
+  <%= form_with url: bidding_path(@league,@team), method: :get, html: { data: { search_target: 'form' } } do |f| %>
+    <%= f.text_field :query,
+                    class: "form-control search-box",
+                    placeholder: 'Search players',
+                    value: params[:query],
+                    data: { search_target: 'input', action: 'keyup->search#update' } %>
+    <% end %>
   <div data-search-target = "players">
-
     <p class="title-auctions white">AVAILABLE PLAYERS</p>
-
     <%= render 'list', players: @remaining_players %>
-
   </div>
 
-  <p class="title-auctions orange">MY TEAM</p>
   <div class="budget-box" data-budget-update-target= "recap">
     <div class= "text-budget">
       <p>Remaining budget: </p>
@@ -49,4 +37,7 @@
   <div class="center">
     <%= link_to "SUBMIT", submitted_path(@league, @team), class:"bouton-plain-share btn disabled", data: {enable_button_target: "button" } %>
   </div>
+  <% unless @opponents_secured_selections.empty? %>
+    <%= render 'opponents_bids' %>
+  <% end %>
 </div>
