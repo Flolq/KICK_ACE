@@ -139,9 +139,9 @@ class LeaguesController < ApplicationController
           points += 5000
         end
       elsif match.tournament.level == "atp_1000"
-        points += (ATP_1000_ROUND_POINTS[match.round.split("\"")[3].to_sym] || 0)
+        points += (ATP_1000_ROUND_POINTS[match.round.split("\"")[3].to_sym] || 0) unless ATP_1000_ROUND_POINTS[match.round.split("\"")[3]].nil?
       else
-        points += (GRAND_SLAM_ROUND_POINTS[match.round.split("\"")[3].to_sym] || 0)
+        points += (GRAND_SLAM_ROUND_POINTS[match.round.split("\"")[3].to_sym] || 0) unless ATP_1000_ROUND_POINTS[match.round.split("\"")[3]].nil?
       end
     end
 
