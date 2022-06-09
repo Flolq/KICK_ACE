@@ -227,8 +227,7 @@ class TeamsController < ApplicationController
 
         max_price = determine_max_price(player_selections)
         selections_at_max_price = player_selections.select { |selection| selection.price == max_price }
-        sorted_selections = selections_at_max_price.sort_by { |selection| selection.updated_at }
-        winning_selection = sorted_selections[0]
+        winning_selection = selections_at_max_price[0]
         losing_selections = player_selections.excluding(winning_selection)
         winning_selection.progress = "bid_won"
         winning_selection.save!
