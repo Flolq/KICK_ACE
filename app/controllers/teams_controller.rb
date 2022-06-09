@@ -87,6 +87,15 @@ class TeamsController < ApplicationController
       @league.make_all_teams_ready(@team.round_number)
     end
     @league.save
+
+    if @league.all_ready?(@team.round_number)
+      LeagueChannel.broadcast_to(
+        @league,
+        render_to_string(partial: "notification")
+      )
+    else
+      render "submitted"
+    end
   end
 
   def final

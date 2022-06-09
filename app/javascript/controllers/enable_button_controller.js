@@ -4,16 +4,16 @@ export default class extends Controller {
   static targets = ["player", "budget", "button", "counter", "required"]
 
   connect() {
-    console.log("hello from the enable button controller")
+    // console.log("hello from the enable button controller")
   }
 
     enable(event) {
     event.preventDefault()
-    console.log(this.requiredTarget.innerHTML)
+    // console.log(this.requiredTarget.innerHTML)
     const nb_required = this.requiredTarget.innerHTML
     let values = []
     this.playerTargets.forEach(element => values.push(parseInt(element.value, 10)))
-    if ((values.filter((a) => a).length >= nb_required) && (parseInt(this.budgetTarget.innerHTML, 10) > 0)) {
+    if ((values.filter((a) => a).length >= nb_required) && (parseInt(this.budgetTarget.innerHTML, 10) >= 0)) {
       this.buttonTarget.classList.remove('disabled')
     }
   }
