@@ -40,7 +40,7 @@ class LeaguesController < ApplicationController
         @chatroom = Chatroom.new
         @chatroom.league = @league
         @chatroom.save
-        redirect_to edit_league_path(@league)
+        redirect_to new_league_team_path(@league)
       end
     else
       render :new
