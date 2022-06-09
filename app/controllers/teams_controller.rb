@@ -49,8 +49,6 @@ class TeamsController < ApplicationController
 
   def bidding
     @team = Team.find(params[:id])
-
-
     @league = @team.league
 
     search_players
@@ -58,7 +56,7 @@ class TeamsController < ApplicationController
     if @team.progress == "submitted_ready"
       @team.increment_round
       @team.save
-      auctions
+      auctions(@league)
       updating_budget
     end
 
@@ -93,12 +91,14 @@ class TeamsController < ApplicationController
 
   def final
     @team.progress = "finalized"
-    @current_user_secured_selections.sort_by!{ |selection| selection.player.min_price}
-    for i in 1..8
-      @current_user_secured_selections[i - 1].position =i
-      @current_user_secured_selections[i - 1].save
+    @current_user_secured_selections.sort_by!{ |selection| selection.player.ranking}
+
+    @current_user_secured_selections.each_with_index do |selection, index|
+      selection.position = index + 1
+      selection.save!
     end
-    @team.save
+
+    @team.save!
   end
 
 
@@ -110,7 +110,7 @@ class TeamsController < ApplicationController
       player = selection.player
       matches = Match.where(player1: player).or(Match.where(player2: player)).order(date: :desc)
       points = matches.nil? ? 0 : player_points(matches, player)
-      selection.player_points = points * BONUS_MULTIPLICATOR["pos#{selection.position}".to_sym]
+      selection.player_points = points * ( BONUS_MULTIPLICATOR["pos#{selection.position}".to_sym] || 0 )
       selection.save!
     end
   end
@@ -174,9 +174,9 @@ class TeamsController < ApplicationController
           points += 5000
         end
       elsif match.tournament.level == "atp_1000"
-        points += ATP_1000_ROUND_POINTS[match.round.split("\"")[3].to_sym]
+        points += (ATP_1000_ROUND_POINTS[match.round.split("\"")[3].to_sym] || 0) unless ATP_1000_ROUND_POINTS[match.round.split("\"")[3]].nil?
       else
-        points += GRAND_SLAM_ROUND_POINTS[match.round.split("\"")[3].to_sym]
+        points += (GRAND_SLAM_ROUND_POINTS[match.round.split("\"")[3].to_sym] || 0) unless ATP_1000_ROUND_POINTS[match.round.split("\"")[3]].nil?
       end
     end
 
@@ -194,21 +194,23 @@ class TeamsController < ApplicationController
         points += 5000
       end
     elsif match.tournament.level == "atp_1000"
-      points += ATP_1000_ROUND_POINTS[match.round.split("\"")[3].to_sym]
+      points += (ATP_1000_ROUND_POINTS[match.round.split("\"")[3].to_sym] || 0) unless ATP_1000_ROUND_POINTS[match.round.split("\"")[3]].nil?
     else
-      points += GRAND_SLAM_ROUND_POINTS[match.round.split("\"")[3].to_sym]
+      points += (GRAND_SLAM_ROUND_POINTS[match.round.split("\"")[3].to_sym] || 0) unless ATP_1000_ROUND_POINTS[match.round.split("\"")[3]].nil?
     end
 
     return points
   end
 
-  def auctions
+  def auctions(league)
     @team = Team.find(params[:id])
-    league_selections = @league.selections
+    league_selections = league.selections
     submitted_selections = []
 
     league_selections.each do |selection|
-      submitted_selections << selection if ((selection.progress == "bid_submitted") && (selection.round_number == @team.round_number - 1))
+      if (selection.progress == "bid_submitted") && (selection.round_number == @team.round_number - 1)
+        submitted_selections << selection
+      end
     end
 
     grouped_selections = submitted_selections.group_by { |selection| selection.player_id }
@@ -225,8 +227,7 @@ class TeamsController < ApplicationController
 
         max_price = determine_max_price(player_selections)
         selections_at_max_price = player_selections.select { |selection| selection.price == max_price }
-        sorted_selections = selections_at_max_price.sort_by { |selection| selection.updated_at }
-        winning_selection = sorted_selections[0]
+        winning_selection = selections_at_max_price[0]
         losing_selections = player_selections.excluding(winning_selection)
         winning_selection.progress = "bid_won"
         winning_selection.save!

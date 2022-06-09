@@ -18,11 +18,6 @@ class SelectionsController < ApplicationController
   def update
     @selection = Selection.find(params[:id])
     @selection.update(selection_params)
-
-    respond_to do |format|
-      format.html { redirect_to team_path(@selection.team) }
-      format.text
-    end
   end
 
   def destroy

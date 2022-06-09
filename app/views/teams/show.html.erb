@@ -69,11 +69,12 @@
               <div class="stats"><div class="text-stats">Slams won: </div><div class="update-stats"><%= player.competitions_won %></div></div>
               <div class="stats"><div class="text-stats">Matches played: </div><div class="update-stats"><%= player.matches_played %></div></div>
               <div class="stats"><div class="text-stats">Matches won: </div><div class="update-stats"><%= player.matches_won %></div></div>
-              <div class="stats"><div class="text-stats">Points earned: </div><div class="update-stats"><%= selection.player_points %> pts</div></div>
+              <div class="stats"><div class="text-stats">Points earned: </div><div class="update-stats"><%= selection.player_points / 100 %> pts</div></div>
             </div>
           </div>
       <% end %>
-      <div class="carousel__controls">
+    </ul>
+    <div class="carousel__controls">
       <button class="carousel__controls--left" data-action="click->statistics#removeContent"><i class="fa-solid fa-circle-chevron-left"></i></button>
       <button class="carousel__controls--right" data-action="click->statistics#removeContent"><i class="fa-solid fa-circle-chevron-right"></i></button>
     </div>
