@@ -8,7 +8,7 @@ export default class extends Controller {
 
   copy(event) {
     this.inputTarget.select()
-    console.log("hello");
+    // console.log("hello");
     document.execCommand('copy');
     event.currentTarget.disabled = true;
     event.currentTarget.innerText = this.feedbackTextValue;

@@ -9,7 +9,7 @@ export default class extends Controller {
 
   active(event) {
     this.leagueTargets.forEach( element => element.classList.remove("active"))
-    console.log(event)
+    // console.log(event)
     event.target.classList.add("active")
   }
 }

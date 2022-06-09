@@ -4,7 +4,7 @@ export default class extends Controller {
   // static targets = ["budget", "price", "recap"]
 
   connect() {
-    console.log('hello')
+    // console.log('hello')
     // dragger(window);
     // const transition = new Transitioner();
     // const leftBtn = document.querySelector(".carousel__controls--left");

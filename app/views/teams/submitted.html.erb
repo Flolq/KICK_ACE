@@ -1,19 +1,22 @@
 
-<div class="container text-center w-75">
+<div class="container text-center w-75" data-controller = "league-subscription" data-league-subscription-league-id-value="<%= @league.id %>">
 
   <div class="chatroom-title"><h1>Thanks for your bids</h1></div>
-  <div class="back-shadow">
-    <% if @league.all_ready?(@team.round_number) %>
-      <h3>All teams have placed their bids </h3>
-      <%= link_to "See results & next round", bidding_path(@league, @team), class: "btn btn-success" %>
-    <% else %>
+  <div class="back-shadow" >
+  <div data-league-subscription-target = "notification">
+
+  </div>
+   <% if @league.all_ready?(@team.round_number) %>
+    <%= render "notification" %>
+   <% else %>
       <h3>Teams that have placed their bids</h3>
       <ul class="list-group"><%  @league.teams_submitted_waiting(@team.round_number).each do |team| %>
         <li class="list-group-item"><%= team.name %> || Player: <%= team.user.nickname %> </li>
-      <% end %>
       </ul>
       <h3>Waiting for the other players to bid...</h3>
       <% end %>
+   <% end %>
+
   </div>
 
   <div class="back-shadow">
