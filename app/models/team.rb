@@ -12,5 +12,4 @@ class Team < ApplicationRecord
   def increment_round
     self.round_number += 1
   end
-
 end
