@@ -171,7 +171,7 @@ class TeamsController < ApplicationController
   def defining_remaining_players
     @remaining_players = []
     @players_selected = []
-    @players = Player.all.sort_by{ |player| player.min_price }.reverse.slice(0, 50)
+    @players = Player.all.order(min_price: :desc).first(50)
     selections = @league.selections
     won_selections = []
     selections.each do |selection|
