@@ -55,7 +55,7 @@ class TeamsController < ApplicationController
 
     if @team.progress == "submitted_ready"
       @team.increment_round
-      @team.save
+      @team.save!
       auctions(@league)
       updating_budget
     end
@@ -69,7 +69,7 @@ class TeamsController < ApplicationController
     end
 
     @team.progress = "bidding"
-    @team.save
+    @team.save!
   end
 
   def submitted
@@ -218,16 +218,20 @@ class TeamsController < ApplicationController
     @starting_budget = @team.budget
     @budget_spent = 0
 
-    grouped_selections.each do |player_id, player_selections|
+    grouped_selections.each do |_player_id, player_selections|
       if player_selections.length == 1
         winning_selection = player_selections[0]
         winning_selection.progress = "bid_won"
         winning_selection.save!
       else
-
         max_price = determine_max_price(player_selections)
-        selections_at_max_price = player_selections.select { |selection| selection.price == max_price }
-        winning_selection = selections_at_max_price[0]
+        selections_by_price = player_selections.sort_by { |selection| selection.price }.reverse!
+        if selections_by_price[0] != selections_by_price[1]
+          winning_selection = selections_by_price[0]
+        else
+          selections_at_max_price = player_selections.select { |selection| selection.price == max_price }
+          winning_selection = selections_at_max_price.min_by { |selection| selection.updated_at }
+        end
         losing_selections = player_selections.excluding(winning_selection)
         winning_selection.progress = "bid_won"
         winning_selection.save!
