@@ -471,19 +471,6 @@ h1 {
   color: grey;
 }
 
-.team-player-name {
-  padding: 2vw;
-  height: 90%;
-  color: white;
-  font-family: $headers-font;
-  font-size: 16px;
-  line-height: 10px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  text-shadow: 1px 1px 1px black;
-}
-
 .player-card {
   height: 30vw;
   width: 20vw;
@@ -496,6 +483,33 @@ h1 {
   justify-content: center;
   align-items: center;
   margin: 0.5vh;
+  .team-player-infos {
+    padding: 2vw;
+    height: 90%;
+    color: white;
+    font-family: $headers-font;
+    font-size: 16px;
+    line-height: 10px;
+    position: relative;
+    text-shadow: 1px 1px 1px black;
+  }
+
+  .team-player-position {
+    position: absolute;
+    color: white;
+    top: 2vw;
+    left: -5vw;
+  }
+
+  .team-player-name {
+    position: absolute;
+    color: white;
+    bottom: 2vw;
+    left: -6.5vw;
+    width: 18vw;
+    overflow-wrap: break-word;
+    line-height: 1;
+  }
 }
 
 .player-card-important {
@@ -510,13 +524,35 @@ h1 {
   justify-content: center;
   align-items: center;
   margin: 1.2vh;
-  .player-name {
-    &:first-child {
-      font-size: 24px;
-    }
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+  .team-player-infos {
+    padding: 2vw;
+    height: 90%;
+    color: white;
+    font-family: $headers-font;
+    font-size: 16px;
+    line-height: 10px;
+    position: relative;
+    text-shadow: 1px 1px 1px black;
+  }
+
+  .team-player-position {
+    position: absolute;
+    color: white;
+    top: 4vw;
+    left: -7vw;
+    font-size: 32px;
+    font-weight: bold;
+  }
+
+  .team-player-name {
+    position: absolute;
+    color: white;
+    bottom: 2vw;
+    left: -11vw;
+    font-size: 24px;
+    width: 25vw;
+    overflow-wrap: break-word;
+    line-height: 1;
   }
 }
 
