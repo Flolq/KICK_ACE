@@ -4,36 +4,6 @@ class TeamsController < ApplicationController
   before_action :secured_selections, only: [:submitted, :results, :show, :final]
   before_action :defining_remaining_players, only: [:submitted, :results, :final]
 
-  GRAND_SLAM_ROUND_POINTS = {
-    round_of_128: 50,
-    round_of_64: 60,
-    round_of_32: 80,
-    round_of_16: 200,
-    quarterfinal: 500,
-    semifinal: 1000,
-    final: 2500
-  }
-
-  BONUS_MULTIPLICATOR = {
-    pos1: 10,
-    pos2: 8,
-    pos3: 6,
-    pos4: 4,
-    pos5: 2,
-    pos6: 1,
-    pos7: 1,
-    pos8: 1
-  }
-
-  ATP_1000_ROUND_POINTS = {
-    round_of_64: 20,
-    round_of_32: 60,
-    round_of_16: 80,
-    quarterfinal: 250,
-    semifinal: 500,
-    final: 1000
-  }
-
   default_team_photo = "https://res.cloudinary.com/dx5ha1ecm/image/upload/v1654592216/m5mgvwp8xxgk5tnuxxnh.png"
   sheep_team_photo = "https://res.cloudinary.com/dx5ha1ecm/image/upload/v1654673483/qhy1nedxjpxku4n923jp.jpg"
   tiger_team_photo = "https://res.cloudinary.com/dx5ha1ecm/image/upload/v1654673549/zbqzzyuagbgrkwwxw1qy.jpg"
@@ -179,7 +149,7 @@ class TeamsController < ApplicationController
   def defining_remaining_players
     @remaining_players = []
     @players_selected = []
-    @players = Player.all.sort_by{ |player| player.min_price }.reverse.slice(0, 50)
+    @players = Player.all.order(min_price: :desc).first(50)
     selections = @league.selections
     won_selections = []
     selections.each do |selection|
@@ -240,49 +210,40 @@ class TeamsController < ApplicationController
   end
 
   def auctions
-    team = Team.find(params[:id])
+    @team = Team.find(params[:id])
     league_selections = @league.selections
     submitted_selections = []
-    league_selections.each do |selection|
-      submitted_selections << selection if ((selection.progress == "bid_submitted") && (selection.round_number == team.round_number - 1))
-    end
-    selections = submitted_selections.group_by { |selection| selection.player_id }
 
-    @results = []
-    @current_user_won_results = []
-    @opponents_won_results = []
+    league_selections.each do |selection|
+      submitted_selections << selection if ((selection.progress == "bid_submitted") && (selection.round_number == @team.round_number - 1))
+    end
+
+    grouped_selections = submitted_selections.group_by { |selection| selection.player_id }
 
     @starting_budget = @team.budget
     @budget_spent = 0
 
-    selections.each do |player_id, player_selections|
-
+    grouped_selections.each do |player_id, player_selections|
       if player_selections.length == 1
         winning_selection = player_selections[0]
         winning_selection.progress = "bid_won"
-        winning_selection.save
+        winning_selection.save!
       else
 
-      player_selections = player_selections.sort_by { |selection| selection.price }.reverse
-
-      if (player_selections[0].price == player_selections[1].price) && (player_selections[0].updated_at > player_selections[1].updated_at)
-        player_selections[0], player_selections[1] = player_selections[1], player_selections[0]
-      end
-        winning_selection = player_selections.shift()
-        losing_selections = player_selections
-
+        max_price = determine_max_price(player_selections)
+        selections_at_max_price = player_selections.select { |selection| selection.price == max_price }
+        sorted_selections = selections_at_max_price.sort_by { |selection| selection.updated_at }
+        winning_selection = sorted_selections[0]
+        losing_selections = player_selections.excluding(winning_selection)
         winning_selection.progress = "bid_won"
-        winning_selection.save
-
-        losing_selections = player_selections
+        winning_selection.save!
         losing_selections.each do |selection|
           selection.progress = "bid_lost"
-          selection.save
+          selection.save!
         end
       end
     end
-    @team.save
-
+    @team.save!
   end
 
   def search_players
@@ -337,5 +298,9 @@ class TeamsController < ApplicationController
       players_selections[0].save
       @kept_selections << players_selections[0]
     end
+  end
+
+  def determine_max_price(selections)
+    selections.max_by{ |selection| selection.price }.price
   end
 end

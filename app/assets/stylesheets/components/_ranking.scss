@@ -14,6 +14,7 @@
   }
   img {
     margin-right: 12px;
+    border-radius: 50%;
   }
   .team-name {
     flex-grow: 1;
@@ -21,6 +22,9 @@
   &:last-child {
     border-bottom: 0px solid transparent;
     padding-bottom: 0px;
+  }
+  .team-logo {
+    border-radius: 50%;
   }
 }
 

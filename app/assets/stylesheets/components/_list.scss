@@ -17,7 +17,7 @@
 }
 
 .title-auctions{
-  font-size: 20px;
+  font-size: 18px;
   font-weight: bold;
 }
 
@@ -45,5 +45,23 @@
 .text-budget {
   display: flex;
   justify-content: space-between;
+  color: $orange;
+  p {
+    color: $orange;
+    margin-top: 5px;
+    font-size: 15px;
+  }
+}
+
+.global-budget {
+  display: flex;
+  flex-direction: row;
+}
+
+.list-player-ready {
+  display: flex;
+  justify-content: flex-start;
   align-items: baseline;
+  flex-direction: column;
+  padding-left: 20px;
 }
