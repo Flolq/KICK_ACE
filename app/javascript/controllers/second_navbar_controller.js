@@ -2,9 +2,14 @@ import { Controller } from "stimulus"
 
 export default class extends Controller {
   static targets = [ "league" ]
+  static values = { name: String }
 
   connect() {
-    this.leagueTargets[0].classList.add("active")
+    this.leagueTargets.forEach(element => {
+      if (element.innerText === this.nameValue) {
+        element.classList.add("active")
+      }
+    })
   }
 
   active(event) {

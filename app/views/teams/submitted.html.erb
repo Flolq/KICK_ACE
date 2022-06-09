@@ -8,7 +8,8 @@
     <div class="center">
       <div class="box-player-ready">
         <% if @league.all_ready?(@team.round_number) %>
-            <%= render "notification" %>
+            <h3><i class="fa-solid fa-circle-check"></i>Everyone is ready !</h3>
+           <%= link_to "RESULTS", bidding_path(@league, @team), class: "btn-confirm" %>
         <% else %>
           <h3><i class="fa-solid fa-circle-check"></i> Teams ready</h3>
             <ul class="box-list-player">

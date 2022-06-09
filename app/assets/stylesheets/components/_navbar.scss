@@ -23,6 +23,17 @@
   // background-color: white;
 }
 
+.navbar-user {
+  display: flex;
+  align-items: center;
+}
+
+.navbar-nickname {
+  color: white;
+  font-weight: bold;
+  margin-right: 3vw;
+}
+
 .button-navbar {
   position: relative;
   font-size: 30px;
