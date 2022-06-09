@@ -29,7 +29,7 @@
     <% end %>
 
     <% if chatroom != nil && @league != nil && @league.id != nil %>
-      <%= link_to chatroom_path(Chatroom.where("league_id = ?", @league.id).first) do %>
+      <%= link_to chatroom_path(Chatroom.find_by(league: @league), anchor: "message-#{chatroom.messages.last.id}") do %>
         <i class="fa-solid fa-comments"></i>
       <% end %>
     <% elsif chatroom != nil %>

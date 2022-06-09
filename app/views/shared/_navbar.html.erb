@@ -5,7 +5,8 @@
           <%= image_tag 'logo-kick-ace-white.png', width: '90px' %>
         <% end %>
       </div>
-      <div>
+      <div class="navbar-user">
+        <div class="navbar-nickname"><%= current_user.nickname if current_user %></div>
         <div class="button-navbar" data-action="click->toggle-navbar#toggle"><i class="fa-solid fa-bars"></i></div>
       </div>
     </div>
