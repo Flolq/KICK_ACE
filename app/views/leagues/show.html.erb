@@ -48,9 +48,4 @@
     <div class="center-div"><%= link_to "Manage", [@league, @team], class: "bouton-plain-share" %></div>
     <div class="center-div"><%= link_to "chatroom", chatroom_path(Chatroom.where("league_id = ?", @league.id).first), class: "bouton-plain-share" %></div>
   </div>
-  <%= link_to "Delete #{@league.name}",
-            league_path(@league),
-            method: :delete,
-            data: { confirm: "Are you sure?" },
-            class: "bouton-plain-share" %>
 </div>
