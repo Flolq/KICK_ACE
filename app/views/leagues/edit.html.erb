@@ -6,7 +6,7 @@
     <div>
       <ul>
         <% @teams.each do |team| %>
-            <li><%= team.name %> (<%= team.user.nickname %>)  </li>
+            <li><%= team.name.titleize %> (<%= team.user.nickname.capitalize %>)  </li>
         <% end %>
       </ul>
     </div>

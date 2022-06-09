@@ -8,13 +8,13 @@
       <div class="team">
         <div class="team-position"><%= i %>.</div>
         <div class="team-logo"><%= cl_image_tag team.photo.key, height: 40, width: 40, crop: :fill, radius: "max" %></div>
-        <div class="team-name"><h2><%= team.name.capitalize %></h2></div>
+        <div class="team-name"><h4><%= team.name.titleize %></h4></div>
       </div>
     </div>
       <% i += 1 %>
     <% end %>
   </div>
-  <div class="back-text">We're now waiting for other teams</div>
+  <div class="back-text"><i class="fa-solid fa-spinner rotate"></i> We're now waiting for other teams</div>
 </div>
 <div class="form-edit-league">
   <div class="center-div"><h2>Invite friends!</h2></div>

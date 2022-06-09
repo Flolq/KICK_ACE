@@ -3,13 +3,21 @@
   <div class="chatroom-title">
     <h1>Your team is ready</h1>
   </div>
-  <div class="back-shadow">
+  <% if @league.all_finalized? %>
+      <div class="center mt-4"><%= link_to "See your team", [@league, @team], class: "bouton-transp-share" %></div>
+    <% else %>
+      <div class="back-shadow mb-4">
+        <h3><i class="fa-solid fa-spinner rotate"></i> Bidding rounds still pending ...</h3>
+      </div>
+      <div class="center mt-2"><%= link_to "Refresh", final_path(@league, @team), class: "bouton-transp-share" %></div>
+    <% end %>
+  <div class="back-shadow mb-4">
     <table class="table">
       <h2><%= @team.name %></h2>
       <thead>
         <tr>
           <th scope="col">Player</th>
-          <th scope="col">Your winning bid</th>
+          <th scope="col">Bids</th>
         </tr>
       </thead>
       <tbody>
@@ -22,14 +30,5 @@
       </tbody>
     </table>
   </div>
-
-   <% if @league.all_finalized? %>
-      <div class="center mt-2"><%= link_to "See your team", [@league, @team], class: "bouton-plain-share" %></div>
-    <% else %>
-      <div class="back-shadow mt-4">
-        <h3>Bidding rounds still pending ...</h3>
-      </div>
-      <div class="center"><%= link_to "Refresh", final_path(@league, @team), class: "bouton-plain-share" %></div>
-    <% end %>
   </div>
 </div>
