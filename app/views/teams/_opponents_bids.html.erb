@@ -13,7 +13,7 @@
         <tr>
           <td><%=Player.find(selection[:player_id]).first_name%> <%=Player.find(selection[:player_id]).last_name%></td>
           <td><%=selection.price%> m€ </td>
-          <td><%=selection.team.name.capitalize%> </td>
+          <td><%=selection.team.name.titleize%> </td>
         </tr>
       <% end %>
     </tbody>
