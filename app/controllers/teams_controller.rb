@@ -187,7 +187,7 @@ class TeamsController < ApplicationController
     points = 0
 
     if match.winner == player
-      points += ((player.ranking - (player == match.player1 ? match.player2.ranking : match.player1.ranking)) + 100) * 8
+      points += ((player.ranking - (player == match.player1 ? match.player2.ranking : match.player1.ranking)) + 200) * 8
       if match.round.split("\"")[3] == "final" && match.tournament.level == "atp_1000"
         points += 2000
       elsif match.round.split("\"")[3] == "final" && match.tournament.level == "grand_slam"
