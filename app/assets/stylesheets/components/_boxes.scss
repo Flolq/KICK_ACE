@@ -181,3 +181,37 @@
   color: $orange;
   border-radius: 10px;
 }
+
+.box-league {
+  flex-grow: 1;
+  margin: auto;
+  width: 1000px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  border: 1px solid $orange;
+}
+
+@media (max-width: 1320px) {
+  .box-league {
+    width: 1000px;
+  }
+}
+
+@media (max-width: 1200px) {
+  .box-league {
+    width: 725px;
+  }
+}
+
+@media (max-width: 768px) {
+  .box-league {
+    width: 600px;
+  }
+}
+
+@media (max-width: 576px) {
+  .box-league {
+    width: 360px;
+  }
+}
