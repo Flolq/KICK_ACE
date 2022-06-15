@@ -62,16 +62,12 @@ class LeaguesController < ApplicationController
       @team = Team.where(["league_id = ? and user_id = ?", params[:id], current_user.id]).first
       @selections = @current_user_secured_selections.sort_by{ |selection| selection.position }
 
-      # A enlever avant le demo-day
-
       @teams.each do |team|
         if team.points.zero?
           team.points = team_point_calcul(team.selections)
           team.save!
         end
       end
-
-      # Fin du bloc à enlever
 
       @chatroom = Chatroom.where("league_id = ?", params[:id]).first
       if !@chatroom.nil?
