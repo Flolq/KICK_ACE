@@ -1,0 +1,28 @@
+.container-resp {
+  width: 1320px;
+  margin: 70px auto 88px auto;
+}
+
+@media (max-width: 1320px) {
+  .container-resp {
+    width: 1250px;
+  }
+}
+
+@media (max-width: 1200px) {
+  .container-resp {
+    width: 1000px;
+  }
+}
+
+@media (max-width: 768px) {
+  .container-resp {
+    width: 500px;
+  }
+}
+
+@media (max-width: 576px) {
+  .container-resp {
+    width: 100%;
+  }
+}

@@ -10,7 +10,7 @@
   margin-top: 10px;
   border-bottom: 1px solid $orange;
   .team-position {
-    width: 10vw;
+    width: 30px;
   }
   img {
     margin-right: 12px;
@@ -36,11 +36,11 @@
 .ranking-card {
   background: rgba(255, 255, 255, 0.7);
   box-shadow: 0vh 2vh 2vh rgba(0, 0, 0, 0.25);
-  margin-bottom: 5vh;
-  margin-top: 4vh;
+  margin: 100px auto 40px auto;
   position: relative;
-  padding: 2vh;
+  padding: 15px 30px 10px 30px;
   border-radius: 10px;
+  width: 550px;
   .text-ranking {
     display: flex;
     flex-direction: column;
@@ -50,8 +50,8 @@
   }
   .ranking-laurier {
     position: absolute;
-    top: -9vw;
-    left: 36vw;
+    top: -30px;
+    left: 233px;
   }
   .title {
     font-size: 32px;
@@ -60,6 +60,51 @@
     font-family: $second-headers-font;
   }
 }
+
+@media (max-width: 1320px) {
+  .ranking-card {
+    width: 450px;
+    .ranking-laurier {
+      position: absolute;
+      top: -30px;
+      left: 185px;
+    }
+  }
+}
+
+@media (max-width: 1200px) {
+  .ranking-card {
+    width: 450px;
+    .ranking-laurier {
+      position: absolute;
+      top: -30px;
+      left: 183px;
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .ranking-card{
+    width: 350px;
+    .ranking-laurier {
+      position: absolute;
+      top: -30px;
+      left: 133px;
+    }
+  }
+}
+
+@media (max-width: 576px) {
+  .ranking-card {
+    width: 300px;
+    .ranking-laurier {
+      position: absolute;
+      top: -30px;
+      left: 110px;
+    }
+  }
+}
+
 
 #team-name {
   text-align: center;
