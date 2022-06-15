@@ -1,56 +1,79 @@
-<div class="footer">
-  <% user = current_user %>
-  <% if user != nil %>
+<div class="footer" data-controller="footer" data-action="resize@window->footer#changeFooter">
+  <div class="footer-content" data-footer-target="mobileFooter">
+    <% user = current_user %>
+    <% if user != nil %>
 
-    <% chatroom = Chatroom.joins(:messages).where(["messages.user_id = ?", current_user.id]).first %>
-    <% league = current_user.leagues.first %>
-    <% current_chatroom = @chatroom %>
+      <% chatroom = Chatroom.joins(:messages).where(["messages.user_id = ?", current_user.id]).first %>
+      <% league = current_user.leagues.first %>
+      <% current_chatroom = @chatroom %>
 
-    <% if @chatroom != nil %>
-      <%= link_to league_path(@chatroom.league) do %>
-        <i class="fa-solid fa-medal"></i>
+      <% if @chatroom != nil %>
+        <%= link_to league_path(@chatroom.league) do %>
+          <i class="fa-solid fa-medal"></i>
+        <% end %>
+      <% elsif league != nil && params[:league_id] != nil %>
+        <%= link_to league_path(params[:league_id]) do %>
+          <i class="fa-solid fa-medal"></i>
+        <% end %>
+      <% elsif league != nil %>
+        <%= link_to league_path(league) do %>
+          <i class="fa-solid fa-medal"></i>
+        <% end %>
+      <% else %>
+        <%= link_to root_path do %>
+          <i class="fa-solid fa-medal"></i>
+        <% end %>
       <% end %>
-    <% elsif league != nil && params[:league_id] != nil %>
-      <%= link_to league_path(params[:league_id]) do %>
-        <i class="fa-solid fa-medal"></i>
-      <% end %>
-    <% elsif league != nil %>
-      <%= link_to league_path(league) do %>
-        <i class="fa-solid fa-medal"></i>
-      <% end %>
-    <% else %>
-      <%= link_to root_path do %>
-        <i class="fa-solid fa-medal"></i>
-      <% end %>
-    <% end %>
 
-    <%= link_to root_path do %>
-      <i class="fa-solid fa-house"></i>
-    <% end %>
-
-    <% if chatroom != nil && @league != nil && @league.id != nil %>
-      <%= link_to chatroom_path(Chatroom.find_by(league: @league), anchor: "message-#{chatroom.messages.last.id}") do %>
-        <i class="fa-solid fa-comments"></i>
-      <% end %>
-    <% elsif chatroom != nil %>
-      <%= link_to chatroom_path(chatroom, anchor: "message-#{chatroom.messages.last.id}") do %>
-        <i class="fa-solid fa-comments"></i>
-      <% end %>
-    <% else %>
-      <%= link_to root_path do %>
-        <i class="fa-solid fa-comments"></i>
-      <% end %>
-    <% end %>
-
-  <% else %>
-      <%= link_to root_path do %>
-        <i class="fa-solid fa-medal"></i>
-      <% end %>
       <%= link_to root_path do %>
         <i class="fa-solid fa-house"></i>
       <% end %>
-      <%= link_to root_path do %>
-        <i class="fa-solid fa-comments"></i>
+
+      <% if chatroom != nil && @league != nil && @league.id != nil %>
+        <%= link_to chatroom_path(Chatroom.find_by(league: @league), anchor: "message-#{chatroom.messages.last.id}") do %>
+          <i class="fa-solid fa-comments"></i>
+        <% end %>
+      <% elsif chatroom != nil %>
+        <%= link_to chatroom_path(chatroom, anchor: "message-#{chatroom.messages.last.id}") do %>
+          <i class="fa-solid fa-comments"></i>
+        <% end %>
+      <% else %>
+        <%= link_to root_path do %>
+          <i class="fa-solid fa-comments"></i>
+        <% end %>
       <% end %>
-  <% end %>
+
+    <% else %>
+        <%= link_to root_path do %>
+          <i class="fa-solid fa-medal"></i>
+        <% end %>
+        <%= link_to root_path do %>
+          <i class="fa-solid fa-house"></i>
+        <% end %>
+        <%= link_to root_path do %>
+          <i class="fa-solid fa-comments"></i>
+        <% end %>
+    <% end %>
+  </div>
+  <div class="footer-content" data-footer-target="computerFooter">
+    <% user = current_user %>
+
+    <div class="footer-text">
+      Les Kick'acers du Wagon - Juin 2022
+    </div>
+
+    <% if user != nil %>
+
+      <%= link_to root_path do %>
+        <%= image_tag "logo-kick-ace-white.png", width: '90px' %>
+      <% end %>
+
+    <% else %>
+
+        <%= link_to root_path do %>
+          <%= image_tag "logo-kick-ace-white.png", width: '90px' %>
+        <% end %>
+
+    <% end %>
+  </div>
 </div>
