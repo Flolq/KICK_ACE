@@ -290,12 +290,10 @@ h1 {
 }
 
 .card-league {
-  border-radius: 2vh;
-  height: 30vh;
-  width: 50vh;
-  margin-top: 2vh;
-  margin-right: 3vh;
-  padding: 1.5vh;
+  border-radius: 10px;
+  height: 250px;
+  width: 400px;
+  margin: auto 10px;
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
@@ -310,20 +308,19 @@ h1 {
   //   transform: rotate(-140deg);
   // }
   h3 {
-    font-size: 3vh;
-    width: 35vh;
     text-shadow: 0vh 0vh 2vh rgba(0, 0, 0, 1);
   }
 }
+
+
 
 .card-league-add {
   background: rgba(128, 128, 128, 0.1);
   border-radius: 2vh;
   height: 6vh;
-  width: 100%;
+  width: 1000px;
   font-size: 5.5vh;
-  // margin-top: 1vh;
-  margin-bottom: 1vh;
+  margin: auto;
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -333,15 +330,55 @@ h1 {
   color: grey;
   font-size: 5vh;
   font-weight: bold;
-  padding: 4vw 0;
+  padding: 5px 0;
+}
+
+@media (max-width: 1320px) {
+  .card-league-add {
+    width: 1000px;
+  }
+  .card-league {
+    height: 220px;
+    width: 350px;
+  }
+}
+
+@media (max-width: 1200px) {
+  .card-league-add {
+    width: 725px;
+  }
+  .card-league {
+    height: 250px;
+    width: 400px;
+  }
+}
+
+@media (max-width: 768px) {
+  .card-league-add {
+    width: 460px;
+  }
+  .card-league {
+    height: 220px;
+    width: 350px;
+  }
+}
+
+@media (max-width: 576px) {
+  .card-league-add {
+    width: 360px;
+  }
+  .card-league {
+    height: 190px;
+    width: 300px;
+  }
 }
 
 .scroll {
   // width: 100%;
   // margin-bottom: 3vh;
-  padding-left: 2vh;
-  padding-bottom: 2vh;
-  height: 35vh;
+  padding-left: 15px;
+  padding-bottom: 15px;
+  margin: 10px auto;
   overflow-x: auto;
   overflow-y: auto;
   text-align: center;
@@ -360,20 +397,19 @@ h1 {
   align-items: center;
   flex-direction: column;
   background-color: $light-orange;
-  width: 40vh;
-  height: 18vh;
-  border-radius: 2vh;
-  margin: 1vh;
-  padding: 2vh;
+  width: 380px;
+  height: 130px;
+  border-radius: 10px;
+  margin: 10px;
+  padding: 15px;
   box-shadow: 0vh 0.5vh 0.5vh rgba(0, 0, 0, 0.25);
   a {
     color: $orange;
   }
   p {
-    margin-top: 2vh;
-    font-size: 1.5vh;
     text-align: justify;
-    line-height: 2vh;
+    line-height: 18px;
+    margin: 5px;
   }
   position: relative;
   .atp-logo {
@@ -387,7 +423,8 @@ h1 {
   flex-direction: column;
   padding: 0vh 1vh;
 
-  p {font-size: 2vh;
+  p {
+    font-size: 15px;
   }
 }
 
@@ -397,20 +434,6 @@ h1 {
   align-items: center;
   bottom: 0vh;
   height: 9vh;
-}
-
-.box-home {
-  width: 100%;
-  flex-grow: 1;
-  align-items: center;
-  justify-content: center;
-}
-
-.box-home-2 {
-  width: 100%;
-  flex-grow: 1;
-  align-items: center;
-  justify-content: center;
 }
 
 
