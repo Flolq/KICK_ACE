@@ -1,23 +1,27 @@
-<div class="container-fluid">
-  <div class="white"><h2>Log in</h2></div>
+<div class="container-resp" data-controller="computer-code">
+  <div data-computer-code-target="signIn">
+    <div class="white"><h2>Log in</h2></div>
 
-  <%= simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-    <div class="form-inputs">
-      <div class="white"><%= f.input :email,
-                  required: false,
-                  autofocus: true,
-                  input_html: { autocomplete: "email"} %></div>
-      <div class="white"><%= f.input :password,
-                  required: false,
-                  input_html: { autocomplete: "current-password" } %></div>
-      <div class="orange"><%= f.input :remember_me, as: :boolean if devise_mapping.rememberable? %></div>
-    </div>
+    <%= simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+      <div class="form-inputs">
+        <div class="white"><%= f.input :email,
+                    required: false,
+                    autofocus: true,
+                    input_html: { autocomplete: "email"} %></div>
+        <div class="white"><%= f.input :password,
+                    required: false,
+                    input_html: { autocomplete: "current-password" } %></div>
+        <div class="orange"><%= f.input :remember_me, as: :boolean if devise_mapping.rememberable? %></div>
+      </div>
 
-    <div class="form-actions">
-      <%= f.button :submit, "Log in", class: 'bouton-transp-share'%>
-    </div>
-  <% end %>
+      <div class="form-actions">
+        <%= f.button :submit, "Log in", class: 'bouton-transp-share'%>
+      </div>
+    <% end %>
 
-  <%= render "devise/shared/links" %>
+    <%= render "devise/shared/links" %>
 
+
+  </div>
+    <div data-computer-code-target="qrCode" class="d-none mt-5 mx-5"><%= image_tag "qrcode.png", width: '120px' %></div>
 </div>
